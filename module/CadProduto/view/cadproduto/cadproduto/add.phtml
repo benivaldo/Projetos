@@ -1,0 +1,60 @@
+<?php
+$title = 'Adicionar novo Produto';
+$this->headTitle($title);
+?>
+<h4><?php echo $this->escapeHtml($title); ?></h4>
+
+<?php
+$form = $this->form;
+$form->setAttribute('id', 'formProdutoAdd');
+$form->setAttribute('class', 'form-horizontal form-add');
+$form->setAttribute('action', 'cadproduto/cadproduto/add');
+$form->setAttribute('data-modulo', 'cadproduto');    //variavel de controle com o nome do modulo
+$form->setAttribute('data-ctrl', 'cadproduto');      //variavel de controle com o nome do controle
+$form->setAttribute('data-titulo', 'Produto');         //variavel de controle com o titulo da tab
+$form->setAttribute('data-div', $this->escapeHtml($this->div));         //variavel de controle com o titulo do nome da div abas
+$form->prepare();
+echo $this->form()->openTag($form);
+
+?>
+<div class="container-fluid">
+	  <?php echo $this->form()->openTag($form)  ?>
+          <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="active"><a href="#abaproduto1" data-toggle="tab" role="tab">Principal</a></li>
+              <li><a href="#abaproduto2" data-toggle="tab" role="tab">Impostos</a></li>
+              <li><a href="#abaproduto3" data-toggle="tab" role="tab">Parâmetros</a></li>
+            </ul>
+            <div id="tabContent1" class="tab-content">
+              <div class="tab-pane fade in active cadastro" id="abaproduto1">
+                <?php echo $this->partial('cadproduto/partials/principal/partialPrincipal.phtml', array('form' => $form)); ?>
+              </div>                
+              <div class="tab-pane fade cadastro" id="abaproduto2">
+                 <?php echo $this->partial('cadproduto/partials/imposto/partialImposto.phtml', array('form' => $form)); ?>
+              </div>
+              <div class="tab-pane fade cadastro" id="abaproduto3">
+                <p>Dropdown content#1</p>
+              </div>
+            </div>	     
+          </div>
+      <?php echo $this->partial('cadproduto/partials/botoes/partialBotao.phtml', array('classe' => 'disabled')); ?>
+      <?php echo $this->form()->closeTag($form) ?> 
+      <div id="div_popup_produto" class="popup"></div>
+    </div>
+<script type="text/javascript">
+$(function() {
+	var modulo = "cadproduto";
+	var ctrl = "cadean";
+	var page = 1;
+	var div = "aba_sku";
+	var titulo = "";
+	var order_by = "sku_id";
+	var order = "";
+	var filterLetter = "";
+	var dataIni = '';
+    var dataFinal = '';
+    var id = 1;	
+	returnView(modulo, ctrl, page, 'index',div, filterLetter, dataIni, dataFinal, id, titulo, order_by, order);
+});
+</script>
+

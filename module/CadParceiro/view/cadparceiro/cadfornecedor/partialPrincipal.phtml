@@ -1,0 +1,139 @@
+<div class="container-fluid painel"> 
+    <div class="form-group">
+      <label for="codigo" class="col-sm-2 control-label">Código:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('fornecedor_id'), null, false);?>
+      </div>
+      <label for="tipo" class="col-sm-2 control-label">Tipo:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('tipo'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cnpj" class="col-sm-2 control-label">Cnpj:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('cnpj_cpf'), null, false);?>
+      </div>
+      <label for="crt" class="col-sm-2 control-label">Regime tributário:</label>
+      <div class="col-sm-3">
+          <?php $form->get('crt')->setAttribute('options', $this->options_sel("SELECT codigo as id, descricao as data FROM tab_crt"),null,false); //Enviar Sempre como id e data para o helper?>
+          <?php echo $this->formRow($form->get('crt'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="ie" class="col-sm-2 control-label">IE:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('ie_rg'), null, false);?>
+      </div>
+      <label for="ie_st" class="col-sm-2 control-label">IE ST:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('ie_st'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="razao" class="col-sm-2 control-label">Razão:</label>
+      <div class="col-sm-7">
+          <?php echo $this->formRow($form->get('razao'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fantasia" class="col-sm-2 control-label">Fantasia:</label>
+      <div class="col-sm-7">
+          <?php echo $this->formRow($form->get('fantasia'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">E-mail:</label>
+      <div class="col-sm-7">
+         <?php echo $this->formRow($form->get('email'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contato" class="col-sm-2 control-label">Contato:</label>
+      <div class="col-sm-7">
+         <?php echo $this->formRow($form->get('contato'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="telefone" class="col-sm-2 control-label">Telefone:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('telefone'), null, false);?>
+      </div>
+      <label for="ramal" class="col-sm-1 control-label">Ramal:</label>
+      <div class="col-sm-1">
+          <?php echo $this->formRow($form->get('ramal'), null, false);?>
+      </div>
+      <label for="celular" class="col-sm-1 control-label">Celular:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('celular'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cep" class="col-sm-2 control-label">Cep:</label>
+      <div class="col-sm-2">
+         <?php echo $this->formRow($form->get('cep'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="logradouro" class="col-sm-2 control-label">Logradouro:</label>
+      <div class="col-sm-7">
+         <?php echo $this->formRow($form->get('logradouro'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="numero" class="col-sm-2 control-label">Número:</label>
+      <div class="col-sm-2">
+         <?php echo $this->formRow($form->get('numero'), null, false);?>
+      </div>
+      <label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+      <div class="col-sm-3">
+         <?php echo $this->formRow($form->get('complemento'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+      <div class="col-sm-7">
+         <?php echo $this->formRow($form->get('bairro'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+     <label for="cidade" class="col-sm-2 control-label">Estado:</label>
+      <div class="col-sm-2">
+          <?php $form->get('uf')->setAttribute('options', $this->options_sel("SELECT codigo as id, estado as data FROM tab_estado"),null,false); //Enviar Sempre como id e data para o helper?>
+          <?php echo $this->formRow($form->get('uf'), null, false);?>
+      </div>
+    <label for="cidade" class="col-sm-1 control-label">Cidade:</label>
+      <div class="col-sm-4">
+          <?php $form->get('cidade')->setAttribute('options', $this->options_sel("SELECT codigo as id, cidade as data FROM tab_cidade"),null,false); //Enviar Sempre como id e data para o helper?>
+          <?php echo $this->formRow($form->get('cidade'), null, false);?>
+      </div>
+     
+    </div>
+    <div class="form-group">
+    <label for="centro_custo_id" class="col-sm-2 control-label">Centro de custo:</label>
+      <div class="col-sm-7">
+          <?php echo $this->formRow($form->get('centro_custo_id'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="codigo" class="col-sm-2 control-label">Status:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('ativo'), null, false);?>
+      </div>
+     </div>
+    <div class="form-group">
+      <label for="observacao" class="col-sm-2 control-label">Observação:</label>
+      <div class="col-sm-7">
+         <?php echo $this->formRow($form->get('observacao'), null, false);?>
+          <?php 
+          if($tipo == 'add') {
+            echo $this->formRow($form->get('data_cadastro'), null, false);
+          }
+          if($tipo == 'edit') {
+              $form->get('data_altera')->setAttribute('value', date("Y-m-d"));
+              echo $this->formRow($form->get('data_altera'), null, false);
+          }
+          ?>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<?php
+if ($this->pageCount >= 0): 
+ ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <ul class="pagination pagination-sm">
+             <!-- Currente link -->
+                <?php if($this->current != 1): ?>
+                    <li>
+                    	<a href="#" class="paginator-page-number" data-page="1" 
+                    	   data-modulo="<?php echo $this->data_modulo; ?>" 
+                    	   data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                    	   data-titulo="<?php echo $this->data_titulo; ?>" 
+                    	   data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                    	   data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	   data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	   data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                    	   >
+                           	&laquo;
+                         </a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          					&laquo;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Previous page link -->
+                <?php if (isset($this->previous)): ?>
+                    <li>
+                    	<a href="#" class="paginator-page-number" data-page="<?php echo $this->previous; ?>" 
+                    	   data-modulo="<?php echo $this->data_modulo; ?>" 
+                    	   data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                    	   data-titulo="<?php echo $this->data_titulo; ?>" 
+                    	   data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                    	   data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	   data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	   data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                    	>
+      						&lt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          				&lt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Numbered page links -->
+                <?php foreach ($this->pagesInRange as $page): ?>
+                    <?php if ($page != $this->current): ?>
+                        <li>
+                            <a href="#" class="paginator-page-number" 
+                                data-page="<?php echo $page; ?>" 
+                                data-modulo="<?php echo $this->data_modulo; ?>" 
+                                data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                                data-titulo="<?php echo $this->data_titulo; ?>" 
+                                data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                                data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                                data-order="<?php echo $this->escapeHtml($this->order);?>"
+                                data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>"  
+                        	    data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                        	    data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                                >
+                                <?php echo $page; ?>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="active">
+                            <a href="#"><?php echo $page; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+    
+                <!-- Next page link -->
+                <?php if (isset($this->next)): ?>
+                    <li>
+                        <a href="#" class="paginator-page-number" 
+                            data-page="<?php echo $this->next; ?>" 
+                            data-modulo="<?php echo $this->data_modulo; ?>" 
+                            data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                            data-titulo="<?php echo $this->data_titulo; ?>" 
+                            data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                            data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                            data-order="<?php echo $this->escapeHtml($this->order);?>"
+                            data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	    data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	    data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                            >                            
+    						&gt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+    						&gt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Last page link -->
+                 <?php if($this->current != $this->pageCount): ?>
+                    <li>
+                   	 <a href="#" class="paginator-page-number" 
+                       	 data-page="<?php echo $this->pageCount; ?>" 
+                       	 data-modulo="<?php echo $this->data_modulo; ?>" 
+                       	 data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                       	 data-titulo="<?php echo $this->data_titulo; ?>" 
+                       	 data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                       	 data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                       	 data-order="<?php echo $this->escapeHtml($this->order);?>"
+                       	 data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>"  
+                    	 data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	 data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                   	 >
+    				 &raquo;
+    				</a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                   	 	<a href="#">
+          					&raquo;
+                        </a>
+                    </li>
+                <?php endif; ?>                
+            </ul>       
+        </div>        
+        <div align="right" class="col-lg-6">
+            <span><?php echo $this->current;?> de <?php echo $this->pageCount;?></span>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
