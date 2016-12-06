@@ -1,0 +1,108 @@
+<?php
+if ($this->pageCount >=0): 
+ ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <ul class="pagination pagination-sm">
+             <!-- Currente link -->
+                <?php if($this->current != 1): ?>
+                    <li>
+                    	<a href="#" onclick="loadPaginator('previous', 1)" data-rel="current">
+                           	&laquo;
+                         </a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          					&laquo;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Previous page link -->
+                <?php if (isset($this->previous)): ?>
+                    <li>
+                    	<a href="#" onclick="loadPaginator('previous', <?php echo $this->previous; ?>)"  data-rel="previous">
+      						&lt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          				&lt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Numbered page links -->
+                <?php foreach ($this->pagesInRange as $page): ?>
+                    <?php if ($page != $this->current): ?>
+                        <li>
+                            <a href="#" onclick="loadPaginator('numbered', <?php echo $page; ?>)" data-rel="numbered">
+                                <?php echo $page; ?>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="active">
+                            <a href="#"><?php echo $page; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+    
+                <!-- Next page link -->
+                <?php if (isset($this->next)): ?>
+                    <li>
+                        <a href="#" onclick="loadPaginator('next', <?php echo $this->next; ?>)" data-rel="next">
+    						&gt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+    						&gt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Last page link -->
+                 <?php if($this->current != $this->pageCount): ?>
+                    <li>
+                   	 <a href="#" onclick="loadPaginator('last', <?php echo $this->pageCount; ?>)" data-rel="last">
+    					&raquo;
+    				</a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                   	 	<a href="#">
+          					&raquo;
+                        </a>
+                    </li>
+                <?php endif; ?>                
+            </ul>       
+        </div>        
+        <div align="right" class="col-lg-6">
+            <span><?php echo $this->current;?> de <?php echo $this->pageCount;?></span>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
+
+<script type="text/javascript">
+	function loadPaginator(selecao, page) {
+		var index = $('#tabs').data('tabs').options.selected;
+		var selectedPanel = $('#tabs ul:first li:eq('+index+') a:first').attr('href').replace('#','');
+		var titulo = 'Album';	
+
+		var dataIni = '<?php echo $this->data_ini; ?>';
+        var dataFinal = '<?php echo $this->data_fin; ?>';
+        var filterLetter = '<?php echo $this->search_frase; ?>';
+        var id = '';
+    	returnView('album', 'album', page, 'index', 'dados_'+selectedPanel, filterLetter, dataIni, dataFinal, id, titulo, '<?php echo $this->order_by; ?>', '<?php echo $this->order; ?>');		
+	};
+
+	function dateToYMD(date) {
+    	var ss = date.split('/');
+       return ss[2]+ '-' + ss[1] + '-' + ss[0];
+	};
+</script>

@@ -1,0 +1,70 @@
+<?php
+use Zend\Session\Container;
+$sessao = new Container();
+$sessao->rel = $this->escapeHtml($this->div);
+
+$title = 'Grupo';
+$this->headTitle($title);
+?>
+
+<h4><?php echo $this->escapeHtml($title); ?></h4>
+<div class="container-fluid">
+    <div class="row">
+        <form class="form form-pesquisa" data-data_ini='data_ini_grupo' data-data_fin='data_fin_grupo' id="form-pesquisa-grupo" data-modulo="caddepartamento" data-ctrl="cadgrupo" data-titulo="Grupo" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+            <div class="form-group">
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Inicial" id="data_ini_grupo" name="data_ini_grupo">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_ini busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Final" id="data_fin_grupo" name="data_fin_grupo">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_fin busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="form-group">    
+                <div class="col-lg-6">
+                    <div class="input-group">                
+                        <input type="text" class="form-control input-sm search" placeholder="Busca"  name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>                    
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>            
+        </form>   
+    <div class="col-lg-2">
+        <div class="actions btn-group">
+            <button onclick="returnView('caddepartamento','cadgrupo',1,'index','<?php echo $this->escapeHtml($this->div); ?>','','','',0,'Seção','secao_id')" class="btn btn-default btn-sm" type="button" title="Refresh"><span class="icon fa fa-refresh"></span></button>
+            <div class="dropdown btn-group ">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="dropdown-text">10</span> <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right">
+                    <li class="active"><a data-action="10" class="dropdown-item dropdown-item-button">10</a></li>
+                    <li><a data-action="25" class="dropdown-item dropdown-item-button">25</a></li>
+                    <li><a data-action="50" class="dropdown-item dropdown-item-button">50</a></li>
+                    <li><a data-action="-1" class="dropdown-item dropdown-item-button">All</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<br></br>
+    <div class="row">    
+        <div class="col-sm-12">
+            <div class="container-dados" id="dados_<?php echo $this->escapeHtml($this->div);?>">
+                <?php echo $this->partial('caddepartamento/cadgrupo/dados.phtml', array('dados'=>$this->dados, 'div'=>$this->div, 'order_by'=>$this->order_by, 'order'=>$this->order, 'page'=>$this->page, 'search_frase'=>$this->search_frase, 'data_ini' => $this->data_ini, 'data_fin' => $this->data_fin)); ?>
+            </div>  
+        </div>
+    </div>    
+</div>
+<script type="text/javascript">    
+    </script>

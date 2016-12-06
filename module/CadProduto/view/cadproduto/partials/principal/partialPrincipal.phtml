@@ -1,0 +1,132 @@
+<div class="container-fluid painel"> 
+    <div class="form-group">
+      <label for="plu" class="col-sm-2 control-label">Plu:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('produto_id'), null, false);?>
+          <?php echo $this->formRow($form->get('plu'), null, false);?>
+      </div>
+      <label for="sku" class="col-sm-2 control-label">Código de barras:</label>
+      <div class="col-sm-3">
+          <div class="input-group">
+            <?php echo $this->formRow($form->get('sku'), null, false);?>
+            <div class="input-group-btn">
+            <button class="btn btn-default btn-sm data_ini busca_data" type="button">Incluir</button>
+        </div>  
+    </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="tipo_produto_id" class="col-sm-2 control-label">Tipo de produto:</label>
+      <div class="col-sm-4">
+         <?php $form->get('tipo_produto_id')->setAttribute('options', $this->options_sel('select tipo_produto_id as id, descricao as data from tab_tipo_produto'),null,false); //Enviar Sempre como id e data para o helper?>
+         <?php echo $this->formRow($form->get('tipo_produto_id'), null, false);?>
+      </div>
+      <label for="ativo" class="col-sm-1 control-label">Status:</label>
+      <div class="col-sm-2">
+         <?php echo $this->formRow($form->get('ativo'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="descricao" class="col-sm-2 control-label">Descrição:</label>
+      <div class="col-sm-7">
+          <?php echo $this->formRow($form->get('descricao'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="desc_resumida" class="col-sm-2 control-label">Descrição resumida:</label>
+      <div class="col-sm-6">
+          <?php echo $this->formRow($form->get('desc_resumida'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="unidade_id" class="col-sm-2 control-label">Unidade:</label>
+        <div class="col-sm-2">
+            <?php $form->get('unidade_id')->setAttribute('options', $this->options_sel("select unidade_id as id, codigo||'-'||descricao as data from cad_unidade"),null,false); //Enviar Sempre como id e data para o helper?>
+            <?php echo $this->formRow($form->get('unidade_id'), null, false);?>
+        </div>
+        <!-- <label for="iembalagem_id" class="col-sm-2 control-label">Embalagem:</label>
+        <div class="col-sm-2">
+            <select id="embalagem_id" class="form-control input-sm"></select>
+        </div>  -->                      
+    </div>
+    <div class="form-group">                        
+        <label for="peso_liquido" class="col-sm-2 control-label">Peso líquido:</label>
+        <div class="col-sm-2">
+             <?php echo $this->formRow($form->get('peso_liquido'), null, false);?>
+        </div>
+        <label for="peso_bruto" class="col-sm-2 control-label">Peso bruto:</label>
+        <div class="col-md-2">
+             <?php echo $this->formRow($form->get('peso_bruto'), null, false);?>
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="secao_id" class="col-sm-2 control-label">Seção:</label>
+      <div class="col-sm-6">
+         <?php $form->get('secao_id')->setAttribute('options', $this->options_sel("select secao_id as id, descricao as data from cad_secao"),null,false); //Enviar Sempre como id e data para o helper?>
+         <?php echo $this->formRow($form->get('secao_id'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="grupo_id" class="col-sm-2 control-label">Grupo:</label>
+      <div class="col-sm-6">
+         <?php $form->get('grupo_id')->setAttribute('options', $this->options_sel("select grupo_id as id, descricao as data from cad_grupo"),null,false); //Enviar Sempre como id e data para o helper?>
+         <?php echo $this->formRow($form->get('grupo_id'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="subgrupo_id" class="col-sm-2 control-label">Subgrupo:</label>
+      <div class="col-sm-6">
+         <?php $form->get('subgrupo_id')->setAttribute('options', $this->options_sel("select subgrupo_id as id, descricao as data from cad_subgrupo"),null,false); //Enviar Sempre como id e data para o helper?>
+         <?php echo $this->formRow($form->get('subgrupo_id'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fornecedor_id" class="col-sm-2 control-label">Fornecedor Atual:</label>
+      <div class="col-sm-6">
+         <?php $form->get('fornecedor_id')->setAttribute('options', $this->options_sel("select fornecedor_id as id, razao as data from cad_fornecedor"),null,false); //Enviar Sempre como id e data para o helper?>
+         <?php echo $this->formRow($form->get('fornecedor_id'), null, false);?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cod_fornecedor" class="col-sm-2 control-label">Cód. fornecedor:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('cod_fornecedor'), null, false);?>
+      </div>
+      <label for="ref_fornecedor" class="col-sm-2 control-label">Ref. fornecedor:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('ref_fornecedor'), null, false);?>
+      </div>
+    </div>
+     <div class="form-group">
+      <label for="estoque_min" class="col-sm-2 control-label">Estoque mínimo:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('estoque_min'), null, false);?>
+      </div>
+      <label for="estoque_ideal" class="col-sm-2 control-label">Estoque ideal:</label>
+      <div class="col-sm-2">
+          <?php echo $this->formRow($form->get('estoque_ideal'), null, false);?>
+      </div>
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6 dados-plu">
+      <div role="tabpanel">
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#aba_sku">Sku</a></li>
+          <li><a data-toggle="tab" href="#aba_fornecedor">Plu Fornecedor</a></li>
+          <li><a data-toggle="tab" href="#aba_grade">Grade</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="aba_sku" class="tab-pane fade in active">
+          </div>
+          <div id="aba_fornecedor" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>Some content in menu 1.</p>
+          </div>
+          <div id="aba_grade" class="tab-pane fade">
+            <h3>Menu 2</h3>
+            <p>Some content in menu 2.</p>
+          </div>
+        </div>
+      </div> 
+    </div>
+</div>

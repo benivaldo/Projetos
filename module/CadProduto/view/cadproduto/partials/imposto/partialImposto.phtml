@@ -1,0 +1,195 @@
+<div class="container-fluid painel"> 
+    <div class="form-group">
+      <label for="cod_ncm" class="col-sm-2 control-label">Classificação fiscal:</label>
+      <div class="col-sm-2">
+        <div class="input-group"> 
+          <?php echo $this->formRow($form->get('ncm_id'), null, false);?>
+          <input id="cod_ncm" type="text" class="form-control input-sm"  placeholder="Ncm">
+          <div class="input-group-btn">
+            <button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+          <input id="desc_ncm" type="text" class="form-control input-sm">
+      </div>
+    </div>
+    <div class="col-sm-12 dados-fiscais">
+         <ul class="nav nav-tabs">
+           <li class="active"><a data-toggle="tab" href="#menu_icms">Icms</a></li>
+           <li><a data-toggle="tab" href="#menu_ipi">IPI</a></li>
+           <li><a data-toggle="tab" href="#menu_pis">Pis</a></li>
+           <li><a data-toggle="tab" href="#menu_cofins">Cofins</a></li>
+         </ul>                        
+         <div class="tab-content">
+          <div id="menu_icms" class="tab-pane fade in active">
+          <div class="container-fluid painel">
+            <div class="form-group">
+             <label for="icms_pdv_id" class="col-sm-2 control-label">Trib. ECF:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('icms_pdv_id'), null, false);?>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cod_trib_pdv" class="col-sm-2 control-label">Cód. Tributação:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="icms_pdv" class="col-sm-2 control-label">%Aliquota:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+             <label for="icms_nf_compra_id" class="col-sm-2 control-label">Icms de compra:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('icms_nf_entrada_id'), null, false);?>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="base_icms_ent" class="col-sm-2 control-label">%Base:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="aliq_icms_ent" class="col-sm-2 control-label">%Aliquota:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="icms_nf_venda_id" class="col-sm-2 control-label">Icms de venda:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('icms_nf_saida_id'), null, false);?>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="base_icms_saida" class="col-sm-2 control-label">%Base:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="aliq_icms_saida" class="col-sm-2 control-label">%Aliquota:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mva_st" class="col-sm-2 control-label">MVA ST:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+             
+            </div>
+          </div>
+          </div>
+          <div id="menu_ipi" class="tab-pane fade">
+           <div class="container-fluid painel">
+            <div class="form-group">
+              <label for="ipi_compra_id" class="col-sm-2 control-label">IPI de compra:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('ipi_entrada_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_ipi_ent" class="col-sm-2 control-label">%IPI:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label for="pis_venda_id" class="col-sm-2 control-label">IPI de venda:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('ipi_saida_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_pis_ent" class="col-sm-2 control-label">%IPI:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+          </div>
+    
+          </div>
+          <div id="menu_pis" class="tab-pane fade">
+          <div class="container-fluid painel">
+            <div class="form-group">
+              <label for="pis_compra_id" class="col-sm-2 control-label">Pis de compra:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('pis_entrada_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label for="pis_venda_id" class="col-sm-2 control-label">Pis de venda:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('pis_saida_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+          </div>
+          </div>
+          <div id="menu_cofins" class="tab-pane fade">
+          <div class="container-fluid painel">
+              <div class="form-group">
+              <label for="cofins_compra_id" class="col-sm-2 control-label">Cofins de compra:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('cofins_entrada_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_cofins_ent_id" class="col-sm-2 control-label">%Cofins:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_cofins_ent" class="col-sm-2 control-label">CST COFINS:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+            <div class="form-group">
+              <label for="cofins_venda_id" class="col-sm-2 control-label">Cofins de venda:</label>
+              <div class="col-sm-6">
+                  <?php echo $this->formRow($form->get('cofins_saida_id'), null, false);?>
+              </div>
+            </div>                    
+            <div class="form-group">
+              <label for="aliq_cofins_venda" class="col-sm-2 control-label">%Cofins:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+              <label for="cst_cofins_venda" class="col-sm-2 control-label">CST COFINS:</label>
+              <div class="col-sm-2">
+                  <input type="text" class="form-control input-sm"  placeholder="">
+              </div>
+            </div> 
+            </div>
+            </div>
+         </div>
+     </div>
+</div>
