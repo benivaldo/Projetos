@@ -1,0 +1,97 @@
+body{
+	background-color: #F9FEFF;
+}
+.panel-body {
+	background-color: #F9FEFF;
+	font-size: 12px;
+}
+.pesquisa{
+	height:60px;
+  
+}
+.botoes{
+	
+}
+
+.cadastro{
+	height: 480px;
+}
+/* navbar */
+.navbar { background:#000; border-bottom:none; }
+.navbar .nav > li > a {color: #ffffee;}
+.navbar .nav > li > a:hover {color: #fff; background-color: #000fee;}
+.navbar .nav .active > a,.navbar .nav .active > a:hover {color: #fff; background-color: #501762;}
+.navbar .nav li > a .caret, .tnav .navbar .nav li > a:hover .caret {border-top-color: #fff;border-bottom-color: #fff;}
+.navbar .nav > li.dropdown.open.active > a:hover {}
+.navbar .nav > li.dropdown.open > a {color: #fff;background-color: #000fee;border-color: #fff;}
+.navbar .nav > li.dropdown.open.active > a:hover .caret, .tnav .navbar .nav > li.dropdown.open > a .caret {border-top-color: #fff;}
+.navbar .navbar-brand {color:#fff;}
+.navbar .nav.pull-right {margin-left: 10px; margin-right: 0;}
+.navbar { min-height:28px; height: 28px; }
+.navbar .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 28px; }
+.navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 28px; }
+.navbar { min-height:40px; height: 48px; }
+.navbar .navbar-brand{ padding: 0px 12px;font-size: 16px;line-height: 40px; }
+.navbar .navbar-nav > li > a {  padding-top: 0px; padding-bottom: 0px; line-height: 40px; }
+
+/**Cadastro de produtos**/
+.dados-plu {
+	height: 150px;
+	border: 1px solid gray;
+	top: 10px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	 border-radius:4px;
+}
+
+/**Cadastro de produtos**/
+.dados-fiscais {
+	top: 20px;
+}
+
+.painel {
+	padding-top: 5px;
+}
+/**REgras para bootstrap*/
+.nav-tabs > li > a {
+	margin-right: 2px;
+	line-height: 0.429;
+	border: 1px solid transparent;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.input-sm {
+	height: 22px;
+	padding: 3px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 2px;
+}
+
+select.input-sm {
+	height: 22px;
+	line-height: 30px;
+}
+
+.form-group {
+	margin-bottom: 1px;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+	padding: 1px 10px;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 3px;
+}
+
+.side-nav > li > ul > li > a {
+    display: block;
+    padding: 5px 15px 5px 38px;
+    text
+}
+
+.nav > li > a {
+	position: relative;
+	display: block;
+	padding: 5px 15px;
+}

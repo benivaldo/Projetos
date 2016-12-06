@@ -1,0 +1,62 @@
+<?php 
+use Zend\Session\Container;
+$sessao = new Container();
+
+$url_order = 'ASC';
+if ($this->order_by == 'grupo_id') {
+    $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
+} else if ($this->order_by == 'secao') {
+    $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
+} else if ($this->order_by == 'descricao') {
+    $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
+} 
+?>
+
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th><a href="#" onclick="returnView('caddepartamento','cadgrupo',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Grupo','grupo_id','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Id <?php if ($this->order_by == 'grupo_id'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('caddepartamento','cadgrupo',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Grupo','descricao','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Grupo<?php if ($this->order_by == 'descricao'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('caddepartamento','cadgrupo',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Grupo','secao','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Seção<?php if ($this->order_by == 'secao'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Data</a></th>
+            <th><a href="#" onclick="returnView('caddepartamento','cadgrupo',1,'add','<?php echo $this->escapeHtml($this->div); ?>','','','',0,'Grupo')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
+                <i class="fa fa-plus-square"></i></a></th>
+        </tr>
+    </thead>
+    <tbody> 
+<?php foreach($this->dados as $dado) : ?>   
+        <tr>
+            <td><?php echo $this->escapeHtml($dado->grupo_id);?></td>
+            <td><?php echo $this->escapeHtml($dado->descricao);?></td>
+            <td><?php echo $this->escapeHtml($dado->secao);?></td>            
+            <td><?php echo $this->formata_data($this->escapeHtml($dado->data_cadastro));?></td>
+            <td>
+                <a href="#" onclick="returnView('caddepartamento','cadgrupo',1,'edit','<?php echo $this->escapeHtml($this->div); ?>','','','','<?php echo $this->escapeHtml($dado->grupo_id);?>','Grupo')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
+                    <i class="fa fa-pencil-square"></i>                
+                </a>
+            </td>
+        </tr>    
+<?php endforeach; ?>
+    </tbody>
+</table>
+
+<?php
+if($this->dados instanceof Zend\Paginator\Paginator) {
+    echo $this->paginationControl(
+        $this->dados,
+        'Sliding',
+        'caddepartamento/partials/paginator/paginator.phtml',
+        array('div' => $this->div,
+            'order_by' => $this->order_by,
+            'order' => $this->order, 
+            'page' => $this->page,
+            'search_frase' => $this->search_frase,
+            'data_ini' => $this->data_ini, 
+            'data_fin' => $this->data_fin,
+            'data_modulo' => 'caddepartamento',
+            'data_ctrl' => 'cadgrupo',
+            'data_titulo' => 'Grupo',
+        )
+        );
+}
+?> 

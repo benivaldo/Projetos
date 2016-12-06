@@ -1,0 +1,107 @@
+<?php
+use Zend\Session\Container;
+$sessao = new Container();
+$sessao->rel = $this->escapeHtml($this->div);
+
+$title = 'COFINS';
+$this->headTitle($title);
+?>
+
+<h4><?php echo $this->escapeHtml($title); ?></h4>
+<div class="container-fluid">
+    <div class="row">
+        <form class="form form-pesquisa" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+            <div class="form-group">
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Inicial" id="data_ini" name="data_ini">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_ini busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Final" id="data_fin" name="data_fin">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_fin busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+            <div class="form-group">    
+                <div class="col-lg-6">
+                    <div class="input-group">                
+                        <input type="text" class="form-control input-sm" placeholder="Search" id="search" name="search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>                    
+                    </div>
+                </div><!-- /.col-lg-6 -->
+            </div>            
+        </form>   
+    <div class="col-lg-2">
+        <div class="actions btn-group">
+            <button onclick="returnView('album','album',1,'index','<?php echo $this->escapeHtml($this->div); ?>','','','',0,'Album')" class="btn btn-default btn-sm" type="button" title="Refresh"><span class="icon fa fa-refresh"></span></button>
+            <div class="dropdown btn-group ">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"><span class="dropdown-text">10</span> <span class="caret"></span></button>
+                <ul class="dropdown-menu pull-right">
+                    <li class="active"><a data-action="10" class="dropdown-item dropdown-item-button">10</a></li>
+                    <li><a data-action="25" class="dropdown-item dropdown-item-button">25</a></li>
+                    <li><a data-action="50" class="dropdown-item dropdown-item-button">50</a></li>
+                    <li><a data-action="-1" class="dropdown-item dropdown-item-button">All</a></li>
+                </ul>
+            </div>
+            <div class="dropdown btn-group">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="dropdown-text"><span class="icon fa fa-th-list"></span></span> 
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        <label class="dropdown-item">
+                            <input name="id" value="1" class="dropdown-item-checkbox" checked="checked" type="checkbox"> 
+                            ID
+                        </label>
+                    </li>
+                    <li>
+                        <label class="dropdown-item">
+                            <input name="artist" value="1" class="dropdown-item-checkbox" checked="checked" type="checkbox"> 
+                            Artist
+                        </label>
+                    </li>
+                    <li>
+                        <label class="dropdown-item">
+                            <input name="title" value="1" class="dropdown-item-checkbox" checked="checked" type="checkbox"> 
+                            Title
+                        </label>
+                    </li>
+                    <li>
+                        <label class="dropdown-item">
+                            <input name="commands" value="1" class="dropdown-item-checkbox" checked="checked" type="checkbox"> 
+                            Commands
+                        </label>
+                    </li>
+                    <li>
+                        <label class="dropdown-item">
+                            <input name="{{ctx.name}}" value="1" class="dropdown-item-checkbox" checked="checked" type="checkbox">                             
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<br></br>
+    <div class="row">    
+        <div class="col-sm-12">
+            <div class="container-dados" id="dados_<?php echo $this->escapeHtml($this->div);?>">
+                <?php echo $this->partial('cadcofins/cadcofins/dados.phtml', array('dados'=>$this->dados, 'div'=>$this->div, 'order_by'=>$this->order_by, 'order'=>$this->order, 'page'=>$this->page, 'search_frase'=>$this->search_frase, 'data_ini' => $this->data_ini, 'data_fin' => $this->data_fin)); ?>
+            </div>  
+        </div>
+    </div>    
+</div>
+<script type="text/javascript">    
+    </script>

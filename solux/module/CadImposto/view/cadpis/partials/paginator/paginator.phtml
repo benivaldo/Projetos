@@ -1,0 +1,89 @@
+<?php
+if ($this->pageCount >= 0): 
+ ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <ul class="pagination pagination-sm">
+             <!-- Currente link -->
+                <?php if($this->current != 1): ?>
+                    <li>
+                    	<a href="#" class="paginator-page-number" data-page="1" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                           	&laquo;
+                         </a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          					&laquo;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Previous page link -->
+                <?php if (isset($this->previous)): ?>
+                    <li>
+                    	<a href="#" class="paginator-page-number" data-page="<?php echo $this->previous; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+      						&lt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+          				&lt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Numbered page links -->
+                <?php foreach ($this->pagesInRange as $page): ?>
+                    <?php if ($page != $this->current): ?>
+                        <li>
+                            <a href="#" class="paginator-page-number" data-page="<?php echo $page; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                                <?php echo $page; ?>
+                            </a>
+                        </li>
+                    <?php else: ?>
+                        <li class="active">
+                            <a href="#"><?php echo $page; ?></a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+    
+                <!-- Next page link -->
+                <?php if (isset($this->next)): ?>
+                    <li>
+                        <a href="#" class="paginator-page-number" data-page="<?php echo $this->next; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+    						&gt;
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+    						&gt;
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- Last page link -->
+                 <?php if($this->current != $this->pageCount): ?>
+                    <li>
+                   	 <a href="#" class="paginator-page-number" data-page="<?php echo $this->pageCount; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+    					&raquo;
+    				</a>
+    
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                   	 	<a href="#">
+          					&raquo;
+                        </a>
+                    </li>
+                <?php endif; ?>                
+            </ul>       
+        </div>        
+        <div align="right" class="col-lg-6">
+            <span><?php echo $this->current;?> de <?php echo $this->pageCount;?></span>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>
