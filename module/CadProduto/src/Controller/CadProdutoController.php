@@ -10,7 +10,7 @@ class CadProdutoController extends AbstractCrudController
 {
     protected $albumTable;
     
-    public function __construct()
+    public function getVariaveis()
     {
     	$this->tableGatewayClass = 'CadProduto\Model\CadProdutoTable';
     	$this->form = new CadProdutoForm();
@@ -26,10 +26,17 @@ class CadProdutoController extends AbstractCrudController
     	$this->inner;
     	$this->campo = 'descricao';
     	$this->idTable = 'produto_id';
+    	$this->colDataPesq = 'data_cadastro';
+    	$this->whereCampo;
+    	$this->colunas;
+    	$this->order_by;
+    	$this->group_by;
      }
 
     public function indexAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
@@ -63,6 +70,8 @@ class CadProdutoController extends AbstractCrudController
 
     public function editAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadproduto/index';
         $this->template = 'cadproduto/edit.phtml';
@@ -71,6 +80,8 @@ class CadProdutoController extends AbstractCrudController
     
     public function addAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadproduto/index';
         $this->template = 'cadproduto/add.phtml';
@@ -79,6 +90,7 @@ class CadProdutoController extends AbstractCrudController
     
     public function deleteAction()
     {
+        $this->getVariaveis();
        
         return parent::deleteAction();
     }

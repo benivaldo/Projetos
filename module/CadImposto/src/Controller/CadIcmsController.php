@@ -10,7 +10,7 @@ class CadIcmsController extends AbstractCrudController
 {
     protected $albumTable;
     
-    public function __construct()
+    public function getVariaveis()
     {
     	$this->tableGatewayClass = 'CadImposto\Model\CadIcmsTable';
     	$this->form = new CadIcmsForm();
@@ -26,10 +26,17 @@ class CadIcmsController extends AbstractCrudController
     	$this->inner;
     	$this->campo = 'descricao';
     	$this->idTable = 'icms_id';
+    	$this->colDataPesq = 'cad_grupo.data_cadastro';
+    	$this->whereCampo;
+    	$this->colunas;
+    	$this->order_by;
+    	$this->group_by;
      }
 
     public function indexAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
@@ -63,6 +70,8 @@ class CadIcmsController extends AbstractCrudController
 
     public function editAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadicms/cadicms/index';
         $this->template = 'cadicms/cadicms/edit.phtml';
@@ -71,6 +80,8 @@ class CadIcmsController extends AbstractCrudController
     
     public function addAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadicms/cadicms/index';
         $this->template = 'cadicms/cadicms/add.phtml';
@@ -79,7 +90,8 @@ class CadIcmsController extends AbstractCrudController
     
     public function deleteAction()
     {
-       
+        $this->getVariaveis();
+        
         return parent::deleteAction();
     }
     

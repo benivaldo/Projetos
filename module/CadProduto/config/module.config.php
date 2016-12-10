@@ -1,28 +1,30 @@
 <?php
+namespace CadProduto;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+
 return array(
     'controllers' => array(
-        'invokables' => array(
-            'CadProduto\Controller\CadProduto' => 'CadProduto\Controller\CadProdutoController',
-            'CadProduto\Controller\CadEan' => 'CadProduto\Controller\CadEanController',
-        ),
+         'aliases' => [
+            'cadproduto' => Controller\CadProdutoController::class,
+            'cadean'     => Controller\CadEanController::class,
+        ]
     ),
     
     'router' => array(
         'routes' => array(
              'cadproduto' => array(
-                'type'    => 'Literal',
+                'type'    => Literal::class,
                 'options' => array(
                     'route'    => '/cadproduto',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'CadProduto\Controller',
-                        'controller'    => 'CadProduto',
-                        'action'        => 'index',
+ 
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type'    => 'Segment',
+                        'type'    => Segment::class,
                         'options' => array(
                             'route' => "/[:controller[/:action][/id/:id][/page/:page][/:div][/order_by/:order_by][/:order][/search_frase/:search_frase][/data_ini/:data_ini][/data_fin/:data_fin]]",
                             'constraints' => array(
@@ -34,8 +36,7 @@ return array(
                                 'order' => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                '__NAMESPACE__' => 'CadProduto\Controller',
-                                'controller'    => 'CadProduto',
+                                'controller'    => Controller\CadProdutoController::class,
                                 'action'        => 'index',
                                 'order_by'      => 'produto_id',
                                 'order' => 'ASC',
@@ -59,28 +60,11 @@ return array(
         ),
     ),
     
-
-    'controller_plugins' => array(
-		'invokables' => array(
-			'saveModel' => 'Controle\Controller\Plugin\SaveModel',
-	        'deleteModel' => 'Controle\Controller\Plugin\DeleteModel'
-		)
-    ),
-    
-    'view_helpers' => array(
-        'invokables'=> array(
-            'options_sel' => 'Controle\View\Helper\GetSelectOptions',
-            'formata_data' => 'Controle\View\Helper\FormataData'
-        )
-    ),
     
     'view_manager' => array(
         'template_path_stack' => array(
             'cadproduto' => __DIR__ . '/../view',
             'cadean' => __DIR__ . '/../view',
-        ),
-        'strategies' => array(
-    		'ViewJsonStrategy',
         ),
     ),
    

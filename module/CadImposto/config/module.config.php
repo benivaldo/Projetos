@@ -1,31 +1,33 @@
 <?php
+namespace CadImposto;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+
 return array(
     'controllers' => array(
-        'invokables' => array(
-            'CadImposto\Controller\CadNcm' => 'CadImposto\Controller\CadNcmController',
-            'CadImposto\Controller\CadIcms' => 'CadImposto\Controller\CadIcmsController',
-            'CadImposto\Controller\CadPis' => 'CadImposto\Controller\CadPisController',
-            'CadImposto\Controller\CadCofins' => 'CadImposto\Controller\CadCofinsController',
-            'CadImposto\Controller\CadIpi' => 'CadImposto\Controller\CadIpiController',
-        ),
+        'aliases' => [
+            'cadcofins' => Controller\CadCofinsController::class,
+            'cadicms'   => Controller\CadIcmsController::class,
+            'cadipi'    => Controller\CadIpiController::class,
+            'cadncm'    => Controller\CadNcmController::class,
+            'cadpis'    => Controller\CadPisController::class,
+        ]
     ),
     
     'router' => array(
         'routes' => array(
              'cadimposto' => array(
-                'type'    => 'Literal',
+                'type'    => Literal::class ,
                 'options' => array(
                     'route'    => '/cadimposto',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'CadImposto\Controller',
-                        'controller'    => 'CadNcm',
-                        'action'        => 'index',
+                     'defaults' => array(
+  
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type'    => 'Segment',
+                        'type'    => Segment::class,
                         'options' => array(
                             'route' => "/[:controller[/:action][/id/:id][/page/:page][/:div][/order_by/:order_by][/:order][/search_frase/:search_frase][/data_ini/:data_ini][/data_fin/:data_fin]]",
                             'constraints' => array(
@@ -37,8 +39,7 @@ return array(
                                 'order' => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                '__NAMESPACE__' => 'CadImposto\Controller',
-                                'controller'    => 'CadNcm',
+                                'controller'    => Controller\CadNcmController::class,
                                 'action'        => 'index',
                                 'order_by'      => '',
                                 'order' => 'ASC',
@@ -61,22 +62,7 @@ return array(
             ),
         ),
     ),
-    
-
-    'controller_plugins' => array(
-		'invokables' => array(
-			'saveModel' => 'Controle\Controller\Plugin\SaveModel',
-	        'deleteModel' => 'Controle\Controller\Plugin\DeleteModel'
-		)
-    ),
-    
-    'view_helpers' => array(
-        'invokables'=> array(
-            'options_sel' => 'Controle\View\Helper\GetSelectOptions',
-            'formata_data' => 'Controle\View\Helper\FormataData'
-        )
-    ),
-    
+     
     'view_manager' => array(
         'template_path_stack' => array(
             'cadncm' => __DIR__ . '/../view',
@@ -84,9 +70,6 @@ return array(
             'cadpis' => __DIR__ . '/../view',
             'cadcofins' => __DIR__ . '/../view',
             'cadipi' => __DIR__ . '/../view',
-        ),
-        'strategies' => array(
-    		'ViewJsonStrategy',
         ),
     ),
    

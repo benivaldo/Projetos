@@ -35,10 +35,10 @@ return [
     'Zend\Serializer',
     'Application',
     'Controle',
-    // 'CadProduto',
+    'CadProduto',
     'CadDepartamento',
-    //'CadImposto',
-    //'CadParceiro',
+    'CadImposto',
+    'CadParceiro',
     // 'TabAcessorias',
     //'Settings',
 ];

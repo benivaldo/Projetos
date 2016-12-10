@@ -2,11 +2,7 @@
 namespace CadDepartamento;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
-use Controle\Factory\AbstractModelFactory;
-use Controle\Factory\AbstractMapperFactory;
-use Controle\Factory\AbstractServiceFactory;
 
 return array(
     'controllers' => array(

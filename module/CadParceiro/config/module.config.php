@@ -1,27 +1,28 @@
 <?php
+namespace CadParceiro;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+
 return array(
     'controllers' => array(
-        'invokables' => array(
-            'CadParceiro\Controller\CadFornecedor' => 'CadParceiro\Controller\CadFornecedorController',
-        ),
+        'aliases' => [
+            'cadfornecedor' => Controller\CadFornecedorController::class,
+        ]
     ),
     
     'router' => array(
         'routes' => array(
              'cadparceiro' => array(
-                'type'    => 'Literal',
+                'type'    => Literal::class,
                 'options' => array(
                     'route'    => '/cadparceiro',
                     'defaults' => array(
-                        '__NAMESPACE__' => 'CadParceiro\Controller',
-                        'controller'    => 'CadFornecedor',
-                        'action'        => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type'    => 'Segment',
+                        'type'    => Segment::class,
                         'options' => array(
                             'route' => "/[:controller[/:action][/id/:id][/page/:page][/:div][/order_by/:order_by][/:order][/search_frase/:search_frase][/data_ini/:data_ini][/data_fin/:data_fin]]",
                             'constraints' => array(
@@ -33,8 +34,7 @@ return array(
                                 'order' => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                '__NAMESPACE__' => 'CadParceiro\Controller',
-                                'controller'    => 'Cadfornecedor',
+                                'controller'    => Controller\CadFornecedorController::class,
                                 'action'        => 'index',
                                 'order_by'      => 'fornecedor_id',
                                 'order' => 'ASC',
@@ -58,27 +58,9 @@ return array(
         ),
     ),
     
-
-    'controller_plugins' => array(
-		'invokables' => array(
-			'saveModel' => 'Controle\Controller\Plugin\SaveModel',
-	        'deleteModel' => 'Controle\Controller\Plugin\DeleteModel'
-		)
-    ),
-    
-    'view_helpers' => array(
-        'invokables'=> array(
-            'options_sel' => 'Controle\View\Helper\GetSelectOptions',
-            'formata_data' => 'Controle\View\Helper\FormataData'
-        )
-    ),
-    
     'view_manager' => array(
         'template_path_stack' => array(
             'cadfornecedor' => __DIR__ . '/../view',
-        ),
-        'strategies' => array(
-    		'ViewJsonStrategy',
         ),
     ),
    

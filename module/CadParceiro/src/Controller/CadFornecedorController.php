@@ -10,7 +10,7 @@ class CadFornecedorController extends AbstractCrudController
 {
     protected $cadFornecedorTable;
     
-    public function __construct()
+    public function getVariaveis()
     {
     	$this->tableGatewayClass = 'CadParceiro\Model\CadFornecedorTable';
     	$this->form = new CadFornecedorForm();
@@ -35,6 +35,8 @@ class CadFornecedorController extends AbstractCrudController
 
     public function indexAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
@@ -66,6 +68,8 @@ class CadFornecedorController extends AbstractCrudController
 
     public function editAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadparceiro/cadfornecedor/index';
         $this->template = 'cadparceiro/cadfornecedor/edit.phtml';
@@ -74,6 +78,8 @@ class CadFornecedorController extends AbstractCrudController
     
     public function addAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->route = 'cadparceiro/cadfornecedor/index';
         $this->template = 'cadparceiro/cadfornecedor/add.phtml';
@@ -82,12 +88,15 @@ class CadFornecedorController extends AbstractCrudController
     
     public function deleteAction()
     {
-       
+        $this->getVariaveis();
+        
         return parent::deleteAction();
     }
     
     public function prevAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'cadparceiro/cadfornecedor/edit.phtml';
          
@@ -106,6 +115,8 @@ class CadFornecedorController extends AbstractCrudController
     
     public function nextAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'cadparceiro/cadfornecedor/edit.phtml';
     
