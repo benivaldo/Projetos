@@ -10,7 +10,7 @@ class CadSubGrupoController extends AbstractCrudController
 {
     protected $albumTable;
     
-    public function __construct()
+    public function getVariaveis()
     {
     	$this->tableGatewayClass = 'CadDepartamento\Model\CadSuBGrupoTable';
     	$this->form = new CadSubGrupoForm();
@@ -35,6 +35,8 @@ class CadSubGrupoController extends AbstractCrudController
 
     public function indexAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
@@ -80,6 +82,8 @@ class CadSubGrupoController extends AbstractCrudController
 
     public function editAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'caddepartamento/cadsubgrupo/edit.phtml';
         return parent::editAction();
@@ -87,6 +91,8 @@ class CadSubGrupoController extends AbstractCrudController
     
     public function addAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'caddepartamento/cadsubgrupo/add.phtml';
     	return parent::addAction();
@@ -94,17 +100,22 @@ class CadSubGrupoController extends AbstractCrudController
     
     public function deleteAction()
     {
-       
+        $this->getVariaveis();
+        
         return parent::deleteAction();
     }
     
     public function gridAction()
     {
+        $this->getVariaveis();
+        
         return parent::gridAction();
     }
     
     public function prevAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'caddepartamento/cadsubgrupo/edit.phtml';
          
@@ -123,6 +134,8 @@ class CadSubGrupoController extends AbstractCrudController
     
     public function nextAction()
     {
+        $this->getVariaveis();
+        
         $this->div = $this->params('div');
         $this->template = 'caddepartamento/cadsubgrupo/edit.phtml';
     

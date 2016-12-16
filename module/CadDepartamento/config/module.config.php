@@ -15,7 +15,7 @@ return array(
         'aliases' => [
             'cadsecao' => Controller\CadSecaoController::class,
             'cadgrupo' => Controller\CadGrupoController::class,
-            'subgrupo' => Controller\CadSubGrupoController::class,
+            'cadsubgrupo' => Controller\CadSubGrupoController::class,
         ]
     ),
     
