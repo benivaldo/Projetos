@@ -85,6 +85,12 @@
       <label for="cfop" class="col-sm-2 control-label">CFOP:</label>
       <div class="col-sm-2">
          <?php echo $this->formRow($form->get('cfop'), null, false);?>
+          <?php 
+          if($tipo == 'edit') {
+              $form->get('data_altera')->setAttribute('value', date("Y-m-d"));
+              echo $this->formRow($form->get('data_altera'), null, false);
+          }
+          ?>
       </div>
     </div>
 </div>

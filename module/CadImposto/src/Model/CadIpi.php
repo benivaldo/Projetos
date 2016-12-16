@@ -8,11 +8,11 @@ use Controle\Model\AbstractModel;
 
 class CadIpi extends AbstractModel
 {
-     public $ipi_id;
-     public $codigo;
+     //public $ipi_id;
+     public $cst;
      public $descricao;
      public $aliquota;
-     public $data_cadastro;
+     //public $data_cadastro;
      protected $inputFilter;                       // <-- Add this variable
 
      // Add content to these methods:
@@ -26,16 +26,16 @@ class CadIpi extends AbstractModel
          if (!$this->inputFilter) {
              $inputFilter = new InputFilter();
 
-             $inputFilter->add(array(
-                 'name'     => 'id',
+            /* $inputFilter->add(array(
+                 'name'     => 'ipi_id',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'Int'),
                  ),
-             ));
+             ));*/
 
              $inputFilter->add(array(
-                 'name'     => 'artist',
+                 'name'     => 'descricao',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),
@@ -47,14 +47,14 @@ class CadIpi extends AbstractModel
                          'options' => array(
                              'encoding' => 'UTF-8',
                              'min'      => 1,
-                             'max'      => 100,
+                             'max'      => 60,
                          ),
                      ),
                  ),
              ));
 
              $inputFilter->add(array(
-                 'name'     => 'title',
+                 'name'     => 'cst',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),
@@ -65,20 +65,26 @@ class CadIpi extends AbstractModel
                          'name'    => 'StringLength',
                          'options' => array(
                              'encoding' => 'UTF-8',
-                             'min'      => 1,
-                             'max'      => 100,
+                             'min'      => 2,
+                             'max'      => 2,
                          ),
                      ),
                  ),
              ));
              
-             $inputFilter->add(array(
-                 'name'     => 'genreid',
-                 'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
-             ));
+            $inputFilter->add(array(
+                'name' => 'aliquota',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'name' => 'Regex',
+                        'options' => array(
+                            'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
+                            'min' => 0,
+                        ),
+                    ),
+                ),
+            ) );
 
              $this->inputFilter = $inputFilter;
          }

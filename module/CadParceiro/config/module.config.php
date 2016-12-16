@@ -36,10 +36,10 @@ return array(
                             'defaults' => array(
                                 'controller'    => Controller\CadFornecedorController::class,
                                 'action'        => 'index',
-                                'order_by'      => 'fornecedor_id',
                                 'order' => 'ASC',
                                 'page' => 1,
                                 'search_frase' => '',
+                                'total_page' => 1,
                             ),
                         ),
                     ),

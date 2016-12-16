@@ -49,8 +49,7 @@ return array(
                                 'order' => 'ASC',
                                 'page' => 1,
                                 'search_frase' => '',
-                                'total_page' => 2
-                            ),
+                              ),
                         ),
                     ),
                 ),

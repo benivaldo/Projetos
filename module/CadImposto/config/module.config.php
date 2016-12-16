@@ -44,7 +44,7 @@ return array(
                                 'order' => 'ASC',
                                 'page' => 1,
                                 'search_frase' => '',
-                                'total_page' => 2
+                                'total_page' => 2 // Para testes de paginação, retirar em produção
                             ),
                         ),
                     ),

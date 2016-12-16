@@ -29,7 +29,7 @@ class CadFornecedorController extends AbstractCrudController
     	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'fornecedor_id';
     	$this->group_by;
      }
 
