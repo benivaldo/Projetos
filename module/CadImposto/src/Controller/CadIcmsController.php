@@ -8,7 +8,6 @@ use CadImposto\Model\CadIcms;
 
 class CadIcmsController extends AbstractCrudController
 {
-    protected $albumTable;
     
     public function getVariaveis()
     {
@@ -18,7 +17,7 @@ class CadIcmsController extends AbstractCrudController
     	$this->route = 'home';
     	$this->viewData = 'dados';
     	$this->pagination = true;
-    	$this->template = 'cadicms/cadicms/index.phtml';
+    	$this->template = 'cadimposto/cadicms/index.phtml';
     	$this->div = '';
     	$this->primaryKey = null;
     	$this->searchFrase;
@@ -26,10 +25,10 @@ class CadIcmsController extends AbstractCrudController
     	$this->inner;
     	$this->campo = 'descricao';
     	$this->idTable = 'icms_id';
-    	$this->colDataPesq = 'cad_grupo.data_cadastro';
+    	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = "icms_id";
     	$this->group_by;
      }
 
@@ -41,16 +40,15 @@ class CadIcmsController extends AbstractCrudController
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
             if (is_numeric($this->params('search_frase'))) {
-                $this->searchFrase['id'] = $this->params('search_frase');
+                $this->searchFrase['icms_id'] = $this->params('search_frase');
             }
-            $this->searchFrase['title'] = strtolower($this->params('search_frase'));
-            $this->searchFrase['artist'] = strtolower($this->params('search_frase'));
-            $this->searchFrase['genre'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['cst'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['descricao'] = strtolower($this->params('search_frase'));
         }
         /*Aqui será enviado os valores para a pesquisa por data*/
         if (strlen($this->params('data_ini')) > 0 || strlen($this->params('data_fin')) > 0) {
-            $this->searchDate['date_create'][] = $this->params('data_ini');
-            $this->searchDate['date_create'][] = $this->params('data_fin');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_ini');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_fin');
         }
         
         /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
@@ -60,9 +58,9 @@ class CadIcmsController extends AbstractCrudController
         $divDados  = explode("_", $this->params('div'));
         //Verifica se a paginação, quando existe paginação o nome da div é dados_nome_aba 
         if($divDados[0] == 'dados'){
-    	   $this->template = 'cadicms/cadicms/dados.phtml';
+    	   $this->template = 'cadimposto/cadicms/dados.phtml';
         }else{
-            $this->template = 'cadicms/cadicms/index.phtml';
+            $this->template = 'cadimposto/cadicms/index.phtml';
         }
 
     	return parent::indexAction();
@@ -73,8 +71,8 @@ class CadIcmsController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadicms/cadicms/index';
-        $this->template = 'cadicms/cadicms/edit.phtml';
+        $this->route = 'cadimposto/cadicms/index';
+        $this->template = 'cadimposto/cadicms/edit.phtml';
         return parent::editAction();
     }
     
@@ -83,8 +81,8 @@ class CadIcmsController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadicms/cadicms/index';
-        $this->template = 'cadicms/cadicms/add.phtml';
+        $this->route = 'cadimposto/cadicms/index';
+        $this->template = 'cadimposto/cadicms/add.phtml';
     	return parent::addAction();
     }
     
@@ -94,6 +92,44 @@ class CadIcmsController extends AbstractCrudController
         
         return parent::deleteAction();
     }
+    
+    public function prevAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadicms/edit.phtml';
+         
+        $this->queryPrev = "select prev
+            from (
+            select  icms_id, descricao, data_cadastro,
+            lag(icms_id) over (order by icms_id asc) as prev,
+            lead(icms_id) over (order by icms_id asc) as next
+            from cad_icms
+            ) x
+            where ? IN (icms_id)";
+    
+    
+        return parent::prevAction();
+    }
+    
+    public function nextAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadicms/edit.phtml';
+    
+        $this->queryNext = "select next
+            from (
+            select  icms_id, descricao, data_cadastro,
+            lag(icms_id) over (order by icms_id asc) as prev,
+            lead(icms_id) over (order by icms_id asc) as next
+            from cad_icms
+            ) x
+            where ? IN (icms_id);";
+         
+        return parent::nextAction();
+    }
+    
     
     public function gridAction()
     {

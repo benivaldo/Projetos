@@ -41,10 +41,10 @@ return array(
                             'defaults' => array(
                                 'controller'    => Controller\CadNcmController::class,
                                 'action'        => 'index',
-                                'order_by'      => '',
                                 'order' => 'ASC',
                                 'page' => 1,
                                 'search_frase' => '',
+                                'total_page' => 2
                             ),
                         ),
                     ),

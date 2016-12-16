@@ -172,7 +172,7 @@ class AbstractCrudController extends CommonCrudController
             $this->pagination, 
             $this->params('page'), 
             $this->params('total_page'),
-            $this->params('order_by'), 
+            (null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by), 
             $this->params('order'), 
             $this->searchFrase, 
             $this->searchDate, 
@@ -187,7 +187,7 @@ class AbstractCrudController extends CommonCrudController
         $this->viewModel = new ViewModel(array (
             $this->viewData => $result,
             'div' => str_replace('dados_', '', $this->div), //Retira dados_ pra evitar duplicidade, necessario para ordenação
-            'order_by' => $this->params('order_by'),
+            'order_by' =>(null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by),
             'order' => $this->params('order'),
             'search_frase' => $this->params('search_frase'),
             'data_ini' => $this->params('data_ini'),
@@ -255,7 +255,6 @@ class AbstractCrudController extends CommonCrudController
     {
         $form = $this->form;
         $form->get('submit')->setValue('Incluir');
-        $form->setInputFilter($this->model->getInputFilter());
 
         $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route);
         

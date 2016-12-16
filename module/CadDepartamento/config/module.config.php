@@ -46,7 +46,6 @@ return array(
                             'defaults' => array(
                                 'controller'    => Controller\CadSecaoController::class,
                                 'action'        => 'index',
-                                'order_by'      => 'secao_id',
                                 'order' => 'ASC',
                                 'page' => 1,
                                 'search_frase' => '',

@@ -29,7 +29,7 @@ class CadGrupoController extends AbstractCrudController
     	$this->colDataPesq = 'cad_grupo.data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'grupo_id';
     	$this->group_by;
     }
 

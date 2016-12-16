@@ -126,9 +126,6 @@
       <div class="col-sm-7">
          <?php echo $this->formRow($form->get('observacao'), null, false);?>
           <?php 
-          if($tipo == 'add') {
-            echo $this->formRow($form->get('data_cadastro'), null, false);
-          }
           if($tipo == 'edit') {
               $form->get('data_altera')->setAttribute('value', date("Y-m-d"));
               echo $this->formRow($form->get('data_altera'), null, false);

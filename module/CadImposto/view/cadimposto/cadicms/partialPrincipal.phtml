@@ -16,7 +16,7 @@
     <div class="form-group">
       <label for="descricao" class="col-sm-2 control-label">CSOSN:</label>
       <div class="col-sm-6">
-          <?php $form->get('csosn')->setAttribute('options', $this->options_sel("SELECT codigo as id, codigo||' - '||descricao as data FROM tab_cst_icms"),null,false); //Enviar Sempre como id e data para o helper?>
+          <?php $form->get('csosn')->setAttribute('options', $this->options_sel("SELECT codigo as id, codigo||' - '||descricao as data FROM tab_csosn"),null,false); //Enviar Sempre como id e data para o helper?>
           <?php echo $this->formRow($form->get('csosn'), null, false);?>
       </div>
     </div>

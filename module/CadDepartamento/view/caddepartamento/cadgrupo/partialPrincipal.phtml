@@ -16,10 +16,7 @@
       <div class="col-sm-6">
           <?php $form->get('secao_id')->setAttribute('options', $this->options_sel("SELECT secao_id as id, descricao as data FROM cad_secao"),null,false); //Enviar Sempre como id e data para o helper?>
           <?php echo $this->formRow($form->get('secao_id'), null, false);?>
-          <?php 
-          if($tipo == 'add') {
-            echo $this->formRow($form->get('data_cadastro'), null, false);
-          }
+          <?php  
           if($tipo == 'edit') {
               $form->get('data_altera')->setAttribute('value', date("Y-m-d"));
               echo $this->formRow($form->get('data_altera'), null, false);
