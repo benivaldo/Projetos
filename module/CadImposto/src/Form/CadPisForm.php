@@ -55,6 +55,15 @@ class CadPisForm extends Form
             ),
         ));
         
+        $this->add(array(
+            'name' => 'data_altera',
+            'attributes' => array(
+                'type'  => 'hidden',
+                'class' => 'form-control input-sm',
+                'value' => date("Y-m-d")
+            ),
+        
+        ));
         
         $this->add(array(
             'name' => 'submit',

@@ -17,6 +17,12 @@
       <label for="aliquota" class="col-sm-2 control-label">Aliquota:</label>
       <div class="col-sm-2">
          <?php echo $this->formRow($form->get('aliquota'), null, false);?>
+         <?php 
+          if($tipo == 'edit') {
+              $form->get('data_altera')->setAttribute('value', date("Y-m-d"));
+              echo $this->formRow($form->get('data_altera'), null, false);
+          }
+          ?>
       </div>
     </div>
 </div>

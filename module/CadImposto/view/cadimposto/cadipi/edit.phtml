@@ -8,8 +8,8 @@ $this->headTitle($title);
 $form = $this->form;
 $id = $form->get('ipi_id')->getValue(); //Retorna valor do formulario, campo id
 $form->setAttribute('id', 'formIpiEdit');
-$form->setAttribute('class', 'form-horizontal form-add');
-$form->setAttribute('action', 'cadimposto/cadipi/add');
+$form->setAttribute('class', 'form-horizontal form-edit');
+$form->setAttribute('action', 'cadimposto/cadipi/edit/' . "id/" . $id  . "/" . $this->escapeHtml($this->div));
 $form->setAttribute('data-modulo', 'cadimposto');    //variavel de controle com o nome do modulo
 $form->setAttribute('data-ctrl', 'cadipi');      //variavel de controle com o nome do controle
 $form->setAttribute('data-titulo', 'IPI');         //variavel de controle com o titulo da tab

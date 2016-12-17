@@ -171,7 +171,7 @@ class AbstractCrudController extends CommonCrudController
         $result = $this->getTableGateway()->fetchAll(
             $this->pagination, 
             $this->params('page'), 
-            $this->params('total_page'),
+            (null !== $this->params('total_page') ? $this->params('total_page') : 10),
             (null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by), 
             $this->params('order'), 
             $this->searchFrase, 

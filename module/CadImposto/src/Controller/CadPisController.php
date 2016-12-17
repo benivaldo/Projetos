@@ -18,7 +18,7 @@ class CadPisController extends AbstractCrudController
     	$this->route = 'home';
     	$this->viewData = 'dados';
     	$this->pagination = true;
-    	$this->template = 'cadpis/cadpis/index.phtml';
+    	$this->template = 'cadimposto/cadpis/index.phtml';
     	$this->div = '';
     	$this->primaryKey = null;
     	$this->searchFrase;
@@ -26,10 +26,10 @@ class CadPisController extends AbstractCrudController
     	$this->inner;
     	$this->campo = 'descricao';
     	$this->idTable = 'pis_id';
-    	$this->colDataPesq = 'cad_grupo.data_cadastro';
+    	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'pis_id';
     	$this->group_by;
      }
 
@@ -38,19 +38,20 @@ class CadPisController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        /*Construção dos campos a serem pesquizados*/
+        
+       
+     /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
             if (is_numeric($this->params('search_frase'))) {
-                $this->searchFrase['id'] = $this->params('search_frase');
+                $this->searchFrase['pis_id'] = $this->params('search_frase');
             }
-            $this->searchFrase['title'] = strtolower($this->params('search_frase'));
-            $this->searchFrase['artist'] = strtolower($this->params('search_frase'));
-            $this->searchFrase['genre'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['codigo'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['descricao'] = strtolower($this->params('search_frase'));
         }
         /*Aqui será enviado os valores para a pesquisa por data*/
         if (strlen($this->params('data_ini')) > 0 || strlen($this->params('data_fin')) > 0) {
-            $this->searchDate['date_create'][] = $this->params('data_ini');
-            $this->searchDate['date_create'][] = $this->params('data_fin');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_ini');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_fin');
         }
         
         /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
@@ -60,9 +61,9 @@ class CadPisController extends AbstractCrudController
         $divDados  = explode("_", $this->params('div'));
         //Verifica se a paginação, quando existe paginação o nome da div é dados_nome_aba 
         if($divDados[0] == 'dados'){
-    	   $this->template = 'cadpis/cadpis/dados.phtml';
+    	   $this->template = 'cadimposto/cadpis/dados.phtml';
         }else{
-            $this->template = 'cadpis/cadpis/index.phtml';
+            $this->template = 'cadimposto/cadpis/index.phtml';
         }
 
     	return parent::indexAction();
@@ -73,8 +74,8 @@ class CadPisController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadpis/cadpis/index';
-        $this->template = 'cadpis/cadpis/edit.phtml';
+        $this->route = 'cadimposto/cadpis/index';
+        $this->template = 'cadimposto/cadpis/edit.phtml';
         return parent::editAction();
     }
     
@@ -83,8 +84,8 @@ class CadPisController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadpis/cadpis/index';
-        $this->template = 'cadpis/cadpis/add.phtml';
+        $this->route = 'cadimposto/cadpis/index';
+        $this->template = 'cadimposto/cadpis/add.phtml';
     	return parent::addAction();
     }
     
@@ -93,6 +94,43 @@ class CadPisController extends AbstractCrudController
         $this->getVariaveis();
         
         return parent::deleteAction();
+    }
+    
+    public function prevAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadpis/edit.phtml';
+         
+        $this->queryPrev = "select prev
+            from (
+            select  pis_id, descricao, data_cadastro,
+            lag(pis_id) over (order by pis_id asc) as prev,
+            lead(pis_id) over (order by pis_id asc) as next
+            from cad_pis
+            ) x
+            where ? IN (pis_id)";
+    
+    
+        return parent::prevAction();
+    }
+    
+    public function nextAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadpis/edit.phtml';
+    
+        $this->queryNext = "select next
+            from (
+            select  pis_id, descricao, data_cadastro,
+            lag(pis_id) over (order by pis_id asc) as prev,
+            lead(pis_id) over (order by pis_id asc) as next
+            from cad_pis
+            ) x
+            where ? IN (pis_id);";
+         
+        return parent::nextAction();
     }
     
     public function gridAction()

@@ -8,11 +8,10 @@ use Controle\Model\AbstractModel;
 
 class CadCofins extends AbstractModel
 {
-     public $cofins_id;
+     //public $cofins_id;
      public $codigo;
      public $descricao;
      public $aliquota;
-     public $data_cadastro;
      protected $inputFilter;                       // <-- Add this variable
 
      // Add content to these methods:
@@ -26,16 +25,16 @@ class CadCofins extends AbstractModel
          if (!$this->inputFilter) {
              $inputFilter = new InputFilter();
 
-             $inputFilter->add(array(
-                 'name'     => 'id',
+             /*$inputFilter->add(array(
+                 'name'     => 'cofins_id',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'Int'),
                  ),
-             ));
+             ));*/
 
-             $inputFilter->add(array(
-                 'name'     => 'artist',
+              $inputFilter->add(array(
+                 'name'     => 'descricao',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),
@@ -47,14 +46,14 @@ class CadCofins extends AbstractModel
                          'options' => array(
                              'encoding' => 'UTF-8',
                              'min'      => 1,
-                             'max'      => 100,
+                             'max'      => 60,
                          ),
                      ),
                  ),
              ));
 
              $inputFilter->add(array(
-                 'name'     => 'title',
+                 'name'     => 'codigo',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),
@@ -62,26 +61,36 @@ class CadCofins extends AbstractModel
                  ),
                  'validators' => array(
                      array(
-                         'name'    => 'StringLength',
+                         'name'    => 'NotEmpty',
                          'options' => array(
                              'encoding' => 'UTF-8',
-                             'min'      => 1,
-                             'max'      => 100,
+                             'min'      => 2,
+                             'max'      => 2,
+                             'messages' => array(
+                                  \Zend\Validator\NotEmpty::IS_EMPTY => 'O CST é obrigatório e não pode estar vazio '
+                             ),
                          ),
                      ),
                  ),
              ));
              
-             $inputFilter->add(array(
-                 'name'     => 'genreid',
-                 'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
-             ));
-
-             $this->inputFilter = $inputFilter;
-         }
+            $inputFilter->add(array(
+                'name' => 'aliquota',
+                'required' => true,
+               
+                'validators' => array(
+                    array(
+                        'name' => 'Regex',
+                        'options' => array(
+                            'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
+                            'min' => 0,
+                        ),
+                    ),
+                ),
+            ) );
+            
+            $this->inputFilter = $inputFilter;
+        }
 
          return $this->inputFilter;
      }

@@ -6,15 +6,17 @@ $this->headTitle($title);
 
 <?php
 $form = $this->form;
-$form->setAttribute('id', 'formIcmsAdd');
+$id = '';
+$form->setAttribute('id', 'formPisAdd');
 $form->setAttribute('class', 'form-horizontal form-add');
 $form->setAttribute('action', 'cadimposto/cadpis/add');
 $form->setAttribute('data-modulo', 'cadimposto');    //variavel de controle com o nome do modulo
 $form->setAttribute('data-ctrl', 'cadpis');      //variavel de controle com o nome do controle
 $form->setAttribute('data-titulo', 'PIS');         //variavel de controle com o titulo da tab
 $form->setAttribute('data-div', $this->escapeHtml($this->div));         //variavel de controle com o titulo do nome da div abas
+$form->setAttribute('data-order_by', 'pis_id');    //variavel de controle com o nome da chave primaria
+$form->setAttribute('data-id', $id);    //variavel de controle com o id a ser consultado
 $form->prepare();
-echo $this->form()->openTag($form);
 
 ?>
 <div class="container-fluid">
@@ -27,7 +29,7 @@ echo $this->form()->openTag($form);
             </ul>
             <div id="tabContent1" class="tab-content">
               <div class="tab-pane fade in active cadastro" id="abapis1">
-                <?php echo $this->partial('cadpis/partials/principal/partialPrincipal.phtml', array('form' => $form)); ?>
+                <?php echo $this->partial('partialPrincipal.phtml', array('form' => $form, 'tipo' => 'add')); ?>
               </div>                
               <div class="tab-pane fade cadastro" id="abapis2">
                 
@@ -37,7 +39,7 @@ echo $this->form()->openTag($form);
               </div>
             </div>	     
           </div>
-      <?php echo $this->partial('cadpis/partials/botoes/partialBotao.phtml', array('classe' => 'disabled')); ?>
+      <?php echo $this->partial('cadimposto/partials/botoes/partialBotao.phtml', array('classe' => 'disabled')); ?>
       <?php echo $this->form()->closeTag($form) ?> 
       <div id="div_popup_pis" class="popup"></div>
     </div>
