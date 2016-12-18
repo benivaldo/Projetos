@@ -9,7 +9,7 @@ use Controle\Model\AbstractModel;
 class CadIpi extends AbstractModel
 {
      //public $ipi_id;
-     public $cst;
+     public $codigo;
      public $descricao;
      public $aliquota;
      //public $data_cadastro;
@@ -54,7 +54,7 @@ class CadIpi extends AbstractModel
              ));
 
              $inputFilter->add(array(
-                 'name'     => 'cst',
+                 'name'     => 'codigo',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'StripTags'),

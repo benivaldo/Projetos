@@ -6,38 +6,41 @@ $this->headTitle($title);
 
 <?php
 $form = $this->form;
-$form->setAttribute('id', 'formAdd');
+$id = '';
+$form->setAttribute('id', 'formNcmAdd');
 $form->setAttribute('class', 'form-horizontal form-add');
 $form->setAttribute('action', 'cadimposto/cadncm/add');
 $form->setAttribute('data-modulo', 'cadimposto');    //variavel de controle com o nome do modulo
 $form->setAttribute('data-ctrl', 'cadncm');      //variavel de controle com o nome do controle
 $form->setAttribute('data-titulo', 'NCM');         //variavel de controle com o titulo da tab
 $form->setAttribute('data-div', $this->escapeHtml($this->div));         //variavel de controle com o titulo do nome da div abas
+$form->setAttribute('data-order_by', 'ncm_id');    //variavel de controle com o nome da chave primaria
+$form->setAttribute('data-id', $id);    //variavel de controle com o id a ser consultado
 $form->prepare();
-echo $this->form()->openTag($form);
 
 ?>
 <div class="container-fluid">
-	 <?php echo $this->form()->openTag($form)  ?>
+	  <?php echo $this->form()->openTag($form)  ?>
           <div role="tabpanel">
             <ul class="nav nav-tabs" role="tablist">
-              <li class="active"><a href="#abaimposto1" data-toggle="tab" role="tab">Principal</a></li>
-              <li><a href="#abaimposto2" data-toggle="tab" role="tab"></a></li>
-              <li><a href="#abaimposto3" data-toggle="tab" role="tab"></a></li>
+              <li class="active"><a href="#abancm1" data-toggle="tab" role="tab">Principal</a></li>
+              <li><a href="#abancm2" data-toggle="tab" role="tab"></a></li>
+              <li><a href="#abncm3" data-toggle="tab" role="tab"></a></li>
             </ul>
             <div id="tabContent1" class="tab-content">
-              <div class="tab-pane fade in active cadastro" id="abaimposto1">
-                <?php echo $this->partial('cadncm/partials/principal/partialPrincipal.phtml', array('form' => $form)); ?>
+              <div class="tab-pane fade in active cadastro" id="abancm1">
+                <?php echo $this->partial('partialPrincipal.phtml', array('form' => $form, 'tipo' => 'add')); ?>
               </div>                
-              <div class="tab-pane fade cadastro" id="abaimposto1">
+              <div class="tab-pane fade cadastro" id="abancm2">
                 
               </div>
-              <div class="tab-pane fade cadastro" id="abaimposto3">
+              <div class="tab-pane fade cadastro" id="abancm3">
                 <p>Dropdown content#1</p>
               </div>
             </div>	     
           </div>
-      <?php echo $this->partial('cadncm/partials/botoes/partialBotao.phtml', array('classe' => 'disabled')); ?>
+      <?php echo $this->partial('cadimposto/partials/botoes/partialBotao.phtml', array('classe' => 'disabled')); ?>
       <?php echo $this->form()->closeTag($form) ?> 
       <div id="div_popup_ncm" class="popup"></div>
     </div>
+

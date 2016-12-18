@@ -44,7 +44,7 @@ class CadIpiController extends AbstractCrudController
             if (is_numeric($this->params('search_frase'))) {
                 $this->searchFrase['ipi_id'] = $this->params('search_frase');
             }
-            $this->searchFrase['cst'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['codigo'] = strtolower($this->params('search_frase'));
             $this->searchFrase['descricao'] = strtolower($this->params('search_frase'));
         }
         /*Aqui será enviado os valores para a pesquisa por data*/

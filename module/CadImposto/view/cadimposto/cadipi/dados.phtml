@@ -5,7 +5,7 @@ $sessao = new Container();
 $url_order = 'ASC';
 if ($this->order_by == 'ipi_id') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
-} else if ($this->order_by == 'cst') {
+} else if ($this->order_by == 'codigo') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
 } else if ($this->order_by == 'descricao') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
@@ -18,7 +18,7 @@ if ($this->order_by == 'ipi_id') {
     <thead>
         <tr>
             <th><a href="#" onclick="returnView('cadimposto','cadipi',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'IPI','ipi_id','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Id <?php if ($this->order_by == 'ipi_id'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
-            <th><a href="#" onclick="returnView('cadimposto','cadipi',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'IPI','cst','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">CST <?php if ($this->order_by == 'cst'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('cadimposto','cadipi',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'IPI','codigo','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">CST <?php if ($this->order_by == 'codigo'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
             <th><a href="#" onclick="returnView('cadimposto','cadipi',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'IPI','descricao','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Descrição <?php if ($this->order_by == 'descricao'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
             <th><a href="#" onclick="returnView('cadimposto','cadipi',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'IPI','aliquota','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Alíquota <?php if ($this->order_by == 'aliquota'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
             <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Data</a></th>
@@ -30,7 +30,7 @@ if ($this->order_by == 'ipi_id') {
 <?php foreach($this->dados as $dado) : ?>   
         <tr>
             <td><?php echo $this->escapeHtml($dado->ipi_id);?></td>
-            <td><?php echo $this->escapeHtml($dado->cst);?></td>
+            <td><?php echo $this->escapeHtml($dado->codigo);?></td>
             <td><?php echo $this->escapeHtml($dado->descricao);?></td>
             <td><?php echo $this->escapeHtml($dado->aliquota);?></td>
             <td><?php echo $this->formata_data($this->escapeHtml($dado->data_cadastro));?></td>

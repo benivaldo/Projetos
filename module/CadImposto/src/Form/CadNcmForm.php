@@ -24,6 +24,7 @@ class CadNcmForm extends Form
                     'type'  => 'text',
                     'class' => 'form-control input-sm',
                     'placeholder' =>'Código',
+                    'maxlength' => '20',
             ),            
         ));
         
@@ -32,6 +33,7 @@ class CadNcmForm extends Form
             'attributes' => array(
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
+                'maxlength' => '10',
                 'placeholder' =>'NCM',
             ),        
         ));
@@ -42,6 +44,7 @@ class CadNcmForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Descrição',
+                'maxlength' => '255',
             ),
         
         ));
@@ -64,6 +67,7 @@ class CadNcmForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Natureza de operação',
+                'maxlength' => '3',
             ),
         
         ));
@@ -228,6 +232,16 @@ class CadNcmForm extends Form
                 'type'  => 'hidden',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'CEST',
+            ),
+        
+        ));
+        
+        $this->add(array(
+            'name' => 'data_altera',
+            'attributes' => array(
+                'type'  => 'hidden',
+                'class' => 'form-control input-sm',
+                'value' => date("Y-m-d")
             ),
         
         ));

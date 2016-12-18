@@ -24,12 +24,13 @@ class CadIpiForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Descrição',
+                'maxlength' => '60',
             ),            
         ));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'cst',
+            'name' => 'codigo',
             'attributes' => array(
                 'class' => 'form-control input-sm',
             ),

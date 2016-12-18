@@ -8,7 +8,18 @@ if ($this->pageCount >= 0):
              <!-- Currente link -->
                 <?php if($this->current != 1): ?>
                     <li>
-                    	<a href="#" class="paginator-page-number" data-page="1" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                    	<a href="#" class="paginator-page-number" data-page="1" 
+                    	   data-modulo="<?php echo $this->data_modulo; ?>" 
+                    	   data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                    	   data-titulo="<?php echo $this->data_titulo; ?>" 
+                    	   data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                    	   data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	   data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	   data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                    	   >
                            	&laquo;
                          </a>
     
@@ -23,7 +34,17 @@ if ($this->pageCount >= 0):
                 <!-- Previous page link -->
                 <?php if (isset($this->previous)): ?>
                     <li>
-                    	<a href="#" class="paginator-page-number" data-page="<?php echo $this->previous; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                    	<a href="#" class="paginator-page-number" data-page="<?php echo $this->previous; ?>" 
+                    	   data-modulo="<?php echo $this->data_modulo; ?>" 
+                    	   data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                    	   data-titulo="<?php echo $this->data_titulo; ?>" 
+                    	   data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                    	   data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                    	   data-order="<?php echo $this->escapeHtml($this->order);?>"
+                    	   data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	   data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	   data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                    	>
       						&lt;
                         </a>
                     </li>
@@ -38,7 +59,18 @@ if ($this->pageCount >= 0):
                 <?php foreach ($this->pagesInRange as $page): ?>
                     <?php if ($page != $this->current): ?>
                         <li>
-                            <a href="#" class="paginator-page-number" data-page="<?php echo $page; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                            <a href="#" class="paginator-page-number" 
+                                data-page="<?php echo $page; ?>" 
+                                data-modulo="<?php echo $this->data_modulo; ?>" 
+                                data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                                data-titulo="<?php echo $this->data_titulo; ?>" 
+                                data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                                data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                                data-order="<?php echo $this->escapeHtml($this->order);?>"
+                                data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>"  
+                        	    data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                        	    data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                                >
                                 <?php echo $page; ?>
                             </a>
                         </li>
@@ -52,7 +84,18 @@ if ($this->pageCount >= 0):
                 <!-- Next page link -->
                 <?php if (isset($this->next)): ?>
                     <li>
-                        <a href="#" class="paginator-page-number" data-page="<?php echo $this->next; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+                        <a href="#" class="paginator-page-number" 
+                            data-page="<?php echo $this->next; ?>" 
+                            data-modulo="<?php echo $this->data_modulo; ?>" 
+                            data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                            data-titulo="<?php echo $this->data_titulo; ?>" 
+                            data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                            data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                            data-order="<?php echo $this->escapeHtml($this->order);?>"
+                            data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>" 
+                    	    data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	    data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                            >                            
     						&gt;
                         </a>
                     </li>
@@ -66,8 +109,19 @@ if ($this->pageCount >= 0):
                 <!-- Last page link -->
                  <?php if($this->current != $this->pageCount): ?>
                     <li>
-                   	 <a href="#" class="paginator-page-number" data-page="<?php echo $this->pageCount; ?>" data-modulo="album" data-ctrl="album" data-titulo="Album" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
-    					&raquo;
+                   	 <a href="#" class="paginator-page-number" 
+                       	 data-page="<?php echo $this->pageCount; ?>" 
+                       	 data-modulo="<?php echo $this->data_modulo; ?>" 
+                       	 data-ctrl="<?php echo $this->data_ctrl; ?>" 
+                       	 data-titulo="<?php echo $this->data_titulo; ?>" 
+                       	 data-div="dados_<?php echo $this->escapeHtml($this->div);?>" 
+                       	 data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" 
+                       	 data-order="<?php echo $this->escapeHtml($this->order);?>"
+                       	 data-data_ini="<?php echo $this->escapeHtml($this->data_ini);?>"  
+                    	 data-data_fin="<?php echo $this->escapeHtml($this->data_fin);?>"
+                    	 data-search_frase="<?php echo $this->escapeHtml($this->search_frase);?>"
+                   	 >
+    				 &raquo;
     				</a>
     
                     </li>

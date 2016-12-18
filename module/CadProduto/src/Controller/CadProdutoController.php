@@ -18,7 +18,7 @@ class CadProdutoController extends AbstractCrudController
     	$this->route = 'home';
     	$this->viewData = 'dados';
     	$this->pagination = true;
-    	$this->template = 'cadproduto/index.phtml';
+    	$this->template = 'cadproduto/cadproduto/index.phtml';
     	$this->div = '';
     	$this->primaryKey = null;
     	$this->searchFrase;
@@ -29,7 +29,7 @@ class CadProdutoController extends AbstractCrudController
     	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'produto_id';
     	$this->group_by;
      }
 
@@ -38,6 +38,7 @@ class CadProdutoController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
+        
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
             if (is_numeric($this->params('search_frase'))) {
@@ -47,10 +48,11 @@ class CadProdutoController extends AbstractCrudController
             $this->searchFrase['desc_resumida'] = strtolower($this->params('search_frase'));
             //$this->searchFrase['sku'] = strtolower($this->params('search_frase'));
         }
+        
         /*Aqui será enviado os valores para a pesquisa por data*/
         if (strlen($this->params('data_ini')) > 0 || strlen($this->params('data_fin')) > 0) {
-            $this->searchDate['date_cadastro'][] = $this->params('data_ini');
-            $this->searchDate['date_cadastro'][] = $this->params('data_fin');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_ini');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_fin');
         }
         
         /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
@@ -60,9 +62,9 @@ class CadProdutoController extends AbstractCrudController
         $divDados  = explode("_", $this->params('div'));
         //Verifica se a paginação, quando existe paginação o nome da div é dados_nome_aba 
         if($divDados[0] == 'dados'){
-    	   $this->template = 'cadproduto/dados.phtml';
+    	   $this->template = 'cadproduto/cadproduto/dados.phtml';
         }else{
-            $this->template = 'cadproduto/index.phtml';
+            $this->template = 'cadproduto/cadproduto/index.phtml';
         }
 
     	return parent::indexAction();
@@ -73,8 +75,8 @@ class CadProdutoController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadproduto/index';
-        $this->template = 'cadproduto/edit.phtml';
+        $this->route = 'cadproduto/cadproduto/index';
+        $this->template = 'cadproduto/cadproduto/edit.phtml';
         return parent::editAction();
     }
     
@@ -83,8 +85,8 @@ class CadProdutoController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadproduto/index';
-        $this->template = 'cadproduto/add.phtml';
+        $this->route = 'cadproduto/cadproduto/index';
+        $this->template = 'cadproduto/cadproduto/add.phtml';
     	return parent::addAction();
     }
     

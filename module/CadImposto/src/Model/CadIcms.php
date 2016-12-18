@@ -8,7 +8,7 @@ use Controle\Model\AbstractModel;
 
 class CadIcms extends AbstractModel
 {
-     public $icms_id;
+     //public $icms_id;
      public $cst;
      public $descricao;
      public $tributacao;
@@ -38,13 +38,13 @@ class CadIcms extends AbstractModel
          if (!$this->inputFilter) {
              $inputFilter = new InputFilter();
 
-             $inputFilter->add(array(
+             /*$inputFilter->add(array(
                  'name'     => 'icms_id',
                  'required' => true,
                  'filters'  => array(
                      array('name' => 'Int'),
                  ),
-             ));
+             ));*/
 
              $inputFilter->add(array(
                  'name'     => 'descricao',

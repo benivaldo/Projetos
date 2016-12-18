@@ -121,7 +121,10 @@ class CadProdutoForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'secao_id',
             'attributes' => array(
-                'class' => 'form-control input-sm',
+                'class' => 'form-control input-sm select-create',
+                'data-ctrl_pesquisa' => 'cadgrupo',
+                'data-novo_select'   => 'grupo_id',
+                'data-modulo'   => 'caddepartamento'
             ),
             'options' => array(
                 'empty_option' => 'Selecione uma seção',
@@ -133,7 +136,10 @@ class CadProdutoForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'grupo_id',
             'attributes' => array(
-                'class' => 'form-control input-sm',
+                'class' => 'form-control input-sm select-create',
+                'data-ctrl_pesquisa' => 'cadsubgrupo',
+                'data-novo_select'   => 'subgrupo_id',
+                'data-modulo'   => 'caddepartamento'
             ),
             'options' => array(
                 'empty_option' => 'Selecione um grupo',

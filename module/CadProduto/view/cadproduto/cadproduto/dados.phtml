@@ -3,24 +3,21 @@ use Zend\Session\Container;
 $sessao = new Container();
 
 $url_order = 'ASC';
-if ($this->order_by == 'id') {
+if ($this->order_by == 'produto_id') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
-} else if ($this->order_by == 'title') {
+} else if ($this->order_by == 'plu') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
-} else if ($this->order_by == 'artist') {
+} else if ($this->order_by == 'descricao') {
     $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
-} else if ($this->order_by == 'genre') {
-    $url_order = ($this->order == 'ASC' ? 'DESC' : 'ASC');
-}
+} 
 ?>
 
 <table class="table table-condensed table-striped">
     <thead>
         <tr>
-            <th><a href="#" onclick="returnView('produto','produto',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','plu','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Plu <?php if ($this->order_by == 'plu'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
-            <th><a href="#" onclick="returnView('album','album',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','descricao','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Descricao <?php if ($this->order_by == 'descricao'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
-            <th><a href="#" onclick="returnView('album','album',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','artist','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Ncm <?php if ($this->order_by == 'artist'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
-            <th><a href="#" onclick="returnView('album','album',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','genre','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Preço <?php if ($this->order_by == 'genre'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('cadproduto','cadproduto',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','produto_id','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Id <?php if ($this->order_by == 'produto_id'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('cadproduto','cadproduto',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','plu','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">PLU <?php if ($this->order_by == 'plu'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
+            <th><a href="#" onclick="returnView('cadproduto','cadproduto',<?php echo $this->page ?>,'index','<?php echo 'dados_'.$this->escapeHtml($this->div); ?>','<?php echo $this->escapeHtml($this->search_frase); ?>','<?php echo $this->escapeHtml($this->data_ini); ?>','<?php echo $this->escapeHtml($this->data_fin); ?>',0,'Produto','descricao','<?php echo $url_order; ?>')" data-rel="<?php echo $this->escapeHtml($this->div);?>">Descrição <?php if ($this->order_by == 'descricao'): ?><i class="fa fa-sort-<?php echo $this->order == 'ASC' ? 'asc' : 'desc' ?>"></i><?php endif; ?></a></th>
             <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Data</a></th>
             <th><a href="#" onclick="returnView('cadproduto','cadproduto',1,'add','<?php echo $this->escapeHtml($this->div); ?>','','','',0,'Produto')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
                 <i class="fa fa-plus-square"></i></a></th>
@@ -29,48 +26,20 @@ if ($this->order_by == 'id') {
     <tbody> 
 <?php foreach($this->dados as $dado) : ?>   
         <tr>
+            <td><?php echo $this->escapeHtml($dado->produto_id);?></td>
             <td><?php echo $this->escapeHtml($dado->plu);?></td>
             <td><?php echo $this->escapeHtml($dado->descricao);?></td>
-            <td><?php echo $this->escapeHtml($dado->ncm);?></td>
-            <td></td>
-            <td><?php echo $this->formata_data($this->escapeHtml($dado->data_cad));?></td>
+            <td><?php echo $this->formata_data($this->escapeHtml($dado->data_cadastro));?></td>
             <td>
-                <a href="#" onclick="returnView('cadproduto','cadproduto',1,'edit','<?php echo $this->escapeHtml($this->div); ?>','','','','<?php echo $this->escapeHtml($album->id);?>','Produto')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
-                <i class="fa fa-pencil-square"></i>                
-                </a>&nbsp;
-                <a href="#" onclick="deletar(<?php echo $this->escapeHtml($album->id);?>)"><i class=" delete fa fa-times"></i>
-                </a>
+                <a href="#" onclick="returnView('cadproduto','cadproduto',1,'edit','<?php echo $this->escapeHtml($this->div); ?>','','','','<?php echo $this->escapeHtml($dado->produto_id);?>','Produto')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
+                	<i class="fa fa-pencil-square"></i>  
+                </a>            
             </td>
         </tr>    
 <?php endforeach; ?>
     </tbody>
 </table>
-<script type="text/javascript">
-    function deletar(id){
-        	var r = confirm("Deseja mesmo excluir esse registro?");
-    	    if (r == true) {
-   	    	 $.ajax({
-	                url     :"album/album/delete/id/"+ id,// or the ure of your action
-	                type    : 'POST',// POST, GET
-	                cache   : false,
-	                data    : {del: 'Yes'}, // the data from your form , in your case the :selected
-	                dataType: "json",
-	                success : function(data)
-	                {
-	                    alert(data.errorMessage);
-	                    //Aqui se deve colocar uma rota para voltar ao index
-	                    returnView('cadproduto','cadproduto',1,'index','<?php echo $this->escapeHtml($this->div);?>','','','','','Produto');
-	                },
-	    
-	                error   : function(XMLHttpRequest, textStatus, errorThrown){
-	                    alert('Error: ');
-	                }
-   	    	 });
-    	    } else {
-    	        txt = "You pressed Cancel!";
-    	    }
-    }
-</script>
+
 <?php
 if($this->dados instanceof Zend\Paginator\Paginator) {
     echo $this->paginationControl(
@@ -83,8 +52,11 @@ if($this->dados instanceof Zend\Paginator\Paginator) {
             'page' => $this->page,
             'search_frase' => $this->search_frase,
             'data_ini' => $this->data_ini, 
-            'data_fin' => $this->data_fin
+            'data_fin' => $this->data_fin,
+            'data_modulo' => 'cadproduto',
+            'data_ctrl' => 'cadproduto',
+            'data_titulo' => 'Produto',
         )
-        );
+    );
 }
 ?> 

@@ -27,6 +27,7 @@ class CadSubGrupoForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Descrição do subgrupo',
+                'maxlength' => '50',
             ),
             
         ));

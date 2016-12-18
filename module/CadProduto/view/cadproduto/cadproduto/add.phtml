@@ -6,16 +6,17 @@ $this->headTitle($title);
 
 <?php
 $form = $this->form;
+$id = '';
 $form->setAttribute('id', 'formProdutoAdd');
 $form->setAttribute('class', 'form-horizontal form-add');
-$form->setAttribute('action', 'cadproduto/cadproduto/add');
+$form->setAttribute('action', 'cadimposto/cadproduto/add');
 $form->setAttribute('data-modulo', 'cadproduto');    //variavel de controle com o nome do modulo
 $form->setAttribute('data-ctrl', 'cadproduto');      //variavel de controle com o nome do controle
 $form->setAttribute('data-titulo', 'Produto');         //variavel de controle com o titulo da tab
 $form->setAttribute('data-div', $this->escapeHtml($this->div));         //variavel de controle com o titulo do nome da div abas
+$form->setAttribute('data-order_by', 'produto_id');    //variavel de controle com o nome da chave primaria
+$form->setAttribute('data-id', $id);    //variavel de controle com o id a ser consultado
 $form->prepare();
-echo $this->form()->openTag($form);
-
 ?>
 <div class="container-fluid">
 	  <?php echo $this->form()->openTag($form)  ?>
@@ -27,10 +28,10 @@ echo $this->form()->openTag($form);
             </ul>
             <div id="tabContent1" class="tab-content">
               <div class="tab-pane fade in active cadastro" id="abaproduto1">
-                <?php echo $this->partial('cadproduto/partials/principal/partialPrincipal.phtml', array('form' => $form)); ?>
+                <?php echo $this->partial('partialPrincipal.phtml', array('form' => $form, 'tipo' => 'add')); ?>
               </div>                
               <div class="tab-pane fade cadastro" id="abaproduto2">
-                 <?php echo $this->partial('cadproduto/partials/imposto/partialImposto.phtml', array('form' => $form)); ?>
+                 <?php echo $this->partial('partialImposto.phtml',  array('form' => $form, 'tipo' => 'add')); ?>
               </div>
               <div class="tab-pane fade cadastro" id="abaproduto3">
                 <p>Dropdown content#1</p>

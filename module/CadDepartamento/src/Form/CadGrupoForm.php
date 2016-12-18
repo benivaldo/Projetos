@@ -27,6 +27,7 @@ class CadGrupoForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Descrição do grupo',
+                'maxlength' => '50',
             ),
             
         ));

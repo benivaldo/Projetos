@@ -27,6 +27,7 @@
             <div class="form-group">
              <label for="icms_pdv_id" class="col-sm-2 control-label">Trib. ECF:</label>
               <div class="col-sm-6">
+              	  <?php $form->get('icms_pdv_id')->setAttribute('options', $this->options_sel("SELECT icms_id as id, cst||' - '||descricao as data FROM cad_icms where uso in (4)"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('icms_pdv_id'), null, false);?>
               </div>
             </div>
@@ -43,6 +44,7 @@
             <div class="form-group">
              <label for="icms_nf_compra_id" class="col-sm-2 control-label">Icms de compra:</label>
               <div class="col-sm-6">
+              	  <?php $form->get('icms_nf_entrada_id')->setAttribute('options', $this->options_sel("SELECT icms_id as id, cst||' - '||descricao as data FROM cad_icms where uso in (1,2)"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('icms_nf_entrada_id'), null, false);?>
               </div>
             </div>
@@ -59,6 +61,7 @@
             <div class="form-group">
               <label for="icms_nf_venda_id" class="col-sm-2 control-label">Icms de venda:</label>
               <div class="col-sm-6">
+              	  <?php $form->get('icms_nf_saida_id')->setAttribute('options', $this->options_sel("SELECT icms_id as id, cst||' - '||descricao as data FROM cad_icms where uso in (1,3)"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('icms_nf_saida_id'), null, false);?>
               </div>
             </div>
@@ -86,6 +89,7 @@
             <div class="form-group">
               <label for="ipi_compra_id" class="col-sm-2 control-label">IPI de compra:</label>
               <div class="col-sm-6">
+                  <?php $form->get('ipi_entrada_id')->setAttribute('options', $this->options_sel("SELECT ipi_id as id, codigo||' - '||descricao as data FROM cad_ipi"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('ipi_entrada_id'), null, false);?>
               </div>
             </div>                    
@@ -102,6 +106,7 @@
             <div class="form-group">
               <label for="pis_venda_id" class="col-sm-2 control-label">IPI de venda:</label>
               <div class="col-sm-6">
+                  <?php $form->get('ipi_saida_id')->setAttribute('options', $this->options_sel("SELECT ipi_id as id, codigo||' - '||descricao as data FROM cad_ipi"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('ipi_saida_id'), null, false);?>
               </div>
             </div>                    
@@ -123,6 +128,7 @@
             <div class="form-group">
               <label for="pis_compra_id" class="col-sm-2 control-label">Pis de compra:</label>
               <div class="col-sm-6">
+              	  <?php $form->get('pis_entrada_id')->setAttribute('options', $this->options_sel("SELECT cst_pis_id as id, codigo||' - '||descricao as data FROM tab_cst_pis"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('pis_entrada_id'), null, false);?>
               </div>
             </div>                    
@@ -139,6 +145,7 @@
             <div class="form-group">
               <label for="pis_venda_id" class="col-sm-2 control-label">Pis de venda:</label>
               <div class="col-sm-6">
+                  <?php $form->get('pis_saida_id')->setAttribute('options', $this->options_sel("SELECT cst_pis_id as id, codigo||' - '||descricao as data FROM tab_cst_pis"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('pis_saida_id'), null, false);?>
               </div>
             </div>                    
@@ -159,6 +166,7 @@
               <div class="form-group">
               <label for="cofins_compra_id" class="col-sm-2 control-label">Cofins de compra:</label>
               <div class="col-sm-6">
+                  <?php $form->get('cofins_entrada_id')->setAttribute('options', $this->options_sel("SELECT cst_cofins_id as id, codigo||' - '||descricao as data FROM tab_cst_cofins"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('cofins_entrada_id'), null, false);?>
               </div>
             </div>                    
@@ -175,6 +183,7 @@
             <div class="form-group">
               <label for="cofins_venda_id" class="col-sm-2 control-label">Cofins de venda:</label>
               <div class="col-sm-6">
+                  <?php $form->get('cofins_saida_id')->setAttribute('options', $this->options_sel("SELECT cst_cofins_id as id, codigo||' - '||descricao as data FROM tab_cst_cofins"),null,false); //Enviar Sempre como id e data para o helper?>
                   <?php echo $this->formRow($form->get('cofins_saida_id'), null, false);?>
               </div>
             </div>                    

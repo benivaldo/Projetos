@@ -18,7 +18,7 @@ class CadEanController extends AbstractCrudController
     	$this->route = 'home';
     	$this->viewData = 'dados';
     	$this->pagination = true;
-    	$this->template = 'cadean/index.phtml';
+    	$this->template = 'cadproduto/cadean/index.phtml';
     	$this->div = '';
     	$this->primaryKey = null;
     	$this->searchFrase;
@@ -29,7 +29,7 @@ class CadEanController extends AbstractCrudController
     	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'sku_id';
     	$this->group_by;
      }
 

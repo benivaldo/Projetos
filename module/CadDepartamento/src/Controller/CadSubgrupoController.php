@@ -153,15 +153,13 @@ class CadSubGrupoController extends AbstractCrudController
     
     public function getAction()
     {
-        $this->colunas = array('id' => 'secao_id');
+        $this->getVariaveis();
+        
+        $this->colunas = array('id' => 'subgrupo_id', 'nome' => 'descricao' );
         $this->order_by = 'nome'; // Colocar o mesmo do campo da coluna caso seja usado o alias usar o nome do alias
         $this->group_by = array('id', 'nome');
-        $this->inner[] = array(
-            "table"     => 'cad_secao',
-            "join"   => 'cad_grupo.secao_id = cad_secao.secao_id',
-            "tipoJoin"      => 'inner',
-            "columns" => array('nome' => 'descricao')
-        );
+        $this->whereCampo = array("grupo_id = ".$this->params('id'));
+
         return parent::getAction();
     }
     

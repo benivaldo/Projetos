@@ -24,9 +24,10 @@ class CadSecaoForm extends Form
         $this->add(array(
                 'name' => 'descricao',
                 'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control input-sm',
-                'placeholder' =>'Descrição da seção',
+                    'type'  => 'text',
+                    'class' => 'form-control input-sm',
+                    'placeholder' =>'Descrição da seção',
+                    'maxlength' => '50',
             ),
             
         ));

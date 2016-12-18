@@ -18,7 +18,7 @@ class CadNcmController extends AbstractCrudController
     	$this->route = 'home';
     	$this->viewData = 'dados';
     	$this->pagination = true;
-    	$this->template = 'cadncm/index.phtml';
+    	$this->template = 'cadimposto/cadncm/index.phtml';
     	$this->div = '';
     	$this->primaryKey = null;
     	$this->searchFrase;
@@ -26,10 +26,10 @@ class CadNcmController extends AbstractCrudController
     	$this->inner;
     	$this->campo = 'descricao';
     	$this->idTable = 'ncm_id';
-    	$this->colDataPesq = 'cad_grupo.data_cadastro';
+    	$this->colDataPesq = 'data_cadastro';
     	$this->whereCampo;
     	$this->colunas;
-    	$this->order_by;
+    	$this->order_by = 'ncm_id';
     	$this->group_by;
      }
 
@@ -38,18 +38,19 @@ class CadNcmController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
+        
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
             if (is_numeric($this->params('search_frase'))) {
-                $this->searchFrase['id'] = $this->params('search_frase');
+                $this->searchFrase['ncm_id'] = $this->params('search_frase');
             }
             $this->searchFrase['codigo'] = strtolower($this->params('search_frase'));
             $this->searchFrase['descricao'] = strtolower($this->params('search_frase'));
         }
         /*Aqui será enviado os valores para a pesquisa por data*/
         if (strlen($this->params('data_ini')) > 0 || strlen($this->params('data_fin')) > 0) {
-            $this->searchDate['data_cadastro'][] = $this->params('data_ini');
-            $this->searchDate['date_cadastro'][] = $this->params('data_fin');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_ini');
+            $this->searchDate[$this->colDataPesq][] = $this->params('data_fin');
         }
         
         /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
@@ -59,9 +60,9 @@ class CadNcmController extends AbstractCrudController
         $divDados  = explode("_", $this->params('div'));
         //Verifica se a paginação, quando existe paginação o nome da div é dados_nome_aba 
         if($divDados[0] == 'dados'){
-    	   $this->template = 'cadncm/dados.phtml';
+    	   $this->template = 'cadimposto/cadncm/dados.phtml';
         }else{
-            $this->template = 'cadncm/index.phtml';
+            $this->template = 'cadimposto/cadncm/index.phtml';
         }
 
     	return parent::indexAction();
@@ -72,8 +73,8 @@ class CadNcmController extends AbstractCrudController
         $this->getVariaveis();
         
         $this->div = $this->params('div');
-        $this->route = 'cadncm/cadncm/index';
-        $this->template = 'cadncm/cadncm/edit.phtml';
+        $this->route = 'cadimposto/cadncm/index';
+        $this->template = 'cadimposto/cadncm/edit.phtml';
         return parent::editAction();
     }
     
@@ -81,8 +82,8 @@ class CadNcmController extends AbstractCrudController
     {
         $this->getVariaveis();
         $this->div = $this->params('div');
-        $this->route = 'cadncm/cadncm/index';
-        $this->template = 'cadncm/cadncm/add.phtml';
+        $this->route = 'cadimposto/cadncm/index';
+        $this->template = 'cadimposto/cadncm/add.phtml';
     	return parent::addAction();
     }
     
@@ -91,6 +92,43 @@ class CadNcmController extends AbstractCrudController
         $this->getVariaveis();
         
         return parent::deleteAction();
+    }
+    
+    public function prevAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadncm/edit.phtml';
+         
+        $this->queryPrev = "select prev
+            from (
+            select  ncm_id, descricao, data_cadastro,
+            lag(ncm_id) over (order by ncm_id asc) as prev,
+            lead(ncm_id) over (order by ncm_id asc) as next
+            from cad_ncm
+            ) x
+            where ? IN (ncm_id)";
+    
+    
+        return parent::prevAction();
+    }
+    
+    public function nextAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'cadimposto/cadncm/edit.phtml';
+    
+        $this->queryNext = "select next
+            from (
+            select  ncm_id, descricao, data_cadastro,
+            lag(ncm_id) over (order by ncm_id asc) as prev,
+            lead(ncm_id) over (order by ncm_id asc) as next
+            from cad_ncm
+            ) x
+            where ? IN (ncm_id);";
+         
+        return parent::nextAction();
     }
     
     public function gridAction()

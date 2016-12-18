@@ -43,17 +43,10 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'CNPJ',
+                'maxlength' => '14',
             ),            
         ));
         
-        $this->add(array(
-            'name' => 'cnpj_cpf',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control input-sm',
-                'placeholder' =>'CNPJ',
-            ),        
-        ));
 
         $this->add(array(
             'name' => 'ie_rg',
@@ -61,6 +54,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Inscrição Estadual',
+                'maxlength' => '20',
             ),        
         ));
         
@@ -70,6 +64,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Inscrição Estadual ST',
+                'maxlength' => '20',
             ),        
         ));
         
@@ -79,6 +74,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Razão social',
+                'maxlength' => '60',
             ),        
         ));
         
@@ -88,6 +84,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Nome Fantasia',
+                'maxlength' => '40',
             ),        
         ));
         
@@ -113,6 +110,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Cep',
+                'maxlength' => '9',
             ),
             'options' => array(
 
@@ -125,6 +123,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Logradouro',
+                'maxlength' => '60',
             ),
             'options' => array(
         
@@ -149,6 +148,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Complemennto',
+                'maxlength' => '20',
             ),
             'options' => array(
         
@@ -161,6 +161,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Bairro',
+                'maxlength' => '60',
             ),
             'options' => array(
         
@@ -208,6 +209,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Contato',
+                'maxlength' => '60',
             ),
             'options' => array(
         
@@ -220,6 +222,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'textarea',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Observação',
+                'maxlength' => '255',
             ),
             'options' => array(
         
@@ -232,6 +235,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'E-mail',
+                'maxlength' => '50',
             ),
             'options' => array(
         
@@ -244,6 +248,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Suframa',
+                'maxlength' => '20',
             ),
             'options' => array(
         
@@ -272,6 +277,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Telefone',
+                'maxlength' => '13',
             ),
             'options' => array(
         
@@ -284,6 +290,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Ramal',
+                'maxlength' => '10',
             ),
             'options' => array(
         
@@ -296,6 +303,7 @@ class CadFornecedorForm extends Form
                 'type'  => 'text',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Celular',
+                'maxlength' => '14',
             ),
             'options' => array(
         
