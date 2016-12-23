@@ -12,7 +12,6 @@ class CadSubGrupo extends AbstractModel
     public $descricao;
     public $secao_id;
     public $grupo_id;
-    public $data_cadastro;
     public $data_altera;
     
     protected $inputFilter;                       // <-- Add this variable
@@ -61,16 +60,30 @@ class CadSubGrupo extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'secao_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
+                'validators' => array(
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Seção Obrigatório.' 
+                            ),
+                        ),
+                    ),
                 ),
             ));
              
             $inputFilter->add(array(
                 'name'     => 'grupo_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
+                'validators' => array(
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Grupo Obrigatório.' 
+                            ),
+                        ),
+                    ),
                 ),
             ));
 

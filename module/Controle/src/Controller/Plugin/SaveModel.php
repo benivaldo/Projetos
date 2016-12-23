@@ -17,15 +17,22 @@ class SaveModel extends AbstractPlugin
      * @param object $form
      * @param string $route
      */
-	public function save($model, $tableGateway, $form, $route = 'home')
+	public function save($model, $tableGateway, $form, $route = 'home', $removeFromPost = array())
 	{
 	    $erro = '';
 		$request = $this->getController()->getRequest();
 		
-		if ($request->isPost()) {
+		if ($request->isPost() && count($request->getPost()) != 0) {
 		    $form->setInputFilter($model->getInputFilter());
+		    /*Remove itens do post*/
+		    foreach ($removeFromPost as $name) {
+                //$form->remove($name);
+                $form->getInputFilter()->remove($name);
+		    }
+
 			$form->setData($request->getPost());
 			if ($form->isValid()) {
+			    
 				$model->exchangeArray($form->getData());
 
 				if (!$resp = $tableGateway->save($model)) {
@@ -33,7 +40,7 @@ class SaveModel extends AbstractPlugin
 				} else {
 				    return $resp;
 				}
-			} else {			    
+			} else {	
 			    foreach ($form->getMessages() as $key => $campo) {
     			    foreach ($campo as $key1 => $value) {
     			    	$erro .= "Campo $key: $value \n";

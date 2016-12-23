@@ -5,6 +5,8 @@ namespace CadProduto\Controller;
 use Controle\Controller\AbstractCrudController;
 use CadProduto\Model\CadProduto;
 use CadProduto\Form\CadProdutoForm;
+use Zend\View\Model\ViewModel;
+use CadProduto\Model\CadEan;
 
 class CadProdutoController extends AbstractCrudController
 {
@@ -87,7 +89,63 @@ class CadProdutoController extends AbstractCrudController
         $this->div = $this->params('div');
         $this->route = 'cadproduto/cadproduto/index';
         $this->template = 'cadproduto/cadproduto/add.phtml';
-    	return parent::addAction();
+        
+        //return parent::addAction();
+        
+        $form = $this->form;
+        $removeFromPost = array('sku', 
+            'ncm_cod', 
+            'ncm_desc', 
+            'aliq_pis_entrada',            
+            'cst_pis_entrada',
+            'aliq_pis_saida',
+            'cst_pis_saida',
+            "aliq_cofins_entrada",
+            "cst_cofins_entrada",
+            "aliq_cofins_saida",
+            "cst_cofins_saida",
+            "aliq_ipi_entrada",
+            "cst_ipi_entrada",
+            "aliq_ipi_saida",
+            "cst_ipi_saida",
+            "trib_pdv",
+            "aliq_pdv",
+            "reducao_base_entrada",
+            "aliq_base_entrada",
+            "reducao_base_saida",
+            "aliq_base_saida",            
+        );
+        $request = $this->getRequest();
+        
+        if ($request->isPost() && count($request->getPost()) != 0) {
+            $this->getEvent()->getRouteMatch()->setParam('plu', 1);
+        }
+        $this->getEvent()->getRouteMatch()->setParam('plu', 1);
+        
+        $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $removeFromPost );
+        $pluId = $this->errorMessage['id'];
+        if (is_numeric($pluId)) {
+            $tableGatewayEan = $this->container->get('CadProduto\Model\CadEanTable');
+            $ean = array(
+                'sku' => $this->params()->fromPost('sku'),
+                'plu_id' => $pluId,
+                'ativo' => true,
+                'data_cadastro' => date('Y-m-d'),
+            );
+            $modelEan = new CadEan();
+            $modelEan->exchangeArray($ean);
+            $this->errorMessage = $tableGatewayEan->save($modelEan);
+            $this->errorMessage['id'] = $pluId;   // Atribui novamente o id da tb_produto
+        }
+        
+        $this->viewModel = new ViewModel(array ('form' => $form,
+            'div' => $this->div,
+        ));
+        
+        return parent::verificaAjaxJson($this->viewModel);
+       
+        
+    	//return parent::addAction();
     }
     
     public function deleteAction()

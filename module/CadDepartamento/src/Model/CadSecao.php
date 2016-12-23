@@ -10,7 +10,6 @@ class CadSecao extends AbstractModel
 {
      public $secao_id;
      public $descricao;
-     public $data_cadastro;
      public $data_altera;
      protected $inputFilter;                       // <-- Add this variable
 

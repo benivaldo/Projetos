@@ -11,11 +11,9 @@ class CadGrupo extends AbstractModel
     public $grupo_id;
     public $descricao;
     public $secao_id;
-    public $data_cadastro;
     public $data_altera;
     protected $inputFilter;                       // <-- Add this variable
-    public $toolsNfe;
-
+ 
      // Add content to these methods:
    
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -61,8 +59,15 @@ class CadGrupo extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'secao_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
+                'validators' => array(
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Seção Obrigatório.' 
+                            ),
+                        ),
+                    ),
                 ),
             ));
  

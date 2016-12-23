@@ -3,15 +3,15 @@
       <label for="cod_ncm" class="col-sm-2 control-label">Classificação fiscal:</label>
       <div class="col-sm-2">
         <div class="input-group"> 
-          <?php echo $this->formRow($form->get('ncm_id'), null, false);?>
-          <input id="cod_ncm" type="text" class="form-control input-sm"  placeholder="Ncm">
+           <?php echo $this->formRow($form->get('ncm_cod'), null, false);?>
+           <?php echo $this->formRow($form->get('ncm_id'), null, false);?>
           <div class="input-group-btn">
             <button class="btn btn-default btn-sm" type="button"><i class="glyphicon glyphicon-search"></i></button>
         </div>
         </div>
       </div>
       <div class="col-sm-6">
-          <input id="desc_ncm" type="text" class="form-control input-sm">
+          <?php echo $this->formRow($form->get('ncm_desc'), null, false);?>
       </div>
     </div>
     <div class="col-sm-12 dados-fiscais">
@@ -34,11 +34,11 @@
             <div class="form-group">
               <label for="cod_trib_pdv" class="col-sm-2 control-label">Cód. Tributação:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                    <?php echo $this->formRow($form->get('trib_pdv'), null, false);?>
               </div>
               <label for="icms_pdv" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                    <?php echo $this->formRow($form->get('aliq_pdv'), null, false);?>
               </div>
             </div>
             <div class="form-group">
@@ -51,11 +51,11 @@
             <div class="form-group">
               <label for="base_icms_ent" class="col-sm-2 control-label">%Base:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('reducao_base_entrada'), null, false);?>
               </div>
               <label for="aliq_icms_ent" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                 <?php echo $this->formRow($form->get('aliq_base_entrada'), null, false);?>
               </div>
             </div>
             <div class="form-group">
@@ -68,17 +68,17 @@
             <div class="form-group">
               <label for="base_icms_saida" class="col-sm-2 control-label">%Base:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('reducao_base_saida'), null, false);?>
               </div>
               <label for="aliq_icms_saida" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_base_saida'), null, false);?>
               </div>
             </div>
             <div class="form-group">
               <label for="mva_st" class="col-sm-2 control-label">MVA ST:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('mva_st'), null, false);?>
               </div>
              
             </div>
@@ -96,11 +96,11 @@
             <div class="form-group">
               <label for="aliq_ipi_ent" class="col-sm-2 control-label">%IPI:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_ipi_entrada'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('cst_ipi_entrada'), null, false);?>
               </div>
             </div> 
             <div class="form-group">
@@ -113,11 +113,11 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%IPI:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_ipi_saida'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('cst_ipi_saida'), null, false);?>
               </div>
             </div> 
           </div>
@@ -135,11 +135,11 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_pis_entrada'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('cst_pis_entrada'), null, false);?>
               </div>
             </div> 
             <div class="form-group">
@@ -152,11 +152,11 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_pis_saida'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('cst_pis_saida'), null, false);?>
               </div>
             </div> 
           </div>
@@ -173,11 +173,11 @@
             <div class="form-group">
               <label for="aliq_cofins_ent_id" class="col-sm-2 control-label">%Cofins:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                   <?php echo $this->formRow($form->get('aliq_cofins_entrada'), null, false);?>
               </div>
               <label for="cst_cofins_ent" class="col-sm-2 control-label">CST COFINS:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                   <?php echo $this->formRow($form->get('cst_cofins_entrada'), null, false);?>
               </div>
             </div> 
             <div class="form-group">
@@ -190,11 +190,11 @@
             <div class="form-group">
               <label for="aliq_cofins_venda" class="col-sm-2 control-label">%Cofins:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('aliq_cofins_saida'), null, false);?>
               </div>
               <label for="cst_cofins_venda" class="col-sm-2 control-label">CST COFINS:</label>
               <div class="col-sm-2">
-                  <input type="text" class="form-control input-sm"  placeholder="">
+                  <?php echo $this->formRow($form->get('cst_cofins_saida'), null, false);?>
               </div>
             </div> 
             </div>

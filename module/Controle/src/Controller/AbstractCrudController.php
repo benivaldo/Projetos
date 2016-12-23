@@ -146,7 +146,7 @@ class AbstractCrudController extends CommonCrudController
 	 * 
 	 * @var string mensagem de erro e retrono do id
 	 */
-	private $errorMessage = array('id' => '','erro' => '');
+	protected  $errorMessage = array('id' => '','erro' => '');
 	
 	
    
@@ -231,7 +231,6 @@ class AbstractCrudController extends CommonCrudController
         	if ($request->isPost()) {
         		$viewModel->setTerminal(true); // desabilita a renderização do layout
         		$html = $this->container->get('ViewRenderer')->render($viewModel);
-        		$request = $this->getRequest();
         		
         		$result = new JsonModel(array(
     				'html' => $html,

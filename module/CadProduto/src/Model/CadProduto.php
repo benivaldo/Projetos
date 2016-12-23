@@ -8,8 +8,8 @@ use Controle\Model\AbstractModel;
 
 class CadProduto extends AbstractModel
 {
-     //public $produto_id;
-     //public $plu;
+     public $produto_id;
+     public $plu;
      public $sku_id;
      public $ativo;
      public $descricao;
@@ -19,7 +19,7 @@ class CadProduto extends AbstractModel
      public $grupo_id;
      public $subgrupo_id;
      public $fornecedor_id;
-     public $grade_id;
+     //public $grade_id;
      public $unidade_id;
      public $tipo_produto_id;
      public $icms_nf_entrada_id;
@@ -55,28 +55,27 @@ class CadProduto extends AbstractModel
          if (!$this->inputFilter) {
              $inputFilter = new InputFilter();
 
-           /*  $inputFilter->add(array(
-                 'name'     => 'produto_id',
-                 'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
-             ));*/
-             
              $inputFilter->add(array(
-                 'name'     => 'ativo',
+                 'name'     => 'produto_id',
                  'required' => false,
                  'filters'  => array(
                      array('name' => 'Int'),
                  ),
+             ));
+             
+             $inputFilter->add(array(
+                 'name'     => 'ativo',
+                 'required' => true,
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Status Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
 
              $inputFilter->add(array(
@@ -120,159 +119,133 @@ class CadProduto extends AbstractModel
              $inputFilter->add(array(
                  'name'     => 'ncm_id',
                  'required' => false,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Seção Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
              
              $inputFilter->add(array(
                  'name'     => 'secao_id',
                  'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Seção Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
              
              $inputFilter->add(array(
                  'name'     => 'grupo_id',
-                 'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
+                 'required' => true, 
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Grupo Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
              
              $inputFilter->add(array(
-                 'name'     => 'subgrupo',
+                 'name'     => 'subgrupo_id',
                  'required' => true,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Subgrupo Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
              
              $inputFilter->add(array(
                  'name'     => 'fornecedor_id',
                  'required' => false,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
                  'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Seção Obrigatório.' 
+                            ),
+                        ),
+                    ),
+                ),
              ));
              
-             
-            $inputFilter->add(array(
-                 'name'     => 'grade_id',
-                 'required' => false,
-                 'filters'  => array(
-                     array('name' => 'Int'),
-                 ),
-                 'validators' => array(
-                     array(
-                         'name'    => 'Int',
-                         'options' => array(
-                             'min'      => 1,
-                         ),
-                     ),
-                 ),
-             ));
-            
             $inputFilter->add(array(
                 'name'     => 'unidade_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Unidade Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
             ));
             
             $inputFilter->add(array(
-                'name'     => 'tipo_produto',
+                'name'     => 'tipo_produto_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Tipo de Produto Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
             ));
             
             $inputFilter->add(array(
-                'name'     => 'icms_entrada_id',
+                'name'     => 'icms_nf_entrada_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
+                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Icms de compra Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
             ));
             
             $inputFilter->add(array(
-                'name'     => 'icms_saida_id',
+                'name'     => 'icms_nf_saida_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
+                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Icms de venda Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
@@ -281,30 +254,45 @@ class CadProduto extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'icms_pdv_id',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
+                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Trib. ECF Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
             ));
             
             $inputFilter->add(array(
-                'name'     => 'pis_entrada_id',
+                'name' => 'mva_st',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                        'name' => 'Regex',
                         'options' => array(
-                            'min'      => 1,
+                            'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
+                            'min' => 0,
+                        ),
+                    ),
+                ),
+            ) );
+            
+            $inputFilter->add(array(
+                'name'     => 'pis_entrada_id',
+                'required' => false,
+                'validators' => array(
+                    array(
+                      'name' =>'NotEmpty', 
+                        'options' => array(
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Pis de compra Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
@@ -313,14 +301,13 @@ class CadProduto extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'pis_saida_id',
                 'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Pis de venda Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
@@ -329,14 +316,13 @@ class CadProduto extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'cofins_entrada_id',
                 'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Cofins de compra Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
@@ -345,14 +331,13 @@ class CadProduto extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'cofins_saida_id',
                 'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
+                 'validators' => array(
                     array(
-                        'name'    => 'Int',
+                      'name' =>'NotEmpty', 
                         'options' => array(
-                            'min'      => 1,
+                            'messages' => array(
+                                \Zend\Validator\NotEmpty::IS_EMPTY => 'Campo Cofins de venda Obrigatório.' 
+                            ),
                         ),
                     ),
                 ),
@@ -361,33 +346,11 @@ class CadProduto extends AbstractModel
             $inputFilter->add(array(
                 'name'     => 'ipi_entrada_id',
                 'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'Int',
-                        'options' => array(
-                            'min'      => 1,
-                        ),
-                    ),
-                ),
             ));
             
             $inputFilter->add(array(
                 'name'     => 'ipi_saida_id',
                 'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'Int',
-                        'options' => array(
-                            'min'      => 1,
-                        ),
-                    ),
-                ),
             ));
             
             $inputFilter->add(array(
@@ -410,7 +373,7 @@ class CadProduto extends AbstractModel
             ));
             
             $inputFilter->add(array(
-                'name'     => 'ref_fornecdor',
+                'name'     => 'ref_fornecedor',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -495,6 +458,11 @@ class CadProduto extends AbstractModel
                     ),
                 ),
             ) );
+            
+           /* $inputFilter->add(array(
+                'name'     => 'grade_id',
+                'required' => false,
+            ));*/
 
              $this->inputFilter = $inputFilter;
          }
