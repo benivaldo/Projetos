@@ -37,6 +37,8 @@ class CadEanController extends AbstractCrudController
     {
         $this->getVariaveis();
         
+        $this->whereCampo['plu_id'] = strtolower($this->params('id'));
+        
     	return parent::indexAction();
     }
 

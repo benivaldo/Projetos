@@ -22,17 +22,18 @@ class SaveModel extends AbstractPlugin
 	    $erro = '';
 		$request = $this->getController()->getRequest();
 		
-		if ($request->isPost() && count($request->getPost()) != 0) {		    
+		if ($request->isPost() && count($request->getPost()) != 0) {
+		    $form->setInputFilter($model->getInputFilter());
 		    /*Remove itens do post*/
 		    foreach ($removeFromPost as $name) {
-                $model->getInputFilter()->remove($name);
-                $request->getPost()->offsetUnset($name);
+                //$form->remove($name);
+                $form->getInputFilter()->remove($name);
 		    }
-		    //print_r($request->getPost());
-		    $valid = $model->getInputFilter()->setData($request->getPost());
 
-			if ($valid->isValid()) {			    
-				$model->exchangeArray($request->getPost());
+			$form->setData($request->getPost());
+			if ($form->isValid()) {
+			    
+				$model->exchangeArray($form->getData());
 
 				if (!$resp = $tableGateway->save($model)) {
 				    return $resp;
@@ -40,7 +41,7 @@ class SaveModel extends AbstractPlugin
 				    return $resp;
 				}
 			} else {	
-			    foreach ($valid->getMessages() as $key => $campo) {
+			    foreach ($form->getMessages() as $key => $campo) {
     			    foreach ($campo as $key1 => $value) {
     			    	$erro .= "Campo $key: $value \n";
     			    }

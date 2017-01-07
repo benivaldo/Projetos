@@ -26,9 +26,9 @@ class SaveModel extends AbstractPlugin
 		    /*Remove itens do post*/
 		    foreach ($removeFromPost as $name) {
                 $model->getInputFilter()->remove($name);
-                $request->getPost()->offsetUnset($name);
+                //$request->getPost()->offsetUnset($name);
 		    }
-		    //print_r($request->getPost());
+		    
 		    $valid = $model->getInputFilter()->setData($request->getPost());
 
 			if ($valid->isValid()) {			    

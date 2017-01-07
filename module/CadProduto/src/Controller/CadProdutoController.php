@@ -33,6 +33,28 @@ class CadProdutoController extends AbstractCrudController
     	$this->colunas;
     	$this->order_by = 'produto_id';
     	$this->group_by;
+    	$this->removeFromPost = array('sku',
+    	    'ncm_cod',
+    	    'ncm_desc',
+    	    'aliq_pis_entrada',
+    	    'cst_pis_entrada',
+    	    'aliq_pis_saida',
+    	    'cst_pis_saida',
+    	    "aliq_cofins_entrada",
+    	    "cst_cofins_entrada",
+    	    "aliq_cofins_saida",
+    	    "cst_cofins_saida",
+    	    "aliq_ipi_entrada",
+    	    "cst_ipi_entrada",
+    	    "aliq_ipi_saida",
+    	    "cst_ipi_saida",
+    	    "trib_pdv",
+    	    "aliq_pdv",
+    	    "reducao_base_entrada",
+    	    "aliq_base_entrada",
+    	    "reducao_base_saida",
+    	    "aliq_base_saida",
+    	);
      }
 
     public function indexAction()
@@ -93,36 +115,15 @@ class CadProdutoController extends AbstractCrudController
         //return parent::addAction();
         
         $form = $this->form;
-        $removeFromPost = array('sku', 
-            'ncm_cod', 
-            'ncm_desc', 
-            'aliq_pis_entrada',            
-            'cst_pis_entrada',
-            'aliq_pis_saida',
-            'cst_pis_saida',
-            "aliq_cofins_entrada",
-            "cst_cofins_entrada",
-            "aliq_cofins_saida",
-            "cst_cofins_saida",
-            "aliq_ipi_entrada",
-            "cst_ipi_entrada",
-            "aliq_ipi_saida",
-            "cst_ipi_saida",
-            "trib_pdv",
-            "aliq_pdv",
-            "reducao_base_entrada",
-            "aliq_base_entrada",
-            "reducao_base_saida",
-            "aliq_base_saida",            
-        );
+        
         $request = $this->getRequest();
         
         if ($request->isPost() && count($request->getPost()) != 0) {
-            $this->getEvent()->getRouteMatch()->setParam('plu', 1);
+            $plu = $this->retornaPlu();
+            $request->getPost()->set('plu', $plu);
         }
-        $this->getEvent()->getRouteMatch()->setParam('plu', 1);
         
-        $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $removeFromPost );
+         $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $this->removeFromPost );
         $pluId = $this->errorMessage['id'];
         if (is_numeric($pluId)) {
             $tableGatewayEan = $this->container->get('CadProduto\Model\CadEanTable');
@@ -153,6 +154,65 @@ class CadProdutoController extends AbstractCrudController
         $this->getVariaveis();
        
         return parent::deleteAction();
+    }
+    
+    public function prevAction()
+    {
+        $this->getVariaveis();
+    
+        $this->div = $this->params('div');
+        $this->template = 'cadproduto/cadproduto/edit.phtml';
+         
+        $this->queryPrev = "select prev
+            from (
+            select  produto_id, descricao, data_cadastro,
+            lag(produto_id) over (order by produto_id asc) as prev,
+            lead(produto_id) over (order by produto_id asc) as next
+            from cad_produto
+            ) x
+            where ? IN (produto_id)";
+    
+    
+        return parent::prevAction();
+    }
+    
+    public function nextAction()
+    {
+        $this->getVariaveis();
+    
+        $this->div = $this->params('div');
+        $this->template = 'cadproduto/cadproduto/edit.phtml';
+    
+        $this->queryNext = "select next
+            from (
+             select  produto_id, descricao, data_cadastro,
+            lag(produto_id) over (order by produto_id asc) as prev,
+            lead(produto_id) over (order by produto_id asc) as next
+            from cad_produto
+            ) x
+            where ? IN (produto_id)";
+    
+         
+        return parent::nextAction();
+    }
+    
+    
+    /**
+     * Função para retornar o id posterior
+     */
+    private function retornaPlu($tipo = 'un')
+    {
+        $pluUnidade = "plu_unidade";
+        $pluBalanca = "plu_balanca";
+        
+        $query = "SELECT NEXTVAL('$pluUnidade') as plu";
+    
+        $statement = $this->container->get('Zend\Db\Adapter\Adapter')->createStatement($query);
+        $result = $statement->execute();
+        $row = $result->current();
+        
+    
+        return $row['plu'];
     }
     
     public function gridAction()

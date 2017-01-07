@@ -149,6 +149,11 @@ class AbstractCrudController extends CommonCrudController
 	protected  $errorMessage = array('id' => '','erro' => '');
 	
 	
+	/**
+	 * 
+	 * @var array Remove variaves do post
+	 */
+	protected $removeFromPost = array();
    
 
 	/**
@@ -255,7 +260,7 @@ class AbstractCrudController extends CommonCrudController
         $form = $this->form;
         $form->get('submit')->setValue('Incluir');
 
-        $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route);
+        $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $this->removeFromPost);
         
         $this->viewModel = new ViewModel(array ('form' => $form,
             'div' => $this->div,
@@ -286,7 +291,7 @@ class AbstractCrudController extends CommonCrudController
         $form->bind($model);
         
         $form->get('submit')->setAttribute('value', 'Editar');        
-        $this->errorMessage = $this->saveModel()->save($model, $this->tableGateway, $form, $this->route);
+        $this->errorMessage = $this->saveModel()->save($model, $this->tableGateway, $form, $this->route, $this->removeFromPost);
  
         $this->viewModel = new ViewModel(array ('form' => $form,
             'div' => $this->div,
