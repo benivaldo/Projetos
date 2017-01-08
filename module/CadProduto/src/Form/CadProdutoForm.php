@@ -23,6 +23,7 @@ class CadProdutoForm extends Form
                 'name' => 'plu',
                 'attributes' => array(
                 'type'  => 'text',
+                'readonly' => 'readonly',
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Plu',
             ),
@@ -61,8 +62,8 @@ class CadProdutoForm extends Form
                 'empty_option' => 'Sel. status',
                 'disable_inarray_validator' => true,
                 'value_options' => array(
-                 'true' => 'Ativo',
-                 'false' => 'Inativo',
+                 true => 'Ativo',
+                 false => 'Inativo',
                 )
             )
         ));

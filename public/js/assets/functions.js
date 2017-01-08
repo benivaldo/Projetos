@@ -102,6 +102,7 @@ $(document).ready(function(){
      * data-titulo: nome atribuido a aba tab
      * data-order_by: nome da coluna a ser ordenada na tabela
      * data-order: tipo de ordenação asc/desc
+     * data-tipo_view: Usado na criação de atalhos para retorno de pesquisa de campo, necessário onde existem telas que solicitam atallhos
      */
     $(function() {        
     	$(document).on("keyup", ".search", function() {
@@ -113,20 +114,28 @@ $(document).ready(function(){
 	       	var page = 1;
 	        var modulo = $('#'+form).attr("data-modulo");
 	        var ctrl = $('#'+form).attr("data-ctrl");
-	    	var titulo = $('#'+form).attr("data-titulo");
+	    	//var titulo = $('#'+form).attr("data-titulo");
 	    	var div = $('#'+form).attr("data-div");
 	    	var order_by = $('#'+form).attr("data-order_by");
 	    	var order = $('#'+form).attr("data-order");
 	    	var dataIniName = $('#'+form).attr("data-data_ini");
 	    	var dataFinName = $('#'+form).attr("data-data_fin");
-	    	
+
+	    	var index = $('#tabs').data('tabs').options.selected;  //Retorna o número do índice da aba usada
+	    	var titulo = $('#tabs ul:first li:eq('+index+') span:first').text();	
+		    	
+	    	if ($('#'+form).attr("data-tipo_view") == undefined || $('#'+form).attr("data-tipo_view") == null || $('#'+form).attr("data-tipo_view") == '' ) {
+	    		view = false;
+	    	} else {
+	    		view = $('#'+form).attr("data-tipo_view");
+	    	}
 	        
 	        if ($("#"+dataIniName).val().length > 0 && $("#"+dataFinName).val().length > 0) {
 	            dataIni = $("#"+dataIniName).val();
 	            dataFinal = $("#"+dataFinName).val();
 	        }
 	
-	        returnView(modulo, ctrl, page, 'index',div, filterLetter, dataIni, dataFinal, id, titulo, order_by, order);
+	        returnView(modulo, ctrl, page, 'index',div, filterLetter, dataIni, dataFinal, id, titulo, order_by, order, view);
 	        });
     })
 
@@ -314,4 +323,14 @@ $(document).on("click", '.delete', function(event) {
 	    return false;
 	}
 	return false;
+});
+
+/**
+ * Função para exibir div de atalho
+ * Criar data-atalho no button e colorar o nome da div de popup do form
+ */
+$(document).on("click", ".atalhos", function() {
+
+	var div = $(this).attr('data-atalho');
+	$('#'+div).show();
 });

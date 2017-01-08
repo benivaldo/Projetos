@@ -8,7 +8,7 @@ use Controle\Model\AbstractModel;
 
 class CadNcm extends AbstractModel
 {
-     //public $ncms_id;
+     //public $ncm_id;
      public $codigo;
      public $descricao;
      public $ncm;

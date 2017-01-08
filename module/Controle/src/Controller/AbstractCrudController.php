@@ -197,7 +197,8 @@ class AbstractCrudController extends CommonCrudController
             'search_frase' => $this->params('search_frase'),
             'data_ini' => $this->params('data_ini'),
             'data_fin' => $this->params('data_fin'),
-            'page' => $this->params('page')
+            'page' => $this->params('page'),
+            'tipo_view' =>(null !== $this->params('tipo_view') ? $this->params('tipo_view') : false),
         ));
  
         return $this->verificaAjaxJson($this->viewModel);

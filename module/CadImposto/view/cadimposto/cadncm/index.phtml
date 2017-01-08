@@ -10,7 +10,7 @@ $this->headTitle($title);
 <h4><?php echo $this->escapeHtml($title); ?></h4>
 <div class="container-fluid">
     <div class="row">
-        <form class="form form-pesquisa" id="form-pesquisa-ncm" data-data_ini='data_ini_ncm' data-data_fin='data_fin_ncm' data-modulo="cadimposto" data-ctrl="cadncm" data-titulo="NCM" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+        <form class="form form-pesquisa" id="form-<?php echo $this->escapeHtml($this->div) ?>" data-data_ini='data_ini_ncm' data-data_fin='data_fin_ncm' data-modulo="cadimposto" data-ctrl="cadncm" data-titulo="NCM" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>" data-tipo_view="<?php echo $this->escapeHtml($this->tipo_view);?>">
             <div class="form-group">
                 <div class="col-lg-2">
                     <div class="input-group">
@@ -61,7 +61,7 @@ $this->headTitle($title);
     <div class="row">    
         <div class="col-sm-12">
             <div class="container-dados" id="dados_<?php echo $this->escapeHtml($this->div);?>">
-                <?php echo $this->partial('cadimposto/cadncm/dados.phtml', array('dados'=>$this->dados, 'div'=>$this->div, 'order_by'=>$this->order_by, 'order'=>$this->order, 'page'=>$this->page, 'search_frase'=>$this->search_frase, 'data_ini' => $this->data_ini, 'data_fin' => $this->data_fin)); ?>
+                <?php echo $this->partial('cadimposto/cadncm/dados.phtml', array('dados'=>$this->dados, 'div'=>$this->div, 'order_by'=>$this->order_by, 'order'=>$this->order, 'page'=>$this->page, 'search_frase'=>$this->search_frase, 'data_ini' => $this->data_ini, 'data_fin' => $this->data_fin, 'tipo_view' => $this->tipo_view)); ?>
             </div>  
         </div>
     </div>    

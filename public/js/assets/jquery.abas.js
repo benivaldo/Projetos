@@ -69,7 +69,7 @@ function retornaHtml(html,id)
  * @var string dataIni Data Inicial
  * @var string dataFinal Data Final
  */
-function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dataFinal, id, title, orderBy, order)
+function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dataFinal, id, title, orderBy, order, view)
 {   
 	if (searchBy == undefined || searchBy == null || searchBy == '' ) {
 		searchBy = '';
@@ -109,7 +109,7 @@ function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dat
 	}
 	
 	if (orderBy == undefined || orderBy == null || orderBy == '' ) {
-		orderBy ='/order_by/id';
+		orderBy = '/order_by/id';
 	} else {
 		orderBy = '/order_by/' + orderBy;
 	}
@@ -118,9 +118,15 @@ function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dat
 		order = '/ASC';
 	} else {
 		order = '/' + order;
-	}	
+	}
+	
+	if (view == undefined || view == null || view == '' ) {
+		view = '';
+	} else {
+		view = '/tipo_view/' + view;
+	}
 
-	var url = modulo + '/' + ctrl + '/' + action + id + page + '/' + divDados + orderBy + order + searchBy + dataIni + dataFinal; //Monta a url
+	var url = modulo + '/' + ctrl + '/' + action + id + page + '/' + divDados + orderBy + order + searchBy + dataIni + dataFinal + view; //Monta a url
 
 	consultaAjax(url, divDados, titulo);
 }
