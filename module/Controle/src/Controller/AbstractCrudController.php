@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Session\Container;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Stdlib\ArrayUtils;
 
 class AbstractCrudController extends CommonCrudController
 {
@@ -154,6 +155,8 @@ class AbstractCrudController extends CommonCrudController
 	 * @var array Remove variaves do post
 	 */
 	protected $removeFromPost = array();
+	
+	protected $resultSet = array();
    
 
 	/**
@@ -173,7 +176,7 @@ class AbstractCrudController extends CommonCrudController
 	 */
 	public function indexAction()
     {
-        $result = $this->getTableGateway()->fetchAll(
+        $this->resultSet = $this->getTableGateway()->fetchAll(
             $this->pagination, 
             $this->params('page'), 
             (null !== $this->params('total_page') ? $this->params('total_page') : 10),
@@ -190,7 +193,7 @@ class AbstractCrudController extends CommonCrudController
         ); 
         
         $this->viewModel = new ViewModel(array (
-            $this->viewData => $result,
+            $this->viewData => $this->resultSet,
             'div' => str_replace('dados_', '', $this->div), //Retira dados_ pra evitar duplicidade, necessario para ordenação
             'order_by' =>(null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by),
             'order' => $this->params('order'),
@@ -240,6 +243,7 @@ class AbstractCrudController extends CommonCrudController
         		
         		$result = new JsonModel(array(
     				'html' => $html,
+        		    'data' => \Zend\Stdlib\ArrayUtils::iteratorToArray($this->resultSet),
     				'success' => true,
     		        'errorMessage' => $this->errorMessage['erro'],
         		    'id' => $this->errorMessage['id'],
@@ -276,7 +280,6 @@ class AbstractCrudController extends CommonCrudController
     public function editAction()
     {    
         $request = $this->getRequest();
-        //$primaryKey = $this->getTableGateway()->getPrimaryKey();
        
         $key = (int) $this->params()->fromRoute('id', 0);
        
@@ -287,6 +290,7 @@ class AbstractCrudController extends CommonCrudController
             ));
         }
         $model = $this->getTableGateway()->get($key);
+        $this->resultSet[] =  new \ArrayIterator($model);
          
         $form  = $this->form;
         $form->bind($model);

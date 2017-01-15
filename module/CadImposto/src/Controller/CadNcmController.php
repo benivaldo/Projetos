@@ -130,6 +130,38 @@ class CadNcmController extends AbstractCrudController
          
         return parent::nextAction();
     }
+    /**
+     * Retorna dados de impostos no retorno do ncm
+     * {@inheritDoc}
+     * @see \Controle\Controller\AbstractCrudController::indexAction()
+     */
+    public function getAction()
+    {
+        $this->getVariaveis();
+        $this->whereCampo = 'ncm_id';
+        $this->searchFrase['ncm_id'] = $this->params('search_frase');
+    
+        /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
+        //$this->inner[] = array( 'inner'=> array("album" => 'genreid', "genre" => 'id',  "table" => 'genre', "join" => 'inner') , "columns" => array('genre'));
+        $this->inner[] = array( 
+            "table"     => 'cad_icms', 
+            "join"   => 'cad_icms.icms_id = cad_ncm.icms_pdv_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('cod_trib' => 'cod_tributacao_pdv',
+                "aliq_pdv" => 'aliquota')      
+        );
+        
+        $this->inner[] = array(
+            "table"     => array( 'icms2' => 'cad_icms'),
+            "join"   => 'icms2.icms_id = cad_ncm.icms_nf_entrada_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('reducao_base_entrada' => 'base',
+                "aliq_reducao" => 'aliquota')
+        );
+    
+    
+        return parent::getAction();
+    }
     
     public function gridAction()
     {
