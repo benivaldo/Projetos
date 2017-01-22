@@ -8,7 +8,7 @@ abstract class AbstractModel
 	public function exchangeArray($data)
 	{
 		foreach ($data as $key => $value) {
-			$this->$key = $value;
+			$this->$key = (!empty($value) ? $value: null);
 		}
 	}
 

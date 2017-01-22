@@ -1,6 +1,7 @@
 <?php
 $title = 'Adicionar novo Produto';
 $this->headTitle($title);
+print_r($info);
 ?>
 <h4><?php echo $this->escapeHtml($title); ?></h4>
 
@@ -28,10 +29,10 @@ $form->prepare();
             </ul>
             <div id="tabContent1" class="tab-content">
               <div class="tab-pane fade in active cadastro" id="abaproduto1">
-                <?php echo $this->partial('partialPrincipal.phtml', array('form' => $form, 'tipo' => 'add')); ?>
+                <?php echo $this->partial('partialPrincipal.phtml', array('form' => $form, 'info' => $info, 'tipo' => 'add')); ?>
               </div>                
               <div class="tab-pane fade cadastro" id="abaproduto2">
-                 <?php echo $this->partial('partialImposto.phtml',  array('form' => $form, 'tipo' => 'add')); ?>
+                 <?php echo $this->partial('partialImposto.phtml',  array('form' => $form, 'info' => $info,'tipo' => 'add')); ?>
               </div>
               <div class="tab-pane fade cadastro" id="abaproduto3">
                 <p>Dropdown content#1</p>

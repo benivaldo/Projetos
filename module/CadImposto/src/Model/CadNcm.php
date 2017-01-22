@@ -282,10 +282,14 @@ class CadNcm extends AbstractModel
                  ),
                  'validators' => array(
                      array(
+                         'name'    => 'Int',
+                         'options' => array(
+                         ),
+                     ),
+                     array(
                          'name' => 'Regex',
                          'options' => array(
                              'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
-                             'min' => 0,
                          ),
                      ),
                  ),

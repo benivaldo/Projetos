@@ -68,8 +68,9 @@ function retornaHtml(html,id)
  * @var string searchBy dados a serem pesquisados no banco
  * @var string dataIni Data Inicial
  * @var string dataFinal Data Final
+ * @var string view Usada em atalhos, true=imprementar funçoes de atalho
  */
-function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dataFinal, id, title, orderBy, order, view)
+function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dataFinal, id, title, orderBy, order, view = false, ajaxOff = false)
 {   
 	if (searchBy == undefined || searchBy == null || searchBy == '' ) {
 		searchBy = '';
@@ -128,7 +129,12 @@ function returnView(modulo, ctrl, page, action, divDados, searchBy, dataIni, dat
 
 	var url = modulo + '/' + ctrl + '/' + action + id + page + '/' + divDados + orderBy + order + searchBy + dataIni + dataFinal + view; //Monta a url
 
-	consultaAjax(url, divDados, titulo);
+	if(!ajaxOff) {
+		consultaAjax(url, divDados, titulo);
+	}else{
+		return url;
+	}
+	
 }
 
 /**

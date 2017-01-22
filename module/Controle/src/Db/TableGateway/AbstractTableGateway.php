@@ -250,7 +250,7 @@ abstract class AbstractTableGateway implements AdapterAwareInterface
 	    foreach ($searchFrase as $key => $val) {
 	        switch ($key) {
 	            default:
-	                $search[] = new \Zend\Db\Sql\Predicate\Expression("$key ilike '%$val%'");
+	                $search[] = new \Zend\Db\Sql\Predicate\Expression("CAST(" . $key . " AS CHARACTER VARYING) ilike '%$val%'");
 	                break;
 	            /*Para chave primária converter em caracter para efetura pesquisa*/
 	            case "" . $this->getPrimaryKey() . "":

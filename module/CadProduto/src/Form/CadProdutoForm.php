@@ -193,7 +193,7 @@ class CadProdutoForm extends Form
         ));
         
         $this->add(array(
-            'name' => 'ncm_cod',            
+            'name' => 'ncm',            
             'attributes' => array(
                 'class' => 'form-control input-sm',
                 'placeholder' =>'NCM',
@@ -201,7 +201,7 @@ class CadProdutoForm extends Form
         ));
         
         $this->add(array(
-            'name' => 'ncm_desc',
+            'name' => 'ncm_cod',
             'attributes' => array(
                 'class' => 'form-control input-sm',
                 'placeholder' =>'Descrição do NCM',
@@ -224,7 +224,7 @@ class CadProdutoForm extends Form
             'name' => 'aliq_pis_entrada',
             'attributes' => array(
                 'class' => 'form-control input-sm',
-                'placeholder' =>'Descrição do NCM',
+                'placeholder' =>'Aliq. PIS',
             ),
         ));
         
@@ -232,7 +232,7 @@ class CadProdutoForm extends Form
             'name' => 'cst_pis_entrada',
             'attributes' => array(
                 'class' => 'form-control input-sm',
-                'placeholder' =>'Descrição do NCM',
+                'placeholder' =>'CST PIS',
             ),
         ));
         

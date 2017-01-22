@@ -36,7 +36,7 @@ if ($this->order_by == 'ncm_id') {
             
             <?php 
             if ($this->tipo_view  == true) {
-                echo "<td><a data-id=\"".$this->escapeHtml($dado->ncm_id)."\" data-descricao=\"".$this->escapeHtml($dado->codigo)."\" data-ncm=\"".$this->escapeHtml($dado->ncm)."\" data-div=\"".$this->escapeHtml($this->div)."\"  class=\"ncm-atalho selecao\">".$this->escapeHtml($dado->ncm_id)."</a></td>";
+                echo "<td><a data-id=\"".$this->escapeHtml($dado->ncm_id)."\" data-modulo=\"cadimposto\" data-ctrl=\"cadncm\" data-descricao=\"".$this->escapeHtml($dado->codigo)."\" data-ncm=\"".$this->escapeHtml($dado->ncm)."\" data-div=\"".$this->escapeHtml($this->div)."\"  class=\"ncm-atalho selecao\">".$this->escapeHtml($dado->ncm_id)."</a></td>";
             }else {
                 echo "<td>".$this->escapeHtml($dado->ncm_id)."</td>";
             }

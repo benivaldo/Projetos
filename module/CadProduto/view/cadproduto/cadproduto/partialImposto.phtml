@@ -3,17 +3,19 @@
       <label for="cod_ncm" class="col-sm-2 control-label">Classificação fiscal:</label>
       <div class="col-sm-2">
         <div class="input-group"> 
-           <?php echo $this->formRow($form->get('ncm_cod'), null, false);?>
+           <?php $form->get('ncm')->setValue($info['ncm']);?>
+           <?php echo $this->formRow($form->get('ncm'), null, false);?>
            <?php echo $this->formRow($form->get('ncm_id'), null, false);?>
           <div class="input-group-btn">
-            <button class="btn btn-default btn-sm atalhos" data-atalho="div_popup_produto" type="button" onclick="returnView('cadimposto','cadncm',1,'index','div_popup_produto','','','',0,'Produto','ncm_id', '', 'true')">
+            <button class="btn btn-default btn-sm atalhos" data-div="div_popup_produto" data-modulo="cadimposto" data-ctrl="cadncm" data-titulo="Produto" data-order_by="ncm_id" type="button">
             	<i class="glyphicon glyphicon-search"></i>
            </button>
         </div>
         </div>
       </div>
       <div class="col-sm-6">
-          <?php echo $this->formRow($form->get('ncm_desc'), null, false);?>
+          <?php $form->get('ncm_cod')->setValue($info['ncm_cod']);?>
+          <?php echo $this->formRow($form->get('ncm_cod'), null, false);?>
       </div>
     </div>
     <div class="col-sm-12 dados-fiscais">
@@ -36,10 +38,12 @@
             <div class="form-group">
               <label for="cod_trib_pdv" class="col-sm-2 control-label">Cód. Tributação:</label>
               <div class="col-sm-2">
+              		<?php $form->get('trib_pdv')->setValue($info['trib_pdv']);?>
                     <?php echo $this->formRow($form->get('trib_pdv'), null, false);?>
               </div>
               <label for="icms_pdv" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
+              		<?php $form->get('aliq_pdv')->setValue($info['aliq_pdv']);?>
                     <?php echo $this->formRow($form->get('aliq_pdv'), null, false);?>
               </div>
             </div>
@@ -53,10 +57,12 @@
             <div class="form-group">
               <label for="base_icms_ent" class="col-sm-2 control-label">%Base:</label>
               <div class="col-sm-2">
+              	  <?php $form->get('reducao_base_entrada')->setValue($info['reducao_base_entrada']);?>
                   <?php echo $this->formRow($form->get('reducao_base_entrada'), null, false);?>
               </div>
               <label for="aliq_icms_ent" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
+                 <?php $form->get('aliq_base_entrada')->setValue($info['aliq_base_entrada']);?>
                  <?php echo $this->formRow($form->get('aliq_base_entrada'), null, false);?>
               </div>
             </div>
@@ -70,10 +76,12 @@
             <div class="form-group">
               <label for="base_icms_saida" class="col-sm-2 control-label">%Base:</label>
               <div class="col-sm-2">
+                  <?php $form->get('reducao_base_saida')->setValue($info['reducao_base_saida']);?>
                   <?php echo $this->formRow($form->get('reducao_base_saida'), null, false);?>
               </div>
               <label for="aliq_icms_saida" class="col-sm-2 control-label">%Aliquota:</label>
               <div class="col-sm-2">
+                  <?php $form->get('aliq_base_saida')->setValue($info['aliq_base_saida']);?>
                   <?php echo $this->formRow($form->get('aliq_base_saida'), null, false);?>
               </div>
             </div>
@@ -98,10 +106,12 @@
             <div class="form-group">
               <label for="aliq_ipi_ent" class="col-sm-2 control-label">%IPI:</label>
               <div class="col-sm-2">
+                 <?php $form->get('aliq_ipi_entrada')->setValue($info['aliq_ipi_entrada']);?>
                   <?php echo $this->formRow($form->get('aliq_ipi_entrada'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
               <div class="col-sm-2">
+                  <?php $form->get('cst_ipi_entrada')->setValue($info['cst_ipi_entrada']);?>
                   <?php echo $this->formRow($form->get('cst_ipi_entrada'), null, false);?>
               </div>
             </div> 
@@ -115,10 +125,12 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%IPI:</label>
               <div class="col-sm-2">
+                  <?php $form->get('aliq_ipi_saida')->setValue($info['aliq_ipi_saida']);?>
                   <?php echo $this->formRow($form->get('aliq_ipi_saida'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST IPI:</label>
               <div class="col-sm-2">
+                  <?php $form->get('cst_ipi_saida')->setValue($info['cst_ipi_saida']);?>
                   <?php echo $this->formRow($form->get('cst_ipi_saida'), null, false);?>
               </div>
             </div> 
@@ -137,10 +149,12 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
               <div class="col-sm-2">
+                  <?php $form->get('aliq_pis_entrada')->setValue($info['aliq_pis_entrada']);?>
                   <?php echo $this->formRow($form->get('aliq_pis_entrada'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
               <div class="col-sm-2">
+                  <?php $form->get('cst_pis_entrada')->setValue($info['cst_pis_entrada']);?>
                   <?php echo $this->formRow($form->get('cst_pis_entrada'), null, false);?>
               </div>
             </div> 
@@ -154,10 +168,12 @@
             <div class="form-group">
               <label for="aliq_pis_ent" class="col-sm-2 control-label">%Pis:</label>
               <div class="col-sm-2">
+                  <?php $form->get('aliq_pis_saida')->setValue($info['aliq_pis_saida']);?>
                   <?php echo $this->formRow($form->get('aliq_pis_saida'), null, false);?>
               </div>
               <label for="cst_pis_ent" class="col-sm-2 control-label">CST PIS:</label>
               <div class="col-sm-2">
+                  <?php $form->get('cst_pis_saida')->setValue($info['cst_pis_saida']);?>
                   <?php echo $this->formRow($form->get('cst_pis_saida'), null, false);?>
               </div>
             </div> 
@@ -175,10 +191,12 @@
             <div class="form-group">
               <label for="aliq_cofins_ent_id" class="col-sm-2 control-label">%Cofins:</label>
               <div class="col-sm-2">
+                   <?php $form->get('aliq_cofins_entrada')->setValue($info['aliq_cofins_entrada']);?>
                    <?php echo $this->formRow($form->get('aliq_cofins_entrada'), null, false);?>
               </div>
               <label for="cst_cofins_ent" class="col-sm-2 control-label">CST COFINS:</label>
               <div class="col-sm-2">
+                   <?php $form->get('cst_cofins_entrada')->setValue($info['cst_cofins_entrada']);?>
                    <?php echo $this->formRow($form->get('cst_cofins_entrada'), null, false);?>
               </div>
             </div> 
@@ -192,10 +210,12 @@
             <div class="form-group">
               <label for="aliq_cofins_venda" class="col-sm-2 control-label">%Cofins:</label>
               <div class="col-sm-2">
+                  <?php $form->get('aliq_cofins_saida')->setValue($info['aliq_cofins_saida']);?>
                   <?php echo $this->formRow($form->get('aliq_cofins_saida'), null, false);?>
               </div>
               <label for="cst_cofins_venda" class="col-sm-2 control-label">CST COFINS:</label>
               <div class="col-sm-2">
+                  <?php $form->get('cst_cofins_saida')->setValue($info['cst_cofins_saida']);?>
                   <?php echo $this->formRow($form->get('cst_cofins_saida'), null, false);?>
               </div>
             </div> 

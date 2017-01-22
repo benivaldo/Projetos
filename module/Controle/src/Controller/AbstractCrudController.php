@@ -156,7 +156,23 @@ class AbstractCrudController extends CommonCrudController
 	 */
 	protected $removeFromPost = array();
 	
+	/**
+	 * Array com retorno dem dados de consulta a ser retornado no jsaon
+	 * @var array
+	 */
 	protected $resultSet = array();
+	
+	/**
+	 * Array com informações adicionais
+	 * @var array
+	 */
+	protected $info = array();
+	
+	/**
+	 * Informações adicionais do retorno de edição ou qualquer outra função que necessite
+	 * @var bollean
+	 */
+	protected  $infoAdic = false;
    
 
 	/**
@@ -244,6 +260,7 @@ class AbstractCrudController extends CommonCrudController
         		$result = new JsonModel(array(
     				'html' => $html,
         		    'data' => \Zend\Stdlib\ArrayUtils::iteratorToArray($this->resultSet),
+        		    'info' =>  \Zend\Stdlib\ArrayUtils::iteratorToArray( $this->info),
     				'success' => true,
     		        'errorMessage' => $this->errorMessage['erro'],
         		    'id' => $this->errorMessage['id'],
@@ -267,7 +284,14 @@ class AbstractCrudController extends CommonCrudController
 
         $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $this->removeFromPost);
         
+        if ($this->infoAdic == true) {
+            $this->whereCampo = array($this->idTable => 0);
+            $this->colunas  = array($this->idTable);
+            $this->getAction();
+        }
+        
         $this->viewModel = new ViewModel(array ('form' => $form,
+            'info' => $this->info,
             'div' => $this->div,
         ));
         return $this->verificaAjaxJson($this->viewModel);
@@ -298,8 +322,15 @@ class AbstractCrudController extends CommonCrudController
         $form->get('submit')->setAttribute('value', 'Editar');        
         $this->errorMessage = $this->saveModel()->save($model, $this->tableGateway, $form, $this->route, $this->removeFromPost);
  
+        if ($this->infoAdic == true) {
+            $this->whereCampo = array($this->idTable => $key);
+            $this->colunas  = array($this->idTable);
+            $this->getAction();
+        }
+        
         $this->viewModel = new ViewModel(array ('form' => $form,
             'div' => $this->div,
+            'info' => ($this->infoAdic == true ? $this->info->current(): []),
         ));
         return $this->verificaAjaxJson($this->viewModel);
     }    
@@ -413,7 +444,7 @@ class AbstractCrudController extends CommonCrudController
      */
     public function getAction()
     {
-        $this->whereCampo = ($this->params('id') != 0 ? $this->whereCampo : array());
+        //$this->whereCampo = ($this->params('id') != 0 ? $this->whereCampo : array());
         
         $result = $this->getTableGateway()->fetchAll(
             false,
@@ -431,13 +462,16 @@ class AbstractCrudController extends CommonCrudController
             $this->group_by
         );
         
-        $resultado = \Zend\Stdlib\ArrayUtils::iteratorToArray($result);
-        return  new JsonModel(array(
-    				'dados' => $resultado,
-    				'success' => true,
-    		        'errorMessage' => '',
-            		'name' => $this->params()->fromPost('name'),
-                    'form' => $this->params()->fromPost('form'),
-                ));
+        if ($this->infoAdic == true) {
+            return $this->info =  $result;
+        } else {
+            return  new JsonModel(array(
+        				'dados' => \Zend\Stdlib\ArrayUtils::iteratorToArray($result),
+        				'success' => true,
+        		        'errorMessage' => '',
+                		'name' => $this->params()->fromPost('name'),
+                        'form' => $this->params()->fromPost('form'),
+                    ));
+        }
     }
 }

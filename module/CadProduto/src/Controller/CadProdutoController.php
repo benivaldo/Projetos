@@ -25,7 +25,7 @@ class CadProdutoController extends AbstractCrudController
     	$this->primaryKey = null;
     	$this->searchFrase;
     	$this->searchDate;
-    	$this->inner;
+    	$this->inner = [];
     	$this->campo = 'descricao';
     	$this->idTable = 'produto_id';
     	$this->colDataPesq = 'data_cadastro';
@@ -35,7 +35,7 @@ class CadProdutoController extends AbstractCrudController
     	$this->group_by;
     	$this->removeFromPost = array('sku',
     	    'ncm_cod',
-    	    'ncm_desc',
+    	    'ncm',
     	    'aliq_pis_entrada',
     	    'cst_pis_entrada',
     	    'aliq_pis_saida',
@@ -55,6 +55,7 @@ class CadProdutoController extends AbstractCrudController
     	    "reducao_base_saida",
     	    "aliq_base_saida",
     	);
+    	$this->infoAdic = true;
      }
 
     public function indexAction()
@@ -66,11 +67,13 @@ class CadProdutoController extends AbstractCrudController
         /*Construção dos campos a serem pesquizados*/
         if (strlen($this->params('search_frase')) > 0) {
             if (is_numeric($this->params('search_frase'))) {
-                $this->searchFrase['id'] = $this->params('search_frase');
+                $this->searchFrase['produto_id'] = $this->params('search_frase');
+                
             }
+            
             $this->searchFrase['descricao'] = strtolower($this->params('search_frase'));
-            $this->searchFrase['desc_resumida'] = strtolower($this->params('search_frase'));
-            //$this->searchFrase['sku'] = strtolower($this->params('search_frase'));
+            $this->searchFrase['desc_resumida'] = strtolower($this->params('search_frase')); 
+            $this->searchFrase['plu'] = $this->params('search_frase');
         }
         
         /*Aqui será enviado os valores para a pesquisa por data*/
@@ -97,16 +100,19 @@ class CadProdutoController extends AbstractCrudController
     public function editAction()
     {
         $this->getVariaveis();
+        $this->inner = $this->getInner();
         
         $this->div = $this->params('div');
         $this->route = 'cadproduto/cadproduto/index';
         $this->template = 'cadproduto/cadproduto/edit.phtml';
+
         return parent::editAction();
     }
     
     public function addAction()
     {
         $this->getVariaveis();
+        $this->inner = $this->getInner();
         
         $this->div = $this->params('div');
         $this->route = 'cadproduto/cadproduto/index';
@@ -121,14 +127,15 @@ class CadProdutoController extends AbstractCrudController
         if ($request->isPost() && count($request->getPost()) != 0) {
             $plu = $this->retornaPlu();
             $request->getPost()->set('plu', $plu);
+            $sku = $this->params()->fromPost('sku');
         }
         
          $this->errorMessage = $this->saveModel()->save($this->model, $this->getTableGateway(), $form, $this->route, $this->removeFromPost );
         $pluId = $this->errorMessage['id'];
-        if (is_numeric($pluId)) {
+        if (is_numeric($pluId) && !empty($sku)) {
             $tableGatewayEan = $this->container->get('CadProduto\Model\CadEanTable');
             $ean = array(
-                'sku' => $this->params()->fromPost('sku'),
+                'sku' => $sku,
                 'plu_id' => $pluId,
                 'ativo' => true,
                 'data_cadastro' => date('Y-m-d'),
@@ -139,7 +146,14 @@ class CadProdutoController extends AbstractCrudController
             $this->errorMessage['id'] = $pluId;   // Atribui novamente o id da tb_produto
         }
         
+        if ($this->infoAdic == true) {
+            $this->whereCampo = array($this->idTable => 0);
+            $this->colunas  = array($this->idTable);
+            parent::getAction();
+        }
+        
         $this->viewModel = new ViewModel(array ('form' => $form,
+            'info' => $this->info->current(),
             'div' => $this->div,
         ));
         
@@ -159,6 +173,7 @@ class CadProdutoController extends AbstractCrudController
     public function prevAction()
     {
         $this->getVariaveis();
+        $this->inner = $this->getInner();
     
         $this->div = $this->params('div');
         $this->template = 'cadproduto/cadproduto/edit.phtml';
@@ -179,6 +194,7 @@ class CadProdutoController extends AbstractCrudController
     public function nextAction()
     {
         $this->getVariaveis();
+        $this->inner = $this->getInner();
     
         $this->div = $this->params('div');
         $this->template = 'cadproduto/cadproduto/edit.phtml';
@@ -213,6 +229,98 @@ class CadProdutoController extends AbstractCrudController
         
     
         return $row['plu'];
+    }
+    
+    /**
+     * Retorna dados de campos adicionais
+     * {@inheritDoc}
+     * @see \Controle\Controller\AbstractCrudController::indexAction()
+     */
+    public function getInner()
+    {
+        /*Aqui será enviado uma array contendo os tabelas/ colunas e um array com a tabela que fara o inner e um array para exibir as colunas*/
+        $inner[] = array(
+            "table"     => 'cad_icms',
+            "join"   => 'cad_icms.icms_id = cad_produto.icms_pdv_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('trib_pdv' => 'cod_tributacao_pdv',
+                "aliq_pdv" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => 'cad_ncm',
+            "join"   => 'cad_ncm.ncm_id = cad_produto.ncm_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('ncm' => 'ncm',
+                "ncm_cod" => 'codigo')
+        );
+        
+    
+        $inner[] = array(
+            "table"     => array( 'icms2' => 'cad_icms'),
+            "join"   => 'icms2.icms_id = cad_produto.icms_nf_entrada_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('reducao_base_entrada' => 'base',
+                "aliq_base_entrada" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => array( 'icms3' => 'cad_icms'),
+            "join"   => 'icms2.icms_id = cad_produto.icms_nf_saida_id',
+            "tipoJoin"      => 'inner',
+            "columns" => array('reducao_base_saida' => 'base',
+                "aliq_base_saida" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => 'cad_ipi',
+            "join"   => 'cad_ipi.ipi_id = cad_produto.ipi_entrada_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_ipi_entrada' => 'codigo',
+                "aliq_ipi_entrada" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => array('ipi2' =>'cad_ipi'),
+            "join"   => 'cad_ipi.ipi_id = cad_produto.ipi_saida_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_ipi_saida' => 'codigo',
+                "aliq_ipi_saida" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => 'cad_pis',
+            "join"   => 'cad_pis.pis_id = cad_produto.pis_entrada_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_pis_entrada' => 'codigo',
+                "aliq_pis_entrada" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => ['pis2' => 'cad_pis'],
+            "join"   => 'pis2.pis_id = cad_produto.pis_saida_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_pis_saida' => 'codigo',
+                "aliq_pis_saida" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => 'cad_cofins',
+            "join"   => 'cad_cofins.cofins_id = cad_produto.cofins_entrada_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_cofins_entrada' => 'codigo',
+                "aliq_cofins_entrada" => 'aliquota')
+        );
+        
+        $inner[] = array(
+            "table"     => ['cofins2' => 'cad_cofins'],
+            "join"   => 'cofins2.cofins_id = cad_produto.cofins_saida_id',
+            "tipoJoin"      => 'left',
+            "columns" => array('cst_cofins_saida' => 'codigo',
+                "aliq_cofins_saida" => 'aliquota')
+        );
+        
+        return $inner;
     }
     
     public function gridAction()

@@ -329,8 +329,68 @@ $(document).on("click", '.delete', function(event) {
  * Função para exibir div de atalho
  * Criar data-atalho no button e colorar o nome da div de popup do form
  */
+var current_form; /*Pega nome do form atual para ser usado no retorno de dados*/
 $(document).on("click", ".atalhos", function() {
+    var page = 1;
+    current_form = $(this).closest("form").attr('id');
+    var modulo = $(this).attr("data-modulo");
+    var ctrl = $(this).attr("data-ctrl");
+	var titulo = '';
+	var div = $(this).attr("data-div");
+	var current_div = $(this).attr("data-current_div"); 
+	var dataIni = '';
+    var dataFinal = '';
+    var filterLetter = '';
+    var id = $(this).attr("data-id");
+    var order_by = $(this).attr("data-order_by");
 
-	var div = $(this).attr('data-atalho');
-	$('#'+div).show();
+    $('#'+div).show();
+    
+    returnView(modulo, ctrl, page, 'index',div, filterLetter, dataIni, dataFinal, id, titulo, order_by, 'ASC', true);
+
+	
+});
+
+
+/**
+* Função para exibir div de atalho
+* Criar data-atalho no button e colorar o nome da div de popup do form
+*/
+$(document).on("click", ".selecao", function() {	
+    var page = 1;
+    var modulo = $(this).attr("data-modulo");
+    var ctrl = $(this).attr("data-ctrl");
+	var titulo = '';
+	var div = $(this).attr("data-div");	
+	var dataIni = '';
+    var dataFinal = '';
+    var filterLetter = '';
+    var id = $(this).attr("data-id");
+    var order_by = '';
+
+    
+    var url = returnView(modulo, ctrl, page, 'get',div, filterLetter, dataIni, dataFinal, id, titulo, order_by, 'ASC', true, true);
+    
+    var dados = $(this).serialize();
+	$.ajax({
+	      url: url,
+	      type: 'Post',
+	      dataType: 'json',
+	      data: dados,
+	      success:function(json){
+	    	  $('#'+div).hide();
+	    	  $.each(json.dados[0], function(key,value) {
+	    		  try { 
+	    			  $('#'+current_form).find("[name='"+key+"']").val(value);
+	    		  } catch (e) {
+	    			  
+	    		  }	    		 
+	    		});
+	      },
+	      /*Se erro retorna a tela de erros*/
+	      error:function(response){
+	    	  alert("Erro");    	  
+		  } 
+	 });	
+	
 });

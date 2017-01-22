@@ -277,7 +277,6 @@ class CadProduto extends AbstractModel
                         'name' => 'Regex',
                         'options' => array(
                             'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
-                            'min' => 0,
                         ),
                     ),
                 ),
@@ -402,7 +401,6 @@ class CadProduto extends AbstractModel
                         'name' => 'Regex',
                         'options' => array(
                             'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',  
-                            'min' => 0,
                         ),
                     ),
                 ),
@@ -419,7 +417,6 @@ class CadProduto extends AbstractModel
                         'name' => 'Regex',
                         'options' => array(
                             'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
-                            'min' => 0,
                         ),
                     ),
                 ),
@@ -436,7 +433,6 @@ class CadProduto extends AbstractModel
                         'name' => 'Regex',
                         'options' => array(
                             'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
-                            'min' => 0,
                         ),
                     ),
                 ),
@@ -453,7 +449,6 @@ class CadProduto extends AbstractModel
                         'name' => 'Regex',
                         'options' => array(
                             'pattern' => '/^[-+]?([0-9]+(\.[0-9]+)?|\.[0-9]+)$/',
-                            'min' => 0,
                         ),
                     ),
                 ),
