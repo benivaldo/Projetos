@@ -95,9 +95,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index'   => 'Application\Controller\IndexController',
-            'Application\Controller\Auth'    => 'Application\Controller\AuthController',
-            'Application\Controller\Success' => 'Application\Controller\SuccessController',
-            //'Album\Controller\Album'         => 'Album\Controller\AlbumController',
         ),
     ),
     

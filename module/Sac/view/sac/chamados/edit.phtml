@@ -1,0 +1,46 @@
+<?php
+$title = 'Editar seção';
+$this->headTitle($title);
+?>
+<h4><?php echo $this->escapeHtml($title); ?></h4>
+
+<?php
+$form = $this->form;
+$id = $form->get('id')->getValue();
+$form->setAttribute('id', 'formChamadosEdit');
+$form->setAttribute('class', 'form-horizontal form-edit');
+$form->setAttribute('action', 'sac/chamados/edit/' . "id/" . $id  . "/" . $this->escapeHtml($this->div));
+$form->setAttribute('data-modulo', 'sac');    //variavel de controle com o nome do modulo
+$form->setAttribute('data-ctrl', 'chamados');      //variavel de controle com o nome do controle
+$form->setAttribute('data-titulo', 'Chamados');         //variavel de controle com o titulo da tab
+$form->setAttribute('data-div', $this->escapeHtml($this->div));         //variavel de controle com o titulo do nome da div abas
+$form->setAttribute('data-order_by', 'id');    //variavel de controle com o nome da chave primaria
+$form->setAttribute('data-id', $id);    //variavel de controle com o id a ser consultado
+$form->prepare();
+
+?>
+<div class="container-fluid">
+	  <?php echo $this->form()->openTag($form)  ?>
+          <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="active"><a href="#abasecao1" data-toggle="tab" role="tab">Principal</a></li>
+              <li><a href="#abasecao2" data-toggle="tab" role="tab"></a></li>
+              <li><a href="#absecao3" data-toggle="tab" role="tab"></a></li>
+            </ul>
+            <div id="tabContent1" class="tab-content">
+              <div class="tab-pane fade in active cadastro" id="abasecao1">
+                <?php echo $this->partial('sac/chamados/partialPrincipal.phtml', array('form' => $form, 'tipo' => 'edit')); ?>
+              </div>                
+              <div class="tab-pane fade cadastro" id="abasecao2">
+                
+              </div>
+              <div class="tab-pane fade cadastro" id="abasecao3">
+                <p>Dropdown content#1</p>
+              </div>
+            </div>	     
+          </div>
+      <?php echo $this->partial('sac/partials/botoes/partialBotao.phtml', array('classe' => 'enabled')); ?>
+      <?php echo $this->form()->closeTag($form) ?> 
+      <div id="div_popup_secao" class="popup"></div>
+    </div>
+

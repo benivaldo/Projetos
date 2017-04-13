@@ -1,7 +1,7 @@
 {
     "require": {
         "php": "^5.6 || ^7.0",
-    	
+    	"doctrine/doctrine-orm-module": "^1.0.9",
         "zendframework/zendframework": "^3.0"
     },
     "autoload": {
@@ -11,6 +11,7 @@
    		"CadParceiro\\": "module/CadParceiro/src/",
       	"CadDepartamento\\": "module/CadDepartamento/src/",
       	"CadImposto\\": "module/CadImposto/src/",
+		"Sac\\": "module/Sac/src/",
       	"Controle\\": "module/Controle/src/"
       	
     }

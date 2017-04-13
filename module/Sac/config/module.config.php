@@ -1,30 +1,28 @@
 <?php
-namespace CadDepartamento;
+namespace Sac;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return array(
     'controllers' => array(
         'factories' => array(
-           //Controller\CadSecaoController::class  => InvokableFactory::class,
-            //Controller\CadGrupoController::class => InvokableFactory::class,
-            //Controller\CadSubGrupoController::class => InvokableFactory::class,
+      		//Controller\IndexController::class  => InvokableFactory::class,
+        	Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
         ),
         
         'aliases' => [
-            'chamados' => Controller\CadSecaoController::class,
-            'cadgrupo' => Controller\CadGrupoController::class,
-            'cadsubgrupo' => Controller\CadSubGrupoController::class,
+            'chamados' => Controller\ChamadosController::class,
         ]
     ),
     
     'router' => array(
         'routes' => array(
-             'caddepartamento' => array(
+             'sac' => array(
                 'type'    => Literal::class ,
                 'options' => array(
-                    'route'    => '/caddepartamento',
+                    'route'    => '/sac',
                     'defaults' => array(
                        
                     ),
@@ -44,7 +42,7 @@ return array(
                                 'order' => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller'    => Controller\CadSecaoController::class,
+                                'controller'    => Controller\ChamadosController::class,
                                 'action'        => 'index',
                                 'order' => 'ASC',
                                 'page' => 1,
@@ -57,19 +55,29 @@ return array(
         ),
     ),
     
-      
-    
+   
     'view_manager' => array(
 
         'template_path_stack' => array(
-            'caddepartamento' => __DIR__ . '/../view',
-            'cadsecao' => __DIR__ . '/../view',
-            'cadgrupo' => __DIR__ . '/../view',
-            'cadsubgrupo' => __DIR__ . '/../view',
+            'sac' => __DIR__ . '/../view',            
         ),
         'strategies' => array(
     		'ViewJsonStrategy',
         ),
     ),
    
+	'doctrine' => [
+		'driver' => [
+			__NAMESPACE__ . '_driver' => [
+				'class' => AnnotationDriver::class,
+				'cache' => 'array',
+				'paths' => [__DIR__ . '/../src/Entity']
+			],
+			'orm_default' => [
+				'drivers' => [
+					__NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+				]
+			]
+		]
+	]
 );

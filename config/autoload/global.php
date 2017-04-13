@@ -10,11 +10,22 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
+use Doctrine\DBAL\Driver\PDOPgSql\Driver as PDOMySqlDriver;
 
 return array(
-    'db' => array(
-        'driver' => 'Pdo',
-        'dsn' => 'pgsql:host=localhost;port=5432;dbname=athena',
-    ),
-    
+   	'doctrine' => [
+		'connection' => [
+			'orm_default' => [
+				'driverClass' => PDOMySqlDriver::class,
+				'params' => [
+					'host'     => '127.0.0.1',
+					'port'     => '5432',
+					'user'     => 'postgres',
+					'password' => 'postgres',
+					'dbname'   => 'athena',
+					'driver' => 'pdo_pgsql',
+				]
+			],
+		],
+	],    
 );
