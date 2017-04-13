@@ -11,7 +11,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Sac\Repository\ChamadosRepository")
- * @ORM\Table(name="cad_secao")
+ * @ORM\Table(name="chamados")
  */
 class Chamados
 {
@@ -20,26 +20,35 @@ class Chamados
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
-	 * @ORM\Column(name="secao_id")
+	 * @ORM\Column(name="id")
 	 */
 	protected $id;
 
-	/**
-	 * @ORM\Column(name="descricao")
+	/**@var string
+	 * @ORM\Column(name="titulo")
 	 */
-	protected $descricao;
+	protected $titulo;
+	
+	/**@var string
+	 * @ORM\Column(name="observacao")
+	*/
+	protected $observacao;
 
+	/**@var string
+	 * @ORM\Column(name="email")
+	*/
+	protected $email;
 	
-	/**
-	 * @ORM\Column(name="data_cadastro")
-	 */
-	protected $dataCadastro;
+	/**@var integer
+	 * @ORM\Column(name="clienteid")
+	*/
+	protected $clienteId;
 	
-	/**
-	 * @ORM\Column(name="data_altera")
-	 */
-	protected $dataAltera;
-	
+	/**@var integer
+	 * @ORM\Column(name="pedidoid")
+	*/
+	protected $pedidoId;
+
 	
 	// Returns ID of this chamados.
 	public function getId()
@@ -54,45 +63,53 @@ class Chamados
 	}
 	
 	
-	// Returns descricao.
-	public function getDescricao()
+	// Returns titulo.
+	public function getTitulo()
 	{
-		return $this->descricao;
+		return $this->titulo;
 	}
 	
-	// Sets descricao.
-	public function setDescricao($descricao)
+	// Sets titulo.
+	public function setTitulo($titulo)
 	{
-		$this->descricao = $descricao;
+		$this->titulo = $titulo;
 	}
 	
-	// Returns dataCadastro.
-	public function getDataCadastro()
+	// Returns clientes.
+	public function getClienteId()
 	{
-		return $this->dataCadastro;
+		return $this->clienteId;
 	}
 	
-	// Sets DataCadastro.
-	/**
-	 * @ORM\PrePersist
-	 */
-	public function setDataCadastro()
+	// Sets clientes.
+	public function setClienteId($clienteId)
 	{
-		$this->dataCadastro = date('Y-m-d');
+		$this->clienteId = $clienteId;
 	}
 	
-	// Returns dataCadastro.
-	public function getDataAltera()
+	// Returns pedidos.
+	public function getPedidoId()
 	{
-		return $this->dataAltera;
+		return $this->pedidoId;
 	}
 	
-	// Sets DataCadastro.
-	public function setDataAltera($dataAltera)
+	// Sets pedidos.
+	public function setPedidoId($pedidoId)
 	{
-		$this->dataAltera = $dataAltera;
+		$this->pedidoId = $pedidoId;
 	}
 	
+	// Returns email.
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	
+	// Sets pedidos.
+	public function setEmail($email)
+	{
+		$this->email = $email;
+	}
 	
 	// Add content to these methods:
 	public function setInputFilter(InputFilterInterface $inputFilter)
@@ -106,7 +123,7 @@ class Chamados
 			$inputFilter = new InputFilter();
 	
 			$inputFilter->add(array(
-					'name'     => 'descricao',
+					'name'     => 'titulo',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'StripTags'),
@@ -118,17 +135,38 @@ class Chamados
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 50,
+											'max'      => 100,
 											'messages' => array(
-													'stringLengthTooShort' => 'A descrição de conter de 1 a 50 characteres!',
-													'stringLengthTooLong' => 'A descrição de conter de 1 a 50 characteres!'
+													'stringLengthTooShort' => 'A descrição deve conter de 1 a 100 characteres!',
+													'stringLengthTooLong' => 'A descrição deve conter de 1 a 100 characteres!'
 											),
 									),
 							),
 					),
 			));
-	
-	
+			
+			$inputFilter->add(array(
+					'name'     => 'email',
+					'required' => true,
+					'filters'  => array(
+							array('name' => 'StripTags'),
+							array('name' => 'StringTrim'),
+					),
+					'validators' => array(
+							array(
+									'name'    => 'StringLength',
+									'options' => array(
+											'encoding' => 'UTF-8',
+											'min'      => 1,
+											'max'      => 100,
+											'messages' => array(
+													'stringLengthTooShort' => 'O e-mail deve conter de 1 a 100 characteres!',
+													'stringLengthTooLong' => 'O e-mail deve conter de 1 a 100 characteres!'
+											),
+									),
+							),
+					),
+			));
 	
 			$this->inputFilter = $inputFilter;
 		}
