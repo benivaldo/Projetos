@@ -8,15 +8,12 @@ class CommonControllerFactory implements AbstractFactoryInterface
 {
     public function canCreate(ContainerInterface $container, $requestedName)
     {
-        
         return (fnmatch('*Controller', $requestedName)) ? true : false;
     }
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-         $entityManager = $container->get('doctrine.entitymanager.orm_default');
-
-		// Instantiate the controller and inject dependencies
+      	$entityManager = $container->get('doctrine.entitymanager.orm_default');
 		return new $requestedName($entityManager, $container);
     }
 }
