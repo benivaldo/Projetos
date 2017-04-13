@@ -12,34 +12,55 @@ class ChamadosForm extends Form
 
         $this->setAttribute('method', 'post');
         $this->add(array(
-                'name' => 'id',
+                'name' => 'pedido',
                 'attributes' => array(
                     'type'  => 'text',
                     'class' => 'form-control input-sm',
-                    'placeholder' =>'Código',
-                    'readonly'  => 'readonly',
+                    'placeholder' =>'Número do pedido',
             ),
         ));
 
         $this->add(array(
-                'name' => 'descricao',
+                'name' => 'cliente',
                 'attributes' => array(
                     'type'  => 'text',
                     'class' => 'form-control input-sm',
-                    'placeholder' =>'Descrição da seção',
-                    'maxlength' => '50',
+                    'placeholder' =>'Nome do cliente',
+                    'maxlength' => '60',
             ),
             
         ));
-       
         
         $this->add(array(
-            'name' => 'data_altera',
-            'attributes' => array(
-                'type'  => 'hidden',
-                'class' => 'form-control input-sm',
-                'value' => date("Y-m-d")
-            ),
+        		'name' => 'titulo',
+        		'attributes' => array(
+        				'type'  => 'text',
+        				'class' => 'form-control input-sm',
+        				'placeholder' =>'Título',
+        				'maxlength' => '100',
+        		),
+        
+        ));
+        
+        $this->add(array(
+        		'name' => 'email',
+        		'attributes' => array(
+        				'type'  => 'text',
+        				'class' => 'form-control input-sm',
+        				'placeholder' =>'E-mail',
+        				'maxlength' => '80',
+        		),
+        
+        ));
+        
+        $this->add(array(
+        		'name' => 'observacao',
+        		'attributes' => array(
+        				'type'  => 'Zend\Form\Element\Textarea',
+        				'class' => 'form-control input-sm',
+        				'placeholder' =>'Observação',
+        				'maxlength' => '255',
+        		),
         
         ));
 

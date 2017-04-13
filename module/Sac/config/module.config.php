@@ -4,14 +4,20 @@ use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Sac\Controller\Factory\CommonControllerFactory;
+
 
 return array(
     'controllers' => array(
         'factories' => array(
       		//Controller\IndexController::class  => InvokableFactory::class,
-        	Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
+        	//Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
         ),
         
+    	'abstract_factories' => [
+    		CommonControllerFactory::class,
+    	],
+    		
         'aliases' => [
             'chamados' => Controller\ChamadosController::class,
         ]
