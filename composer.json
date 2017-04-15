@@ -6,14 +6,8 @@
     },
     "autoload": {
     "psr-4": {
-    	"Application\\": "module/Application/src/",
-    	"CadProduto\\": "module/CadProduto/src/",
-   		"CadParceiro\\": "module/CadParceiro/src/",
-      	"CadDepartamento\\": "module/CadDepartamento/src/",
-      	"CadImposto\\": "module/CadImposto/src/",
-		"Sac\\": "module/Sac/src/",
-      	"Controle\\": "module/Controle/src/"
-      	
+    	"Application\\": "module/Application/src/",    	
+		"Sac\\": "module/Sac/src/"      	
     }
   }
 }

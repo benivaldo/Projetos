@@ -24,31 +24,48 @@ class Chamados
 	 */
 	protected $id;
 
-	/**@var string
+	/**
 	 * @ORM\Column(name="titulo")
 	 */
 	protected $titulo;
 	
-	/**@var string
+	/**
 	 * @ORM\Column(name="observacao")
 	*/
 	protected $observacao;
 
-	/**@var string
+	/**
 	 * @ORM\Column(name="email")
 	*/
 	protected $email;
 	
-	/**@var integer
-	 * @ORM\Column(name="clienteid")
-	*/
-	protected $clienteId;
-	
-	/**@var integer
+		
+	/**
 	 * @ORM\Column(name="pedidoid")
 	*/
 	protected $pedidoId;
-
+	
+	/**
+    * @var \Sac\Entity\Chamados
+	*
+	* @ORM\ManyToOne(targetEntity="\Sac\Entity\Clientes", inversedBy="chamados")
+	* @ORM\JoinColumns({
+	*   @ORM\JoinColumn(name="clienteid", referencedColumnName="id")
+	* })
+	*/
+	protected $clientes;
+	
+	
+	/**
+	 * @var \Sac\Entity\Chamados
+	 *
+	 * @ORM\ManyToOne(targetEntity="\Sac\Entity\Pedidos", inversedBy="chamados")
+	 * @ORM\JoinColumns({
+	 *   @ORM\JoinColumn(name="pedidoid", referencedColumnName="id")
+	 * })
+	 */
+	protected $pedidos;
+	
 	
 	// Returns ID of this chamados.
 	public function getId()
@@ -76,27 +93,31 @@ class Chamados
 	}
 	
 	// Returns clientes.
-	public function getClienteId()
+	public function getClientes()
 	{
-		return $this->clienteId;
+		return $this->clientes;
 	}
 	
-	// Sets clientes.
-	public function setClienteId($clienteId)
+	/**
+     * Set clientes
+     * @param \Sac\Entity\Clientes $cliente
+     * @return Pedido
+     */
+	public function setClientes($clientes)
 	{
-		$this->clienteId = $clienteId;
+		$this->clientes = $clientes;
 	}
 	
 	// Returns pedidos.
-	public function getPedidoId()
+	public function getPedidos()
 	{
-		return $this->pedidoId;
+		return $this->pedidos;
 	}
 	
 	// Sets pedidos.
-	public function setPedidoId($pedidoId)
+	public function setPedidoId($pedidos)
 	{
-		$this->pedidoId = $pedidoId;
+		$this->pedidos = $pedidos;
 	}
 	
 	// Returns email.
@@ -105,10 +126,22 @@ class Chamados
 		return $this->email;
 	}
 	
-	// Sets pedidos.
+	// Sets email.
 	public function setEmail($email)
 	{
 		$this->email = $email;
+	}
+	
+	// Returns observacao.
+	public function getObservacao()
+	{
+	    return $this->observacao;
+	}
+	
+	// Sets observacao.
+	public function setObservacao($observacao)
+	{
+	    $this->observacao = $observacao;
 	}
 	
 	// Add content to these methods:
@@ -135,7 +168,7 @@ class Chamados
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 100,
+											'max'      => 80,
 											'messages' => array(
 													'stringLengthTooShort' => 'A descrição deve conter de 1 a 100 characteres!',
 													'stringLengthTooLong' => 'A descrição deve conter de 1 a 100 characteres!'
@@ -158,7 +191,7 @@ class Chamados
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 100,
+											'max'      => 80,
 											'messages' => array(
 													'stringLengthTooShort' => 'O e-mail deve conter de 1 a 100 characteres!',
 													'stringLengthTooLong' => 'O e-mail deve conter de 1 a 100 characteres!'

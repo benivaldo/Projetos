@@ -22,7 +22,7 @@ return array(
 					'port'     => '5432',
 					'user'     => 'postgres',
 					'password' => 'postgres',
-					'dbname'   => 'athena',
+					'dbname'   => 'chamados',
 					'driver' => 'pdo_pgsql',
 				]
 			],

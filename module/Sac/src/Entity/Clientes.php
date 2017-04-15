@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass="Sac\Repository\ChamadosRepository")
  * @ORM\Table(name="clientes")
  */
 class Clientes
@@ -18,18 +17,17 @@ class Clientes
 	 */
 	protected $id;
 
-	/**@var string
+	/**
 	 * @ORM\Column(name="nome")
 	 */
 	protected $nome;
 	
-	/**@var string
+	/**
 	 * @ORM\Column(name="email")
 	*/
 	protected $email;
 	
-	
-	
+		
 	// Returns ID of this clientes.
 	public function getId()
 	{

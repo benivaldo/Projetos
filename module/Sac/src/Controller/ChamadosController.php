@@ -12,6 +12,7 @@ use Sac\Form\ChamadosForm;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Sac\Entity\Chamados;
+use Sac\Entity\Clientes;
 
 class ChamadosController extends AbstractActionController
 {
@@ -77,11 +78,12 @@ class ChamadosController extends AbstractActionController
             $this->template = $this->template;
         }
         
-        //$query = $this->entityManager->getRepository(Chamados::class)->findAll();
         $orderBy = (null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by);
         $order = $this->params('order');
+        $search = $this->params('search_frase');
            
-        $query = $this->entityManager->getRepository(Chamados::class)->findChamados($orderBy, $order);
+        $query = $this->entityManager->getRepository(Chamados::class)->findChamados($orderBy, $order, $search);
+        $query->setHydrationMode(\Doctrine\ORM\Query::HYDRATE_SCALAR);
         
         $page = $this->params('page');        
         $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
@@ -102,13 +104,12 @@ class ChamadosController extends AbstractActionController
         ));
         
         return $this->verificaAjaxJson($this->viewModel);
-
     }
 
     public function editAction()
     {
         $this->getVariaveis();        
-        //$chamados = new Chamados();        
+      
         $erro = "";
         $this->div = $this->params('div');
         $this->template = 'sac/chamados/edit.phtml';
@@ -116,7 +117,6 @@ class ChamadosController extends AbstractActionController
         $id = (int) $this->params()->fromRoute('id', 0);
        
         $chamados = $this->entityManager->find(Chamados::class, $id);
-        //print_r($model);
         
         $form  = $this->form;
         $form->bind($chamados);
@@ -171,28 +171,44 @@ class ChamadosController extends AbstractActionController
        	$form = $this->form;
         $request = $this->getRequest();
         
-        if ($request->isPost() && count($request->getPost()) != 0) {        	
-        	$form->setInputFilter($chamados->getInputFilter());
-        	$form->setData($request->getPost());        	
-        	if ($form->isValid()) {        		
-        		$chamados->exchangeArray($form->getData());         		
-        		try {
-        			$this->entityManager->persist($chamados);
-	        		$this->entityManager->flush();
-	        		$id = $chamados->getId(); 
-	        		$erro = "Operação concluida com sucesso.";
-        		} catch (\Exception $e) {
-			        $erro =  $e->getMessage();
-			    }finally {
-	               $this->errorMessage['id'] = '';
-	            }
-        	}else {	
-		 	   	foreach ($form->getMessages() as $key => $campo) {
-	    	   		foreach ($campo as $key1 => $value) {
-	    				$erro .= "Campo $key: $value \n";
-	    			}
-				}			   
-			}
+        if ($request->isPost() && count($request->getPost()) != 0) {  
+            //Verifica se o número do pedido existe
+            $idPedido = (int) $this->params()->fromPost('pedido');
+            $pedidos = $this->entityManager->find('Sac\Entity\Pedidos', $idPedido); 
+            
+            if(count($pedidos) > 0) {
+            	$form->setInputFilter($chamados->getInputFilter());
+            	$form->setData($request->getPost());
+            	$email = $this->params()->fromPost('email');
+            	$nome = $this->params()->fromPost('cliente');
+            	$clientes = $this->validaEmail($email, $nome);
+            	
+            	if ($form->isValid()) {             	    
+            		$chamados->setClientes($clientes);
+            		$chamados->setEmail($clientes->getEmail());
+            		$chamados->setPedidoId($pedidos);
+            		$chamados->setTitulo($this->params()->fromPost('titulo'));
+            		$chamados->setObservacao($this->params()->fromPost('observacao'));
+            		try {
+            			$this->entityManager->persist($chamados);
+    	        		$this->entityManager->flush();
+    	        		$id = $chamados->getId(); 
+    	        		$erro = "Operação concluida com sucesso.";
+            		} catch (\Exception $e) {
+    			        $erro =  $e->getMessage();
+    			    }finally {
+    	               $this->errorMessage['id'] = '';
+    	            }
+            	}else {	
+    		 	   	foreach ($form->getMessages() as $key => $campo) {
+    	    	   		foreach ($campo as $key1 => $value) {
+    	    				$erro .= "Campo $key: $value \n";
+    	    			}
+    				}			   
+    			}
+            } else {
+                $erro = "Número do pedido inexistente.";
+            }
         }
         
 		$this->errorMessage['erro'] = $erro;
@@ -205,8 +221,7 @@ class ChamadosController extends AbstractActionController
         ));
         return $this->verificaAjaxJson($this->viewModel);
     }
-    
-    
+        
     /**
      * Verifica se a solicitação é ajax, caso seja retorna a resposta em Json,
      * caso não seja retorna uma resposta normal
@@ -240,5 +255,19 @@ class ChamadosController extends AbstractActionController
     	}
     }
     
-    
+    private function validaEmail($email, $nome)
+    {
+        $clientes = new Clientes();        
+        $result = $this->entityManager->getRepository("Sac\Entity\Clientes")->findBy(array("email" => $email));
+
+        if (count($result) > 0) {
+            return $result[0];
+        } else {
+            $clientes->setNome($nome);
+            $clientes->setEmail($email);
+            $this->entityManager->persist($clientes);
+            $this->entityManager->flush();
+           return $clientes; 
+        }
+    }
 }

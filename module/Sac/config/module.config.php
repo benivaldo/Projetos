@@ -10,7 +10,7 @@ use Sac\Controller\Factory\CommonControllerFactory;
 return array(
     'controllers' => array(
         'factories' => array(
-      		//Controller\IndexController::class  => InvokableFactory::class,
+      		Controller\IndexController::class  => InvokableFactory::class,
         	//Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
         ),
         

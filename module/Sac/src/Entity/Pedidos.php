@@ -5,8 +5,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
- * @ORM\Entity(repositoryClass="Sac\Repository\ChamadosRepository")
  * @ORM\Table(name="pedidos")
  */
 class Pedidos
@@ -18,7 +16,7 @@ class Pedidos
 	 */
 	protected $id;
 
-	/**@var string
+	/**
 	 * @ORM\Column(name="descricao")
 	 */
 	protected $descricao;

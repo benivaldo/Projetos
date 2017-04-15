@@ -11,6 +11,14 @@ class ChamadosForm extends Form
         parent::__construct('secao');
 
         $this->setAttribute('method', 'post');
+        
+        $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+        
         $this->add(array(
                 'name' => 'pedido',
                 'attributes' => array(
@@ -26,7 +34,7 @@ class ChamadosForm extends Form
                     'type'  => 'text',
                     'class' => 'form-control input-sm',
                     'placeholder' =>'Nome do cliente',
-                    'maxlength' => '60',
+                    'maxlength' => '80',
             ),
             
         ));
@@ -37,7 +45,7 @@ class ChamadosForm extends Form
         				'type'  => 'text',
         				'class' => 'form-control input-sm',
         				'placeholder' =>'Título',
-        				'maxlength' => '100',
+        				'maxlength' => '80',
         		),
         
         ));
