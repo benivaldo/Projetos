@@ -1,4 +1,4 @@
-# Zend Framework 3
+# Zend Framework 3 PHP7
 
 Instalar usando o composer
 
