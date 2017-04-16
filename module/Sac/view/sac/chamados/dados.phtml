@@ -18,6 +18,8 @@ if ($this->order_by == 'id') {
             <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Cliente</a></th>
             <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Pedido</a></th>
             <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Email</a></th>
+            <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Título</a></th>
+            <th><a href="#" data-rel="<?php echo $this->escapeHtml($this->div);?>">Observação</a></th>
              <th><a href="#" onclick="returnView('sac','chamados',1,'add','<?php echo $this->escapeHtml($this->div); ?>','','','',0,'Chamados')" data-rel="<?php echo $this->escapeHtml($this->div);?>">
                 <i class="fa fa-plus-square"></i></a></th>
         </tr>
@@ -29,6 +31,8 @@ if ($this->order_by == 'id') {
         	<td><?php echo $this->escapeHtml($dado['c_nome']);?></td>
         	<td><?php echo $this->escapeHtml($dado['t_pedidoId']);?></td>
         	<td><?php echo $this->escapeHtml($dado['t_email']);?></td>
+        	<td><?php echo $this->escapeHtml($dado['t_titulo']);?></td>
+        	<td><?php echo $this->escapeHtml($dado['t_observacao']);?></td>
         	<td></td>
         </tr>    
 <?php endforeach; ?>

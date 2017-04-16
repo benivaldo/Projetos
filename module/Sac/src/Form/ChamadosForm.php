@@ -34,7 +34,7 @@ class ChamadosForm extends Form
                     'type'  => 'text',
                     'class' => 'form-control input-sm',
                     'placeholder' =>'Nome do cliente',
-                    'maxlength' => '80',
+                    'maxlength' => '60',
             ),
             
         ));
@@ -45,7 +45,7 @@ class ChamadosForm extends Form
         				'type'  => 'text',
         				'class' => 'form-control input-sm',
         				'placeholder' =>'Título',
-        				'maxlength' => '80',
+        				'maxlength' => '50',
         		),
         
         ));
@@ -56,7 +56,7 @@ class ChamadosForm extends Form
         				'type'  => 'text',
         				'class' => 'form-control input-sm',
         				'placeholder' =>'E-mail',
-        				'maxlength' => '80',
+        				'maxlength' => '50',
         		),
         
         ));
@@ -64,10 +64,10 @@ class ChamadosForm extends Form
         $this->add(array(
         		'name' => 'observacao',
         		'attributes' => array(
-        				'type'  => 'Zend\Form\Element\Textarea',
+        				'type'  => 'text',
         				'class' => 'form-control input-sm',
         				'placeholder' =>'Observação',
-        				'maxlength' => '255',
+        				'maxlength' => '50',
         		),
         
         ));

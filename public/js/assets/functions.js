@@ -31,6 +31,8 @@ $(document).ready(function(){
                 if ($(event.target).attr('class').indexOf("add") > 0) {
                 	/*Se existir um id valido retorna a view*/
                 	if (data.id > 0) {
+                		$(".btn-gravar, .btn-limpar").attr('disabled','true');
+                		$(".btn-novo").removeClass("disabled");
                 		//returnView(modulo, ctrl, 1, 'edit', div, '', '', '', data.id, titulo);
                 	}
                 	
@@ -106,7 +108,6 @@ $(document).ready(function(){
 	       	var page = 1;
 	        var modulo = $('#'+form).attr("data-modulo");
 	        var ctrl = $('#'+form).attr("data-ctrl");
-	    	//var titulo = $('#'+form).attr("data-titulo");
 	    	var div = $('#'+form).attr("data-div");
 	    	var order_by = $('#'+form).attr("data-order_by");
 	    	var order = $('#'+form).attr("data-order");
