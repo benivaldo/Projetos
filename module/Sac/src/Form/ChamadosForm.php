@@ -1,16 +1,28 @@
 <?php
 namespace Sac\Form;
 
+
 use Zend\Form\Form;
+use DoctrineModule\Persistence\ObjectManagerAwareInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 
-class ChamadosForm extends Form
+class ChamadosForm extends Form implements ObjectManagerAwareInterface
 {
-    public function __construct($name = null)
+  	protected $objectManager;
+    protected $entityManager;
+    
+    public function __construct(EntityManager $entityManager)
     {
-        // we want to ignore the name passed
-        parent::__construct('secao');
-
-        $this->setAttribute('method', 'post');
+ 
+        $this->entityManager = $entityManager;
+    }
+    
+    public function init()
+    {
+    	parent::__construct('form');
+    	
+    	$this->setAttribute('method', 'post');
         
         $this->add(array(
             'name' => 'id',
@@ -19,24 +31,35 @@ class ChamadosForm extends Form
             ),
         ));
         
-        $this->add(array(
-                'name' => 'pedido',
-                'attributes' => array(
-                    'type'  => 'text',
-                    'class' => 'form-control input-sm',
-                    'placeholder' =>'Número do pedido',
-            ),
-        ));
+        $this->add([
+            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
+            'name' => 'pedidos',
+        	'attributes' => array(
+        			'class' => 'form-control input-sm',
+        			'placeholder' =>'Número do pedido',
+        	),
+            'options' => [
+                'object_manager' => $this->getObjectManager(),
+                'target_class'   => Pedidos::class,
+                'property'       => 'id',
+        		'disable_inarray_validator' => true
+            ],
+        ]);
+        
 
         $this->add(array(
-                'name' => 'cliente',
+                'name' => 'clientes',
+        		'type' => 'DoctrineModule\Form\Element\ObjectSelect',
                 'attributes' => array(
-                    'type'  => 'text',
                     'class' => 'form-control input-sm',
                     'placeholder' =>'Nome do cliente',
-                    'maxlength' => '60',
             ),
-            
+        		'options' => [
+        		'object_manager' => $this->getObjectManager(),
+        		'target_class'   => Clientes::class,
+        		'property'       => 'nome',
+        		'disable_inarray_validator' => true
+        		],
         ));
         
         $this->add(array(
@@ -101,6 +124,15 @@ class ChamadosForm extends Form
                 'class' => 'btn btn-default btn-sm'
             ),
         ));
+    }
 
+    public function setObjectManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
+
+    public function getObjectManager()
+    {
+        return $this->objectManager;
     }
 }

@@ -5,6 +5,9 @@ use Zend\Router\Http\Segment;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Sac\Controller\Factory\CommonControllerFactory;
+use Sac\Factory\ChamadosFormFactory;
+use Sac\Controller\Factory\ChamadosControllerFactory;
+use Sac\Form\ChamadosForm;
 
 
 return array(
@@ -16,6 +19,7 @@ return array(
         
     	'abstract_factories' => [
     		CommonControllerFactory::class,
+    		ChamadosControllerFactory::class,
     	],
     		
         'aliases' => [
@@ -23,6 +27,15 @@ return array(
         ]
     ),
     
+	'form_elements' => array(
+		'factories' => array(
+			//ChamadosForm::class => ChamadosFormFactory::class,  
+		),
+		'abstract_factories' => array(
+			ChamadosFormFactory::class,
+		),
+	),
+		
     'router' => array(
         'routes' => array(
              'sac' => array(

@@ -6,6 +6,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -66,6 +67,11 @@ class Chamados
 	 */
 	protected $pedidos;
 	
+	public function __construct()
+	{
+		$this->clientes = new ArrayCollection();
+		$this->pedidos = new ArrayCollection();
+	}
 	
 	// Returns ID of this chamados.
 	public function getId()
@@ -89,7 +95,8 @@ class Chamados
 	// Sets titulo.
 	public function setTitulo($titulo)
 	{
-		$this->titulo = $titulo;
+		$this->titulo[] = $titulo;
+		return $this;
 	}
 	
 	// Returns clientes.
@@ -103,7 +110,7 @@ class Chamados
      * @param \Sac\Entity\Clientes $cliente
      * @return Pedido
      */
-	public function setClientes($clientes)
+	public function setClientes(\Sac\Entity\Clientes $clientes = null)
 	{
 		$this->clientes = $clientes;
 	}
@@ -115,9 +122,10 @@ class Chamados
 	}
 	
 	// Sets pedidos.
-	public function setPedidoId($pedidos)
+	public function setPedidoId(\Sac\Entity\Pedidos $pedidos = null)
 	{
 		$this->pedidos = $pedidos;
+		return $this;
 	}
 	
 	// Returns email.

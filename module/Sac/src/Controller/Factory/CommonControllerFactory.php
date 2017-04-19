@@ -8,6 +8,8 @@ class CommonControllerFactory implements AbstractFactoryInterface
 {
     public function canCreate(ContainerInterface $container, $requestedName)
     {
+    	//echo $requestedName;
+    	
         return (fnmatch('*Controller', $requestedName)) ? true : false;
     }
 

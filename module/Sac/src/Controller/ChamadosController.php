@@ -7,8 +7,6 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
 use Zend\Mvc\Controller\AbstractActionController;
-use Sac\Form\ChamadosForm;
-//use Sac\Model\Chamados;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Sac\Entity\Chamados;
@@ -38,6 +36,9 @@ class ChamadosController extends AbstractActionController
 	
 	private $errorMessage;
 	
+	private $form;
+	
+
 	/**
 	 * Entity manager.
 	 * @var Doctrine\ORM\EntityManager
@@ -49,11 +50,13 @@ class ChamadosController extends AbstractActionController
 	{
 		$this->entityManager = $entityManager;
 		$this->container = $container;
+		$this->form = $this->container->get('FormElementManager')->get('Sac\Form\ChamadosForm');
+		//$this->form = $form;
 	}
 	  
      private function getVariaveis()
     {
-        $this->form = new ChamadosForm();
+        //$this->form = new ChamadosForm();
         $this->route = 'sac';
         $this->viewData = 'dados';
         $this->pagination = true;
@@ -116,7 +119,7 @@ class ChamadosController extends AbstractActionController
        
         $id = (int) $this->params()->fromRoute('id', 0);
        
-        $chamados = $this->entityManager->find(Chamados::class, $id);
+        $chamados = $this->entityManager->find('Sac\Entity\Chamados', $id);
         
         $form  = $this->form;
         $form->bind($chamados);
@@ -168,19 +171,19 @@ class ChamadosController extends AbstractActionController
         $this->div = $this->params('div');
         $this->template = 'sac/chamados/add.phtml';
         
-       	$form = $this->form;
+       	$form  = $this->form;
         $request = $this->getRequest();
         
         if ($request->isPost() && count($request->getPost()) != 0) {  
             //Verifica se o número do pedido existe
-            $idPedido = (int) $this->params()->fromPost('pedido');
+            $idPedido = (int) $this->params()->fromPost('pedidos');
             $pedidos = $this->entityManager->find('Sac\Entity\Pedidos', $idPedido); 
             
             if(count($pedidos) > 0) {
             	$form->setInputFilter($chamados->getInputFilter());
             	$form->setData($request->getPost());
             	$email = $this->params()->fromPost('email');
-            	$nome = $this->params()->fromPost('cliente');
+            	$nome = $this->params()->fromPost('clientes');
             	$clientes = $this->validaEmail($email, $nome);
             	
             	if ($form->isValid()) {             	    

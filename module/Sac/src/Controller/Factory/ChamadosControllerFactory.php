@@ -2,20 +2,20 @@
 namespace Sac\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
-use Sac\Controller\ChamadosController;
+use Zend\ServiceManager\Factory\AbstractFactoryInterface; // <-- note the change!
 
-/**
- * This is the factory for ChamadosController. Its purpose is to instantiate the
- * controller.
- */
-class ChamadosControllerFactory implements FactoryInterface
+class ChamadosControllerFactory implements AbstractFactoryInterface
 {
-	public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
-	{
-		$entityManager = $container->get('doctrine.entitymanager.orm_default');
+    public function canCreate(ContainerInterface $container, $requestedName)
+    {
+    	//echo $requestedName;
+    	
+        return (fnmatch('*Form', $requestedName)) ? true : false;
+    }
 
-		// Instantiate the controller and inject dependencies
-		return new ChamadosController($entityManager, $container);
-	}
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+      	$entityManager = $container->get('doctrine.entitymanager.orm_default');
+		return new $requestedName($entityManager, $container);
+    }
 }
