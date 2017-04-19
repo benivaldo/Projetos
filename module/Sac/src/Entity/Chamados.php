@@ -95,7 +95,7 @@ class Chamados
 	// Sets titulo.
 	public function setTitulo($titulo)
 	{
-		$this->titulo[] = $titulo;
+		$this->titulo = $titulo;
 		return $this;
 	}
 	
@@ -112,7 +112,7 @@ class Chamados
      */
 	public function setClientes(\Sac\Entity\Clientes $clientes = null)
 	{
-		$this->clientes = $clientes;
+		$this->clientes [] = $clientes;
 	}
 	
 	// Returns pedidos.
@@ -124,7 +124,7 @@ class Chamados
 	// Sets pedidos.
 	public function setPedidoId(\Sac\Entity\Pedidos $pedidos = null)
 	{
-		$this->pedidos = $pedidos;
+		$this->pedidos[] = $pedidos;
 		return $this;
 	}
 	

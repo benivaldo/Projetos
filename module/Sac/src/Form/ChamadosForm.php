@@ -5,6 +5,8 @@ namespace Sac\Form;
 use Zend\Form\Form;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sac\Entity\Pedidos;
+use Sac\Entity\Clientes;
 use Doctrine\ORM\EntityManager;
 
 class ChamadosForm extends Form implements ObjectManagerAwareInterface
