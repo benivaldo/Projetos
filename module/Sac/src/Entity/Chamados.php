@@ -41,37 +41,27 @@ class Chamados
 	protected $email;
 	
 		
+		
 	/**
-	 * @ORM\Column(name="pedidoid")
-	*/
-	protected $pedidoId;
-	
-	/**
-    * @var \Sac\Entity\Chamados
 	*
 	* @ORM\ManyToOne(targetEntity="\Sac\Entity\Clientes", inversedBy="chamados")
-	* @ORM\JoinColumns({
-	*   @ORM\JoinColumn(name="clienteid", referencedColumnName="id")
-	* })
+	* @ORM\JoinColumn(name="clienteid", referencedColumnName="id")
 	*/
 	protected $clientes;
 	
 	
 	/**
-	 * @var \Sac\Entity\Chamados
 	 *
 	 * @ORM\ManyToOne(targetEntity="\Sac\Entity\Pedidos", inversedBy="chamados")
-	 * @ORM\JoinColumns({
-	 *   @ORM\JoinColumn(name="pedidoid", referencedColumnName="id")
-	 * })
+	 * @ORM\JoinColumn(name="pedidoid", referencedColumnName="id")
 	 */
 	protected $pedidos;
 	
-	public function __construct()
+	/*public function __construct()
 	{
 		$this->clientes = new ArrayCollection();
 		$this->pedidos = new ArrayCollection();
-	}
+	}*/
 	
 	// Returns ID of this chamados.
 	public function getId()
@@ -102,7 +92,7 @@ class Chamados
 	// Returns clientes.
 	public function getClientes()
 	{
-		return $this->clientes;
+		return $this->clientes->toArray();
 	}
 	
 	/**
@@ -110,21 +100,22 @@ class Chamados
      * @param \Sac\Entity\Clientes $cliente
      * @return Pedido
      */
-	public function setClientes(\Sac\Entity\Clientes $clientes = null)
+	public function setClientes($clientes)
 	{
-		$this->clientes [] = $clientes;
+		$this->clientes = $clientes;
+		return $this;
 	}
 	
 	// Returns pedidos.
 	public function getPedidos()
 	{
-		return $this->pedidos;
+		return $this->pedidos->toArray();
 	}
 	
 	// Sets pedidos.
-	public function setPedidoId(\Sac\Entity\Pedidos $pedidos = null)
+	public function setPedidos($pedidos)
 	{
-		$this->pedidos[] = $pedidos;
+		$this->pedidos = $pedidos;
 		return $this;
 	}
 	

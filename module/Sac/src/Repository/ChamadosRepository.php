@@ -20,7 +20,7 @@ class ChamadosRepository extends EntityRepository
         ->from(Chamados::class, 't')
         ->innerJoin('t.clientes', 'c')
         ->innerJoin('t.pedidos', 'p')    	
-        ->where('t.pedidoId = ?1')
+        ->where('t.pedidos = ?1')
         ->orWhere('t.email LIKE ?2')
         ->orderBy("t.$orderBy", $order)
         ->setParameter('1', (int)$search)

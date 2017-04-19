@@ -189,7 +189,7 @@ class ChamadosController extends AbstractActionController
             	if ($form->isValid()) {             	    
             		$chamados->setClientes($clientes);
             		$chamados->setEmail($clientes->getEmail());
-            		$chamados->setPedidoId($pedidos);
+            		$chamados->setPedidos($pedidos);
             		$chamados->setTitulo($this->params()->fromPost('titulo'));
             		$chamados->setObservacao($this->params()->fromPost('observacao'));
             		try {
