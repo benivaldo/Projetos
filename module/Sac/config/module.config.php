@@ -13,13 +13,13 @@ use Sac\Form\ChamadosForm;
 return array(
     'controllers' => array(
         'factories' => array(
-      		Controller\IndexController::class  => InvokableFactory::class,
+      		//Controller\IndexController::class  => InvokableFactory::class,
         	//Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
         ),
         
     	'abstract_factories' => [
-    		CommonControllerFactory::class,
-    		ChamadosControllerFactory::class,
+    		//CommonControllerFactory::class,
+    		//ChamadosControllerFactory::class,
     	],
     		
         'aliases' => [
@@ -32,7 +32,7 @@ return array(
 			//ChamadosForm::class => ChamadosFormFactory::class,  
 		),
 		'abstract_factories' => array(
-			ChamadosFormFactory::class,
+			//ChamadosFormFactory::class,
 		),
 	),
 		

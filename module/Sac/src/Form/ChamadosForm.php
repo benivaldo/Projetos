@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Sac\Entity\Pedidos;
 use Sac\Entity\Clientes;
 use Doctrine\ORM\EntityManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class ChamadosForm extends Form implements ObjectManagerAwareInterface
 {
@@ -17,12 +18,14 @@ class ChamadosForm extends Form implements ObjectManagerAwareInterface
     public function __construct(EntityManager $entityManager)
     {
  
-        $this->entityManager = $entityManager;
+        $this->entityManager = $entityManager;       
+        
     }
     
     public function init()
     {
     	parent::__construct('form');
+    	$this->setHydrator(new DoctrineHydrator($this->entityManager));
     	
     	$this->setAttribute('method', 'post');
         

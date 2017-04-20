@@ -2,61 +2,17 @@
 
 namespace Sac\Controller;
 
-// Add aliases for paginator classes
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+
 use Sac\Entity\Chamados;
 use Sac\Entity\Clientes;
+use Controle\Controller\CommonCrudController;
 
-class ChamadosController extends AbstractActionController
+class ChamadosController extends CommonCrudController
 {
-	/**
-	 * Resultado da pesquisa
-	 * @var Array
-	 */
-	private $resultSet;
-	
-	private $viewModel;
-	
-	private $viewData;
-	
-	private $pagination;
-	
-	private $template;
-	
-	private $order_by;
-	
-	private $container;
-	
-	private $info;
-	
-	private $errorMessage;
-	
-	private $form;
-	
-
-	/**
-	 * Entity manager.
-	 * @var Doctrine\ORM\EntityManager
-	 */
-	private $entityManager;
-	
-	// Constructor method is used to inject dependencies to the controller.
-	public function __construct($entityManager, $container)
-	{
-		$this->entityManager = $entityManager;
-		$this->container = $container;
-		$this->form = $this->container->get('FormElementManager')->get('Sac\Form\ChamadosForm');
-		//$this->form = $form;
-	}
-	  
-     private function getVariaveis()
+    private function getVariaveis()
     {
-        //$this->form = new ChamadosForm();
+		$this->form = $this->container->get('FormElementManager')->get('Sac\Form\ChamadosForm');
         $this->route = 'sac';
         $this->viewData = 'dados';
         $this->pagination = true;
@@ -64,7 +20,11 @@ class ChamadosController extends AbstractActionController
         $this->div = '';
         $this->primaryKey = null;
         $this->order_by = 'id';
+        $this->entity = '\Sac\Entity\Chamados';
+        $this->searchFrase = '';
+        $this->searchDate = '';
     }
+  
     
     public function indexAction()
     {
@@ -80,33 +40,7 @@ class ChamadosController extends AbstractActionController
         }else{
             $this->template = $this->template;
         }
-        
-        $orderBy = (null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by);
-        $order = $this->params('order');
-        $search = $this->params('search_frase');
-           
-        $query = $this->entityManager->getRepository(Chamados::class)->findChamados($orderBy, $order, $search);
-        $query->setHydrationMode(\Doctrine\ORM\Query::HYDRATE_SCALAR);
-        
-        $page = $this->params('page');        
-        $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-        $paginator = new Paginator($adapter);
-        $paginator->setDefaultItemCountPerPage(5);
-        $paginator->setCurrentPageNumber($page);        
-              
-       $this->viewModel = new ViewModel(array (
-            $this->viewData => $paginator,
-            'div' => str_replace('dados_', '', $this->div), //Retira dados_ pra evitar duplicidade, necessario para ordenação
-            'order_by' =>(null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by),
-            'order' => $this->params('order'),
-            'search_frase' => $this->params('search_frase'),
-            'data_ini' => $this->params('data_ini'),
-            'data_fin' => $this->params('data_fin'),
-            'page' => $this->params('page'),
-            'tipo_view' =>(null !== $this->params('tipo_view') ? $this->params('tipo_view') : false),
-        ));
-        
-        return $this->verificaAjaxJson($this->viewModel);
+       return parent::indexAction();
     }
 
     public function editAction()
@@ -132,7 +66,8 @@ class ChamadosController extends AbstractActionController
         	$form->setData($request->getPost());        	
         	if ($form->isValid()) {        		
         		try {
-        			$form->bindValues();
+        			$data = $form->getData();
+        			$this->entityManager->persist($data);
 	        		$this->entityManager->flush();
 	        		$id = $chamados->getId(); 
 	        		$erro = "Operação concluida com sucesso.";
@@ -225,39 +160,7 @@ class ChamadosController extends AbstractActionController
         return $this->verificaAjaxJson($this->viewModel);
     }
         
-    /**
-     * Verifica se a solicitação é ajax, caso seja retorna a resposta em Json,
-     * caso não seja retorna uma resposta normal
-     * @param unknown $viewModel
-     * @return \Zend\View\Model\JsonModel|unknown
-     */
-    public function verificaAjaxJson($viewModel)
-    {
-    	$viewModel->setTemplate($this->template); // caminho para o template que será renderizado
-    	 
-    	$request = $this->getRequest();
-    	$response = $this->getResponse();
-    
-    	if ($request->isXmlHttpRequest()) {
-    		if ($request->isPost()) {
-    			$viewModel->setTerminal(true); // desabilita a renderização do layout
-    			$html = $this->container->get('ViewRenderer')->render($viewModel);
-    
-    			$result = new JsonModel(array(
-    					'html' => $html,
-    					'data' => $this->resultSet,
-    					'info' =>  $this->info,
-    					'success' => true,
-    					'errorMessage' => $this->errorMessage['erro'],
-    					'id' => $this->errorMessage['id'],
-    			));
-    		}
-    		return $result;
-    	} else {
-    		return  $viewModel;
-    	}
-    }
-    
+        
     private function validaEmail($email, $nome)
     {
         $clientes = new Clientes();        

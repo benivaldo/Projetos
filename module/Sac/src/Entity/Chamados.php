@@ -92,15 +92,15 @@ class Chamados
 	// Returns clientes.
 	public function getClientes()
 	{
-		return $this->clientes->toArray();
+		return $this->clientes;
 	}
 	
 	/**
      * Set clientes
-     * @param \Sac\Entity\Clientes $cliente
-     * @return Pedido
+     * @param \Sac\Entity\Clientes $clientes
+     * @return Chamados
      */
-	public function setClientes($clientes)
+	public function setClientes(\Sac\Entity\Clientes $clientes = null)
 	{
 		$this->clientes = $clientes;
 		return $this;
@@ -109,11 +109,15 @@ class Chamados
 	// Returns pedidos.
 	public function getPedidos()
 	{
-		return $this->pedidos->toArray();
+		return $this->pedidos;
 	}
 	
-	// Sets pedidos.
-	public function setPedidos($pedidos)
+	/**
+     * Set pedidos
+     * @param \Sac\Entity\Pedidos $pedidos
+     * @return Chamados
+     */
+	public function setPedidos(\Sac\Entity\Pedidos $pedidos = null)
 	{
 		$this->pedidos = $pedidos;
 		return $this;

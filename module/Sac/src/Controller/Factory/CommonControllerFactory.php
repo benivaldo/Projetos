@@ -3,6 +3,7 @@ namespace Sac\Controller\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface; // <-- note the change!
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class CommonControllerFactory implements AbstractFactoryInterface
 {
@@ -16,6 +17,7 @@ class CommonControllerFactory implements AbstractFactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
       	$entityManager = $container->get('doctrine.entitymanager.orm_default');
+      	
 		return new $requestedName($entityManager, $container);
     }
 }

@@ -9,7 +9,7 @@ use Zend\Db\Sql\Where;
 class ChamadosRepository extends EntityRepository
 {
   // Finds all published posts having the given tag.
-  public function findChamados($orderBy, $order, $search = '')
+  public function findAllData($orderBy, $order, $search = '')
   {
     $entityManager =  $this->getEntityManager();       
         
@@ -27,7 +27,6 @@ class ChamadosRepository extends EntityRepository
         ->setParameter('2', '%'.$search.'%');
     
     $chamados = $queryBuilder->getQuery();
-    //echo $chamados->getSQL();
     return $chamados;
   }        
 }

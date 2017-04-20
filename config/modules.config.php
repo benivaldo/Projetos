@@ -36,7 +36,7 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Application',
-    //'Controle',
+    'Controle',
     'Sac',
     //'CadProduto',
     //'CadDepartamento',
