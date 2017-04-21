@@ -42,8 +42,44 @@ class ChamadosController extends CommonCrudController
         }
        return parent::indexAction();
     }
-
+    
+    public function prevAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'sac/chamados/edit.phtml';
+    
+        return parent::prevAction();
+    }
+    
+    public function nextAction()
+    {
+        $this->getVariaveis();
+        $this->div = $this->params('div');
+        $this->template = 'sac/chamados/edit.phtml';
+         
+        return parent::nextAction();
+    }
+    
     public function editAction()
+    {
+        $this->getVariaveis();
+    
+        $this->div = $this->params('div');
+        $this->template = 'sac/chamados/edit.phtml';
+        return parent::editAction();
+    }
+    
+    public function addAction()
+    {
+        $this->getVariaveis();
+    
+        $this->div = $this->params('div');
+        $this->template = 'sac/chamados/add.phtml';
+        return parent::addAction();
+    }
+    
+    public function editAction_old()
     {
         $this->getVariaveis();        
       
@@ -96,7 +132,7 @@ class ChamadosController extends CommonCrudController
         
     }
     
-    public function addAction()
+    public function addAction_old()
     {
         $this->getVariaveis();
         $chamados = new Chamados();

@@ -6,6 +6,7 @@ use Controle\Controller\Factory\AbstractControllerFactory;
 use Controle\Factory\ControleFormFactory;
 use Controle\Service\Factory\ControleServiceFactory;
 use Controle\Service\ControleService;
+use Controle\Factory\InstanceServiceFactory;
 
 
 return [
@@ -20,6 +21,7 @@ return [
             //AbstractModelFactory::class,
            // AbstractMapperFactory::class,
            // AbstractServiceFactory::class,
+            InstanceServiceFactory::class,
         ],
         'factories' => [
             \Zend\I18n\Translator\TranslatorInterface::class => \Zend\I18n\Translator\TranslatorServiceFactory::class,
@@ -32,7 +34,7 @@ return [
             //ChamadosForm::class => ChamadosFormFactory::class,
         ),
         'abstract_factories' => array(
-            ControleFormFactory::class,
+            ControleFormFactory::class,           
         ),
     ),
     

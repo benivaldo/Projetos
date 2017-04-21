@@ -17,30 +17,31 @@ class SaveModel extends AbstractPlugin
      * @param object $form
      * @param string $route
      */
-	public function save($model, $tableGateway, $form, $route = 'home', $removeFromPost = array())
+	public function save($entity, $controleService, $form, $route = 'home')
 	{
 	    $erro = '';
 		$request = $this->getController()->getRequest();
 		
-		if ($request->isPost() && count($request->getPost()) != 0) {		    
-		    /*Remove itens do post*/
-		    foreach ($removeFromPost as $name) {
-                $model->getInputFilter()->remove($name);
-                $request->getPost()->offsetUnset($name);
+		if ($request->getPost()->offsetExists('id')) {
+		    $id = $request->getPost('id');
+		    if ((int) $id == 0) {
+                $request->getPost()->offsetUnset('id');
 		    }
-		    //print_r($request->getPost());
-		    $valid = $model->getInputFilter()->setData($request->getPost());
+		}
+		
+		if ($request->isPost() && count($request->getPost()) != 0) {		    
+		    $form->setInputFilter($entity->getInputFilter());
+        	$form->setData($request->getPost()); 
 
-			if ($valid->isValid()) {			    
-				$model->exchangeArray($request->getPost());
-
-				if (!$resp = $tableGateway->save($model)) {
+			if ($form->isValid()) {			    
+				$data = $form->getData();
+				if (!$resp = $controleService->save($entity, $data)) {
 				    return $resp;
 				} else {
 				    return $resp;
 				}
 			} else {	
-			    foreach ($valid->getMessages() as $key => $campo) {
+			    foreach ($form->getMessages() as $key => $campo) {
     			    foreach ($campo as $key1 => $value) {
     			    	$erro .= "Campo $key: $value \n";
     			    }

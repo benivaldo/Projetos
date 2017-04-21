@@ -32,7 +32,10 @@ class ChamadosForm extends Form implements ObjectManagerAwareInterface
         $this->add(array(
             'name' => 'id',
             'attributes' => array(
-                'type'  => 'hidden',
+                    'type'  => 'text',
+                    'class' => 'form-control input-sm',
+                    'placeholder' =>'Chamado',
+                    'readonly'  => 'readonly',
             ),
         ));
         
@@ -100,35 +103,7 @@ class ChamadosForm extends Form implements ObjectManagerAwareInterface
         
         ));
 
-        $this->add(array(
-                'name' => 'submit',
-                'attributes' => array(
-                'type'  => 'submit',
-                'value' => 'Alterar',
-                'id' => 'submit',
-                'class' => 'btn btn-default btn-sm'
-            ),
-        ));
-        
-        $this->add(array(
-                'name' => 'voltar',
-                'attributes' => array(
-                'type'  => 'button',
-                'value' => 'Voltar',
-                'id' => 'voltar',
-                'class' => 'btn btn-default btn-sm'
-            ),
-        ));
-        
-        $this->add(array(
-            'name' => 'limpar',
-            'attributes' => array(
-                'type'  => 'button',
-                'value' => 'Limpar',
-                'id' => 'limpar',
-                'class' => 'btn btn-default btn-sm'
-            ),
-        ));
+      
     }
 
     public function setObjectManager(ObjectManager $objectManager)

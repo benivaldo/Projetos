@@ -6,23 +6,18 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Session\Container;
-use Zend\Stdlib\ArrayUtils;
 use Controle\Service\ControleService;
 use Zend\Form\Annotation\Object;
-use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
-use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
-use Zend\Paginator\Paginator;
-use Doctrine\ORM\Query\AST\PathExpression;
+use Sac\Entity\Chamados;
 
 abstract class CommonCrudController extends AbstractActionController
 {
-	private  $tableGateway;
-
+    /**
+     * Form em uso
+     * @var Object
+     */
 	protected $form;
-	/**
-	 * @var Acme\Model\AbstractModel Modelo a ser manipulado
-	 */
-	protected $model;
+	
 	/**
 	 * @var string Nome da rota a ser redicionada
 	 */
@@ -79,33 +74,6 @@ abstract class CommonCrudController extends AbstractActionController
 	protected $idTable;
 	
 	/**
-	 * 
-	 * @var string variável de sessão
-	 */
-	protected $sessionNav;
-	
-	/**
-	 * 
-	 * @var array campos para inner
-	 */
-	protected $inner = array();
-	
-	/*
-	 * @var string query a ser consultada
-	 */
-	protected $query;
-	
-	/*
-	 * @var string query a retornar o id anterior
-	 */
-	protected $queryPrev;
-	
-	/*
-	 * @var string query a retornar o id posterior
-	 */
-	protected $queryNext;
-	
-	/**
 	 * Nome da coluna a ser pesquisada em tabela especifica
 	 * @var string
 	 */
@@ -146,8 +114,7 @@ abstract class CommonCrudController extends AbstractActionController
 	 * @var string mensagem de erro e retrono do id
 	 */
 	protected  $errorMessage = array('id' => '','erro' => '');
-	
-	
+
 	/**
 	 * 
 	 * @var array Remove variaves do post
@@ -196,10 +163,13 @@ abstract class CommonCrudController extends AbstractActionController
 	 */
 	protected $entity;
 	
+	protected $model;
+	
 	public function __construct(ControleService $controleService)
 	{
+	    $this->controleService = $controleService;
 	    $this->entityManager = $controleService->getEntity();
-	    $this->container = $controleService->getContainer();	    
+	    $this->container = $controleService->getContainer();	  
 	}
 	
 	/**
@@ -236,8 +206,7 @@ abstract class CommonCrudController extends AbstractActionController
 	}
 	
 	/**
-	 * Função para retorno de paginação
-	 * Criar uma uma função findAllData em todos reposistórios da entidade
+	 * Função para retorno de dados	 
 	 * @param Object $query
 	 * @return \Zend\View\Model\JsonModel|\Controle\Controller\array
 	 */
@@ -246,16 +215,9 @@ abstract class CommonCrudController extends AbstractActionController
 	    $orderBy = (null !== $this->params('order_by') ? $this->params('order_by') : $this->order_by);
 	    $order = $this->params('order');
 	    $search = $this->params('search_frase');
-	    
-	    $query = $this->entityManager->getRepository($this->entity)->findAllData($orderBy, $order, $search);
-	    
-	    $query->setHydrationMode(\Doctrine\ORM\Query::HYDRATE_SCALAR);
-	    
 	    $page = $this->params('page');
-	    $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
-	    $paginator = new Paginator($adapter);
-	    $paginator->setDefaultItemCountPerPage(5);
-	    $paginator->setCurrentPageNumber($page);
+	    $query = $this->controleService->findAll($this->entity, $orderBy, $order, $search);
+	    $paginator = $this->controleService->getPaginator($query, $page);	   
 	    
 	    $this->viewModel = new ViewModel(array (
 	        $this->viewData => $paginator,
@@ -269,7 +231,105 @@ abstract class CommonCrudController extends AbstractActionController
 	        'tipo_view' =>(null !== $this->params('tipo_view') ? $this->params('tipo_view') : false),
 	    ));
 	    
-	   return $this->verificaAjaxJson($this->viewModel);
+	   return $this->verificaAjaxJson($this->viewModel);	    
+	}
+	
+	/**
+	 * Metodo para adicionar itens na tabela.
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function addAction()
+	{
+	    $entity = $this->container->get($this->entity);
+	    $form = $this->form;
+	    $this->form->bind($entity);
 	    
+	    $this->errorMessage = $this->saveModel()->save($entity, $this->controleService, $form, $this->route);
+	
+	   /* if ($this->infoAdic == true) {
+	        $this->whereCampo = array($this->idTable => 0);
+	        $this->colunas  = array($this->idTable);
+	        $this->getAction();
+	    }*/
+	
+	    $this->viewModel = new ViewModel(array ('form' => $form,
+	        'info' => $this->info,
+	        'div' => $this->div,
+	    ));
+	    return $this->verificaAjaxJson($this->viewModel);
+	}
+	
+	/**
+	 * Metodo para alterar itens na tabela.
+	 * @return Ambigous <\Zend\Http\Response, \Zend\Stdlib\ResponseInterface>|\Zend\View\Model\ViewModel
+	 */
+	public function editAction()
+	{
+	    $request = $this->getRequest();
+	     
+	    $id = (int) $this->params()->fromRoute('id', 0);
+	     
+	    //$key = '';
+	    if (!$id) {
+	        $this->redirect()->toRoute($this->route, array(
+	            'action' => 'add'
+	        ));
+	    }
+	    $entity =  $this->entityManager->find($this->entity, $id);
+
+	     
+	    $form  = $this->form;
+	    $form->bind($entity);
+
+	    $this->errorMessage = $this->saveModel()->save($entity, $this->controleService, $form, $this->route);
+	
+	   /* if ($this->infoAdic == true) {
+	        $this->whereCampo = array($this->idTable => $key);
+	        $this->colunas  = array($this->idTable);
+	        $this->getAction();
+	    }*/
+	
+	    $this->viewModel = new ViewModel(array ('form' => $form,
+	        'div' => $this->div,
+	        'info' => ($this->infoAdic == true ? $this->info->current(): []),
+	    ));
+	    return $this->verificaAjaxJson($this->viewModel);
+	}
+	/**
+	 * Função para retornar o id anterior
+	 */
+	public function prevAction()
+	{
+	    $key = (int) $this->params()->fromRoute('id', 0);  
+	    $params = array();
+	    $params['id'] = $key;
+	    $params['entity'] = $this->entity;
+	    
+	    $prevId =  $this->controleService->getPreviousData($params);
+	
+	    if (!empty($prevId[0]['id'])) {
+	        $this->getEvent()->getRouteMatch()->setParam('id', $prevId[0]['id']);
+	    }
+	
+	    return $this->editAction();
+	}
+	
+	/**
+	 * Função para retornar o id posterior
+	 */
+	public function nextAction()
+	{
+	    $key = (int) $this->params()->fromRoute('id', 0);
+        $params = array();
+	    $params['id'] = $key;
+	    $params['entity'] = $this->entity;
+	    
+	    $nextId =  $this->controleService->getNextData($params);
+	
+	    if (!empty($nextId[0]['id'])) {
+	        $this->getEvent()->getRouteMatch()->setParam('id', $nextId[0]['id']);
+	    }
+	
+	    return $this->editAction();
 	}
 }
