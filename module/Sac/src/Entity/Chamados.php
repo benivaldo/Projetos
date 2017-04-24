@@ -3,8 +3,6 @@ namespace Sac\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\Factory as InputFactory;
-use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -39,8 +37,6 @@ class Chamados
 	 * @ORM\Column(name="email")
 	*/
 	protected $email;
-	
-		
 		
 	/**
 	*
@@ -49,6 +45,17 @@ class Chamados
 	*/
 	protected $clientes;
 	
+	/**
+	 * @var datetime
+	 * @ORM\Column(name="data_cadastro")
+	 */
+	protected $data_cadastro;
+	
+	/**
+	 * @var datetime
+	 * @ORM\Column(name="data_altera")
+	 */	
+	protected $data_altera;
 	
 	/**
 	 *
@@ -63,33 +70,46 @@ class Chamados
 		$this->pedidos = new ArrayCollection();
 	}*/
 	
-	// Returns ID of this chamados.
+	/**
+	 * Returns ID of this chamados
+	 */
 	public function getId()
 	{
 		return $this->id;
 	}
-	
-	// Sets ID of this chamados.
+
+	/**
+	 * Sets ID of this chamados.
+	 * @param integer $id
+	 */
 	public function setId($id)
 	{
 		$this->id = $id;
 	}
 	
-	
-	// Returns titulo.
+	/**
+	 * Returns titulo.
+	 */
 	public function getTitulo()
 	{
 		return $this->titulo;
 	}
 	
-	// Sets titulo.
+/**
+	 * Sets titulo.
+	 * @param string $titulo
+	 * @return \Sac\Entity\Chamados
+	 */
 	public function setTitulo($titulo)
 	{
 		$this->titulo = $titulo;
 		return $this;
 	}
 	
-	// Returns clientes.
+	/**
+	 *  Returns clientes.
+	 * @return \Sac\Entity\Clientes
+	 */
 	public function getClientes()
 	{
 		return $this->clientes;
@@ -105,8 +125,11 @@ class Chamados
 		$this->clientes = $clientes;
 		return $this;
 	}
-	
-	// Returns pedidos.
+
+	/**
+	 * Returns pedidos.
+	 * @return \Sac\Entity\Pedidos
+	 */
 	public function getPedidos()
 	{
 		return $this->pedidos;
@@ -123,28 +146,56 @@ class Chamados
 		return $this;
 	}
 	
-	// Returns email.
+	/**
+	 * Returns email.
+	 */
 	public function getEmail()
 	{
 		return $this->email;
 	}
 	
-	// Sets email.
+	/**
+	 * Sets email.
+	 * @param string $email
+	 */
 	public function setEmail($email)
 	{
 		$this->email = $email;
 	}
 	
-	// Returns observacao.
+	/**
+	 * Returns observacao.
+	 */
 	public function getObservacao()
 	{
 	    return $this->observacao;
 	}
 	
-	// Sets observacao.
+	/**
+	 * Sets observacao.
+	 * @param string $observacao
+	 */
 	public function setObservacao($observacao)
 	{
 	    $this->observacao = $observacao;
+	}
+	
+	/**
+	 * Gets triggered only on insert
+	 * @ORM\PrePersist
+	 */
+	public function onPrePersist()
+	{
+		$this->data_cadastro = date('Y-m-d');
+	}
+	
+	/**
+	 * Gets triggered every time on update
+	 * @ORM\PreUpdate
+	 */
+	public function onPreUpdate()
+	{
+		$this->data_altera = date('Y-m-d');
 	}
 	
 	// Add content to these methods:
@@ -209,26 +260,5 @@ class Chamados
 	
 		return $this->inputFilter;
 	}
-	 
-	public function exchangeArray($data)
-	{
-		foreach ($data as $key => $value) {
-			$this->$key = (!empty($value) ? $value: null);
-		}
-	}
-	 
-	public function toArray()
-	{
-		return $this->getArrayCopy();
-	}
-	 
-	public function getArrayCopy()
-	{
-		$data =  get_object_vars($this);
-		unset($data['inputFilter']);
-		unset($data['voltar']);
-		unset($data['limpar']);
-		unset($data['submit']);
-		return $data;
-	}
+
 }

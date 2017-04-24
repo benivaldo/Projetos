@@ -5,15 +5,16 @@ use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
 use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
 use Zend\Paginator\Paginator;
 use Zend\Form\Annotation\Object;
-use function Zend\Mvc\Controller\params;
+//use function Zend\Mvc\Controller\params;
 
-class ControleService {
-    
+class ControleService 
+{    
     /**
      * Entity manager.
      * @var Doctrine\ORM\EntityManager
      */
-    protected  $entityManager;
+    protected $entityManager;
+    protected $container;
     
     public function __construct($entityManager, $container)
     {
@@ -77,7 +78,6 @@ class ControleService {
      */
     public function getPreviousData($params = array())
     {
-       
         $queryBuilder = $this->entityManager->createQueryBuilder();
 
         $queryBuilder
@@ -97,20 +97,25 @@ class ControleService {
      */
     public function getNextData($params = array())
     {
-         
         $queryBuilder = $this->entityManager->createQueryBuilder();
     
         $queryBuilder
-        ->select('c')
-        ->from($params['entity'], 'c')
-        ->where('c.id > ?1')
-        ->orderBy('c.id', 'ASC')
-        ->setParameter('1', $params['id'])
-        ->setMaxResults(1);
+	        ->select('c')
+	        ->from($params['entity'], 'c')
+	        ->where('c.id > ?1')
+	        ->orderBy('c.id', 'ASC')
+	        ->setParameter('1', $params['id'])
+	        ->setMaxResults(1);
     
         return $queryBuilder->getQuery()->getArrayResult();
     }
     
+    /**
+     * Função para salvar dados na tabela
+     * @param object $entity
+     * @param array $data
+     * @return multitype:unknown string
+     */
     public function save($entity, $data)
     {
         $id = '';

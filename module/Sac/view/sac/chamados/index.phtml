@@ -10,9 +10,29 @@ $this->headTitle($title);
 <h4><?php echo $this->escapeHtml($title); ?></h4>
 <div class="container-fluid">
     <div class="row">
-        <form class="form form-pesquisa" id="form-pesquisa-secao" data-data_ini='data_ini_secao' data-data_fin='data_fin_secao' data-modulo="sac" data-ctrl="chamados" data-titulo="Chamados" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+        <form class="form form-pesquisa" id="form-pesquisa-chamados" data-data_ini='data_ini_chamados' data-data_fin='data_fin_chamados' data-modulo="sac" data-ctrl="chamados" data-titulo="Chamados" data-div="dados_<?php echo $this->escapeHtml($this->div);?>" data-order_by="<?php echo $this->escapeHtml($this->order_by);?>" data-order="<?php echo $this->escapeHtml($this->order);?>">
+        	<div class="form-group">
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Inicial" id="data_ini_chamados" name="data_ini_chamados">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_ini busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm busca_data" placeholder="Data Final" id="data_fin_chamados" name="data_fin_chamados">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm data_fin busca_data" type="button"><i class="fa fa-calendar"></i></button>
+                        </div>
+                    </div>  
+                </div>
+            </div>
         	<div class="form-group">    
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                     <div class="input-group">                
                         <input type="text" class="form-control input-sm search" placeholder="Digite o número do pedido ou e-mail para pesquisa" name="search">
                         <div class="input-group-btn">
