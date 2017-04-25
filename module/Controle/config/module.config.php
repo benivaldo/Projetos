@@ -7,6 +7,10 @@ use Controle\Factory\ControleFormFactory;
 use Controle\Service\Factory\ControleServiceFactory;
 use Controle\Service\ControleService;
 use Controle\Factory\InstanceServiceFactory;
+use Controle\View\Helper\FunctionsHelper;
+use Controle\View\Helper\Factory\FunctionsHelperFactory;
+use Controle\Service\HelperService;
+use Controle\Service\Factory\HelperServiceFactory;
 
 
 return [
@@ -26,6 +30,7 @@ return [
         'factories' => [
             \Zend\I18n\Translator\TranslatorInterface::class => \Zend\I18n\Translator\TranslatorServiceFactory::class,
             ControleService::class => ControleServiceFactory::class,
+            HelperService::class => HelperServiceFactory::class,
         ],
     ],
 
@@ -68,10 +73,10 @@ return [
             'formata_data' => 'Controle\View\Helper\FormataData'
         ),
         'factories' => array(
-             //GetSelectOptions::class => GetOptionsFactory::class,
+            FunctionsHelper::class => FunctionsHelperFactory::class,
         ),
         'aliases' => array(
-            //'options_sel' => GetSelectOptions::class,
+            'funcoes' => FunctionsHelper::class,
         )
     ),
 ];

@@ -12,9 +12,7 @@ class HelperServiceFactory implements FactoryInterface
     {
       	$entityManager = $container->get('doctrine.entitymanager.orm_default');
       	
-		return new HelperService($requestedName, $entityManager, $container);
+		return new HelperService($entityManager, $container);
     }
-  
-    
 }
 
