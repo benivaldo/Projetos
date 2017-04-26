@@ -47,9 +47,9 @@ class ControleService
      * @param string $search
      * @return array
      */
-    public function findAll($entity, $orderBy, $order, $search)
+    public function findAll($entity, $orderBy, $order, $search, $data_ini, $data_fin)
     {
-        $query = $this->entityManager->getRepository($entity)->findAllData($orderBy, $order, $search);
+        $query = $this->entityManager->getRepository($entity)->findAllData($orderBy, $order, $search, $data_ini, $data_fin);
  
         return $query;
     }

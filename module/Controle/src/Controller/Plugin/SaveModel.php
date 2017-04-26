@@ -12,8 +12,8 @@ class SaveModel extends AbstractPlugin
 {
     /**
      * 
-     * @param object $model
-     * @param object $tableGateway
+     * @param object $entity
+     * @param object $controleService
      * @param object $form
      * @param string $route
      */

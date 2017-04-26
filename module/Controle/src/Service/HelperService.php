@@ -15,12 +15,7 @@ class HelperService
         $this->entityManager = $entityManager;
         $this->container = $container;
     }    
-    
-	public function printOi()
-	{
-	    return 'Oi ta tudo certo agora';
-	}
-	
+
 	/**
 	 * Formata Cpf ou Cnpj
 	 * @param string $numero
@@ -36,8 +31,8 @@ class HelperService
 	        $cpf_formatado .= substr($numero, 3, 3) . '.';
 	        $cpf_formatado .= substr($numero, 6, 3) . '-';
 	        $cpf_formatado .= substr($numero, 9, 3);
-	        return $cpf_formatado;
-	         
+	        
+	        return $cpf_formatado;	         
 	    } else if(strlen($numero) == 14) {
 	        // formata cnpj
 	        $cnpj_formatado = substr($numero, 0, 2) . '.';
@@ -45,6 +40,7 @@ class HelperService
 	        $cnpj_formatado .= substr($numero, 5, 3) . '/';
 	        $cnpj_formatado .= substr($numero, 8, 4) . '-';
 	        $cnpj_formatado .= substr($numero, 12, 2);
+	        
 	        return $cnpj_formatado;
 	    } else {
 	        // quantidade de numeros inválidos para cpf ou cnpj
@@ -57,7 +53,7 @@ class HelperService
 	 * @param string $data
 	 * @return string
 	 */
-	public function formadaData($data)
+	public function formataData($data)
 	{
 	    $dados = explode("-", $data);
 	     

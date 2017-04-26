@@ -216,7 +216,10 @@ abstract class CommonCrudController extends AbstractActionController
 	    $order = $this->params('order');
 	    $search = $this->params('search_frase');
 	    $page = $this->params('page');
-	    $query = $this->controleService->findAll($this->entity, $orderBy, $order, $search);
+	    $data_ini = $this->params()->fromRoute('data_ini', '');
+	    $data_fin = $this->params()->fromRoute('data_fin', '');
+	    
+	    $query = $this->controleService->findAll($this->entity, $orderBy, $order, $search, $data_ini, $data_fin);
 	    $paginator = $this->controleService->getPaginator($query, $page);	   
 	    
 	    $this->viewModel = new ViewModel(array (
