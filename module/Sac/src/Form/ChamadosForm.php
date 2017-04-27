@@ -102,6 +102,17 @@ class ChamadosForm extends Form implements ObjectManagerAwareInterface
         		),
         
         ));
+        
+        $this->add(array(
+        		'name' => 'codigo',
+        		'attributes' => array(
+        				'type'  => 'text',
+        				'class' => 'form-control input-sm',
+        				'placeholder' =>'Código',
+        				'maxlength' => '10',
+        		),
+        
+        ));
 
       
     }

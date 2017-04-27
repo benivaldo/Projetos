@@ -35,6 +35,13 @@
     </div>
     
     <div class="form-group">
+      <label for="codigo" class="col-sm-2 control-label">Código:</label>
+      <div class="col-sm-6">
+          <?php echo $this->formRow($form->get('codigo'), null, false);?>
+       </div>
+    </div>
+    
+    <div class="form-group">
       <label for="observacao" class="col-sm-2 control-label">Observação:</label>
       <div class="col-sm-6">
           <?php echo $this->formRow($form->get('observacao'), null, false);?>

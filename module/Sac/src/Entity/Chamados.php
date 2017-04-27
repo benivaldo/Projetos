@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="Sac\Repository\ChamadosRepository")
+ * @ORM\EntityListeners({"Sac\Entity\ChamadosListener"}) 
  * @ORM\Table(name="chamados")
  */
 class Chamados

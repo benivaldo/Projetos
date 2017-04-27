@@ -8,35 +8,18 @@ use Sac\Controller\Factory\CommonControllerFactory;
 use Sac\Factory\ChamadosFormFactory;
 use Sac\Controller\Factory\ChamadosControllerFactory;
 use Sac\Form\ChamadosForm;
-
+use Sac\Entity\ChamadosListener;
+use Sac\Entity\ListenerFactory;
 
 return array(
     'controllers' => array(
-        'factories' => array(
-      		//Controller\IndexController::class  => InvokableFactory::class,
-        	//Controller\ChamadosController::class => Controller\Factory\ChamadosControllerFactory::class,
-        ),
-        
-    	'abstract_factories' => [
-    		//CommonControllerFactory::class,
-    		//ChamadosControllerFactory::class,
-    	],
     		
         'aliases' => [
             'chamados' => Controller\ChamadosController::class,
         ]
     ),
-    
-	'form_elements' => array(
-		'factories' => array(
-			//ChamadosForm::class => ChamadosFormFactory::class,  
-		),
-		'abstract_factories' => array(
-			//ChamadosFormFactory::class,
-		),
-	),
-		
-    'router' => array(
+
+	'router' => array(
         'routes' => array(
              'sac' => array(
                 'type'    => Literal::class ,
@@ -74,6 +57,11 @@ return array(
         ),
     ),
     
+	'service_manager' => [
+		'factories' => [
+			ChamadosListener::class => ListenerFactory::class,
+		],
+	],
    
     'view_manager' => array(
 
